@@ -44,8 +44,8 @@
 					<!-- Logo
 					============================================= -->
 					<div id="logo">
-						<a href="index.html" class="standard-logo" data-dark-logo="public/images/logo-dark.png"><img src="public/images/logo.png" alt="NetCop Logo"></a>
-						<a href="index.html" class="retina-logo" data-dark-logo="public/images/logo-dark@2x.png"><img src="public/images/logo@2x.png" alt="NetCop Logo"></a>
+						<a href="inicio.php" class="standard-logo" data-dark-logo="public/images/logo-dark.png"><img src="public/images/logo.png" alt="NetCop Logo"></a>
+						<a href="inicio.php" class="retina-logo" data-dark-logo="public/images/logo-dark@2x.png"><img src="public/images/logo@2x.png" alt="NetCop Logo"></a>
 					</div><!-- #logo end -->
 
 					<!-- Primary Navigation
@@ -53,40 +53,39 @@
 					<nav id="primary-menu">
 
 						<ul>
-							<li class="current"><a href="index.html"><div>Inicio</div></a></li>
+							<li class="current"><a href="inicio.php"><div>Inicio</div></a></li>
 							<li><a href="#"><div>Monitoreo</div></a>
 								<ul>
-									<li><a href="#"><div><i class="icon-stack"></i>En tiempo real</div></a>
-									<li><a href="widgets.html"><div><i class="icon-gift"></i>Histórico</div></a></li>
-									<li><a href="#"><div><i class="icon-umbrella"></i>Por período</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>En tiempo real</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>Histórico</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>Por período</div></a></li>
 								</ul>
 							</li>
-							<li><a href="shop.html"><div>Políticas</div></a>
+							<li><a href="#"><div>Políticas</div></a>
 								<ul>
-									<li><a href="#"><div><i class="icon-stack"></i>Consulta de políticas</div></a>
-									<li><a href="widgets.html"><div><i class="icon-gift"></i>Nueva política</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de políticas</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nueva política</div></a></li>
 								</ul>
 							</li>
-							<li><a href="shop.html"><div>Clases de tráfico</div></a>
+							<li><a href="#"><div>Clases de tráfico</div></a>
 								<ul>
-									<li><a href="#"><div><i class="icon-stack"></i>Consulta de clases de tráfico</div></a>
-									<li><a href="widgets.html"><div><i class="icon-gift"></i>Nueva clase de tráfico</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de clases de tráfico</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nueva clase de tráfico</div></a></li>
 								</ul>
 							</li>
-							<li><a href="shop.html"><div>Usuarios</div></a>
+							<li><a href="#"><div>Usuarios</div></a>
 								<ul>
-									<li><a href="#"><div><i class="icon-stack"></i>Consulta de usuarios</div></a>
-									<li><a href="widgets.html"><div><i class="icon-gift"></i>Nuevo usuario</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li>
 								</ul>
 							</li>
-							<li><a href="shop.html"><div>Sistema</div></a>
+							<li><a href="#"><div>Sistema</div></a>
 								<ul>
-									<li><a href="#"><div><i class="icon-stack"></i>En tiempo real</div></a>
-									<li><a href="widgets.html"><div><i class="icon-gift"></i>Histórico</div></a></li>
-									<li><a href="#"><div><i class="icon-umbrella"></i>Por período</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-info"></i>Información</div></a></li>
+									<li><a href="inicio.php"><div><i class="icon-wrench"></i>Configuración</div></a></li>
 								</ul>
 							</li>
-							<li><a href="shop.html"><div>Ayuda</div></a></li>
+							<li><a href="inicio.php"><div>Ayuda</div></a></li>
 						</ul>
 
 						<!-- Top Search
@@ -111,7 +110,15 @@
 		<section id="page-title">
 
 			<div class="container clearfix">
-				<h1>Optimizá tu Red</h1>
+				<h1>Optimizador de Red</h1>
 			</div>
 
 		</section><!-- #page-title end -->
+
+		<!-- Content
+		============================================= -->
+		<section id="content">
+
+			<div class="content-wrap">
+
+				<div class="container clearfix">

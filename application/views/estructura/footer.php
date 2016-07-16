@@ -1,3 +1,9 @@
+				 </div>
+			
+			</div>
+
+		</section><!-- #content end -->
+
 		<!-- Footer
 		============================================= -->
 		<footer id="footer" class="dark">
