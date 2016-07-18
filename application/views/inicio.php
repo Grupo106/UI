@@ -1,10 +1,5 @@
 <?php include('estructura/header.php'); ?>
-
-<div class="col_full">
-	<div class="fancy-title title-double-border">
-		<h3><span>Actividades en el Sistema</span></h2>
-	</div>
-</div>
+<?php include('estructura/menu.php'); ?>
 
 <table class="table table-bordered table-striped" style="clear: both">
 	<tbody>
@@ -27,5 +22,10 @@
 	</tbody>
 </table>
 
+<script type="text/javascript">
+	jQuery(window).load( function(){
+		$('#tituloPantalla').text('Actividades en el Sistema');
+	});
+</script>
 
 <?php include('estructura/footer.php'); ?>

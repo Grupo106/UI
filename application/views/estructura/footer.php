@@ -28,11 +28,9 @@
 	<!-- Go To Top
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
-
-	<!-- JavaScripts
+	
+	<!-- JavaScripts Footer
 	============================================= -->
-	<script type="text/javascript" src="public/js/jquery.js"></script>
-	<script type="text/javascript" src="public/js/plugins.js"></script>
 	<script type="text/javascript" src="public/js/functions.js"></script>
 
 </body>
