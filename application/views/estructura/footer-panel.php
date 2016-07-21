@@ -1,4 +1,4 @@
-						<div class="row center dark"><small>&copy; 2016 PowerSoft. Todos los Derechos Reservados.</small></div>
+						<div class="row center"><small>&copy; 2016 PowerSoft. Todos los Derechos Reservados.</small></div>
 					</div>
 				</div>
 

@@ -7,11 +7,11 @@
 		<!-- Pasos del Asistente
 		============================================= -->
 		<ul class="process-steps process-3 clearfix">
-			<li class="active">
+			<li>
 				<a href="#" class="i-circled i-alt divcenter">1</a>
 				<!-- <h5>Crear Usuario</h5> -->
 			</li>
-			<li>
+			<li class="active">
 				<a href="#" class="i-circled i-alt divcenter">2</a>
 				<!-- <h5>Configurar el Sistema</h5> -->
 			</li>
@@ -24,26 +24,17 @@
 		
 		
 		<form id="login-form" name="login-form" action="index.php" method="post">
-			<h4>Complete sus datos para crear un Usuario Administrador</h4>
+			<h4>Eliga el tipo de Configuración del Sistema</h4>
 			
-			<div class="col_half">
-				<input type="text" id="usuario-nombre" name="usuario-nombre" class="sm-form-control" placeholder="NOMBRE">
-			</div>
-
-			<div class="col_half col_last">
-				<input type="text" id="usuario-apellido" name="usuario-apellido" class="sm-form-control" placeholder="APELLIDO" />
-			</div>
-
-			<div class="col_half">
-				<input type="text" id="usuario-usuario" name="usuario-usuario" class="sm-form-control" placeholder="NOMBRE DE USUARIO"/>
-			</div>
-
-			<div class="col_half col_last">
-				<input type="text" id="usuario-mail" name="usuario-mail" class="sm-form-control" placeholder="MAIL"/>
-			</div>
-
-			<div class="col_half">
-				<input type="password" id="usuario-password" name="usuario-password" class="sm-form-control" placeholder="CONTRASEÑA"/>
+			<div>
+				<div>
+					<input id="radio-automatica" class="radio-style" name="radio-group-2" type="radio" checked>
+					<label for="radio-automatica" class="radio-style-2-label">Automática</label>
+				</div>
+				<div>
+					<input id="radio-personalizada" class="radio-style"name="radio-group-2" type="radio">
+					<label for="radio-personalizada" class="radio-style-2-label">Personalizada</label>
+				</div>
 			</div>
 			
 			<div class="col_full">

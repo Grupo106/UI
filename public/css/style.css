@@ -7683,12 +7683,12 @@ body:not(.device-touch) .button.button-full strong {
 .process-steps li.active h5,
 .process-steps li.ui-tabs-active h5 {
 	font-weight: 600;
-	color: #1ABC9C;
+	color: #059400;
 }
 
 .process-steps li.active a,
 .process-steps li.ui-tabs-active a {
-	background-color: #1ABC9C !important;
+	background-color: #059400 !important;
 	color: #FFF;
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
 	border-color: #1ABC9C !important;
