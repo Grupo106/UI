@@ -2,29 +2,29 @@
 <?php include('estructura/content-panel.php'); ?>
 
 <div class="panel panel-default divcenter noradius noborder" style="max-width: 800px; background: #f6f6f6;">
-	<div class="panel-body well well-lg" style="padding: 40px;">
+	<div class="panel-body well well-lg" style="padding:40px; padding-bottom:20px">
 	
 		<!-- Pasos del Asistente
 		============================================= -->
 		<ul class="process-steps process-3 clearfix">
 			<li class="active">
 				<a href="#" class="i-circled i-alt divcenter">1</a>
-				<!-- <h5>Crear Usuario</h5> -->
+				<h5>Crear Usuario</h5> 
 			</li>
 			<li>
 				<a href="#" class="i-circled i-alt divcenter">2</a>
-				<!-- <h5>Configurar el Sistema</h5> -->
+				<h5>Configurar el Sistema</h5> 
 			</li>
 			<li>
 				<a href="#" class="i-circled i-alt divcenter">3</a>
-				<!-- <h5>Finalizar</h5> -->
+				<h5>Finalizar</h5> 
 			</li>
 		</ul>
 		<!-- #fin de los Pasos -->
 		
 		
 		<form id="login-form" name="login-form" action="index.php" method="post">
-			<h4>Complete sus datos para crear un Usuario Administrador</h4>
+			<h4>Completá tus datos para crear un Usuario Administrador</h4>
 			
 			<div class="col_half">
 				<input type="text" id="usuario-nombre" name="usuario-nombre" class="sm-form-control" placeholder="NOMBRE">
@@ -47,7 +47,7 @@
 			</div>
 			
 			<div class="col_full">
-				<button class="btn btn-primary btn-lg fright" id="login-form-submit" name="login-form-submit" value="login">SIGUIENTE</button>
+				<button class="button button-rounded fright">SIGUIENTE</button>
 			</div>
 		</form>
 	</div>

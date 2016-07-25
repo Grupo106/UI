@@ -16,7 +16,7 @@
 			</div>
 
 			<div class="col_full nobottommargin">
-				<button class="btn btn-primary btn-lg btn-block" id="login-form-submit" name="login-form-submit" value="login">INGRESAR</button>
+				<button class="button button-rounded btn-block" id="login-form-submit" name="login-form-submit" value="login">INGRESAR</button>
 			</div>
 		</form>
 		
