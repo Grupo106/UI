@@ -11,8 +11,8 @@
 			<!-- Logo
 			============================================= -->
 			<div id="logo">
-				<a href="inicio.php" class="standard-logo" data-dark-logo="public/images/logo-dark.png"><img src="public/images/logo.png" alt="NetCop Logo"></a>
-				<a href="inicio.php" class="retina-logo" data-dark-logo="public/images/logo-dark@2x.png"><img src="public/images/logo@2x.png" alt="NetCop Logo"></a>
+				<a href="inicio.php" class="standard-logo" data-dark-logo="public/images/logo-dark.png"><img src="<?=base_url('public/images/logo.png')?>" alt="NetCop Logo"></a>
+				<a href="inicio.php" class="retina-logo" data-dark-logo="public/images/logo-dark@2x.png"><img src="<?=base_url('public/images/logo@2x.png')?>" alt="NetCop Logo"></a>
 			</div><!-- #logo end -->
 
 			<!-- Primary Navigation
@@ -20,12 +20,12 @@
 			<nav id="primary-menu">
 
 				<ul>
-					<li class="current"><a href="inicio.php"><div>Inicio</div></a></li>
+					<li class="current"><a href="<?=site_url('')?>"><div>Inicio</div></a></li>
 					<li><a href="#"><div>Monitoreo</div></a>
 						<ul>
-							<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>En tiempo real</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>Histórico</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-bar-chart"></i>Por período</div></a></li>
+							<li><a href="<?=site_url('tiempo_real')?>"><div><i class="icon-bar-chart"></i>En tiempo real</div></a></li>
+							<li><a href="<?=site_url('historico')?>"><div><i class="icon-bar-chart"></i>Histórico</div></a></li>
+							<li><a href="<?=site_url('por_periodo')?>"><div><i class="icon-bar-chart"></i>Por período</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Políticas</div></a>
@@ -44,6 +44,7 @@
 						<ul>
 							<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
 							<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li>
+							<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Sistema</div></a>

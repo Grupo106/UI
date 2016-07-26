@@ -1,5 +1,6 @@
+
 <?php include('estructura/header.php'); ?>
-<?php include('estructura/menu.php'); ?>
+<?php //include('estructura/menu.php'); ?>
 
 
 <?php include('graficos.php'); ?>

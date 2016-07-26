@@ -4,7 +4,7 @@
 <div class="panel panel-default divcenter noradius noborder" style="max-width: 400px; background: #f6f6f6;">
 	<div class="panel-body well well-lg" style="padding: 40px;">
 	
-		<form id="login-form" name="login-form" class="nobottommargin" action="index.php/login/autenticar" method="post">
+		<form id="login-form" name="login-form" class="nobottommargin" action="<?=site_url('')?>" method="post">
 			<h3>Iniciar sesión</h3>
 
 			<div class="col_full">
