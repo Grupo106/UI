@@ -216,6 +216,20 @@ h3.title {
   text-decoration: underline;
 }
 
+thead.headTable {
+	background-color: #dbfaed;
+	text-align: center;
+}
+
+thead.headTable td {
+	height: 70px;
+}
+
+thead.headTable td h4 {
+	margin-bottom: 0px;
+	margin-top: 10px;
+}
+
 h1 > span:not(.nocolor),
 h2 > span:not(.nocolor),
 h3 > span:not(.nocolor),
