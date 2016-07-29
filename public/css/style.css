@@ -195,26 +195,6 @@ h4 { font-weight: 600; }
 h5,
 h6 { font-weight: bold; }
 
-h3.marginSystem {
-float: left;
-margin-right: 15px;
-text-align: end;
-width:45%;
-}
-
-h3.marginUser {
-float: left;
-margin-right: 15px;
-text-align: end;
-width:36%;
-}
-
-h3.title {
-  margin-bottom:22px;
-  font-size:30px;
-  margin-left: 26px;
-  text-decoration: underline;
-}
 
 thead.headTable {
 	background-color: #dbfaed;
