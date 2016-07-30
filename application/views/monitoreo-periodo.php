@@ -41,8 +41,8 @@
 
 <!-- JavaScripts
 ============================================= -->
-<script type="text/javascript" src="public/js/fechas.js"></script>
-<script type="text/javascript" src="public/js/monitoreo.js"></script>
+<script type="text/javascript" src="<?=base_url('public/js/fechas.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/monitoreo.js')?>"></script>
 
 <script type="text/javascript">	
 	jQuery(window).load( function(){
