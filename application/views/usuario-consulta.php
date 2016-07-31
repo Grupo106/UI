@@ -2,7 +2,9 @@
 <?php include('estructura/menu.php'); ?>
 <div>
 <div class="container clearfix" style="padding-left:6px;">
-<h3 class="title" style="margin-left:0px;">Lista de Usuarios</h3>
+<div class="fancy-title title-block">
+			<h3>Lista de Usuarios</h3>
+</div>
 <!-- UNA VEZ QUE TRAIGA LA INFO HACER LA TABLA DINAMICA -->	
 					<table class="table table-bordered table-striped" style="clear: both">
 						<thead class="headTable">
