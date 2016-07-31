@@ -1,130 +1,56 @@
 <?php include('estructura/header.php'); ?>
 <?php include('estructura/menu.php'); ?>
-<div>
-<div class="container clearfix" style="padding-left:6px;">
-<div class="fancy-title title-block">
-			<h3>Lista de Usuarios</h3>
-</div>
+
+
 <!-- UNA VEZ QUE TRAIGA LA INFO HACER LA TABLA DINAMICA -->	
-					<table class="table table-bordered table-striped" style="clear: both">
-						<thead class="headTable">
-							<tr>
-								<td><h4>Usuario</h4></td>
-								<td><h4>Rol</h4></td>
-								<td><h4>Acciones</h4></td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td width="60%">Mauro Matos</td>
-								<td width="30%">Monitor</td>
-								<td width="10%" style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Juan Roman Riquelme</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Martin Palermo</td>
-								<td>Monitor</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>El Muerto de Higuain</td>
-								<td>Monitor</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Kun Aguero</td>
-								<td>Monitor</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Caruso Lombardi</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Coco Basile</td>
-								<td>Monitor</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Ortega</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Cristiano Ronald</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Pato Solchaga</td>
-								<td>Monitor</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Marcelo Vieytes</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-							<tr>
-								<td>Perez Garcia</td>
-								<td>Administrador</td>
-								<td style="text-align:center;">
-									<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
-									<img src="<?=base_url('public/images/edit.png')?>">
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-<div class="col_full">
-		<button class="button button-rounded">NUEVO USUARIO</button>
-</div>	
+<div class="table-responsive">
+	<table id="tabla-clases" class="table table-striped table-bordered" cellspacing="0" width="100%">
+		<thead class="headTable">
+			<tr>
+				<td width="20%">Usuario</td>
+				<td width="40%">Nombre y Apellido</td>
+				<td width="20%">Rol</td>
+				<td>Acciones</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>MMATOS</td>
+				<td>Mauro Matos</td>
+				<td>MONITOR</td>
+				<td>
+					<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
+					<img src="<?=base_url('public/images/edit.png')?>">
+				</td>
+			</tr>
+			<tr>
+				<td>JRIQUELME</td>
+				<td>Juan Roman Riquelme</td>
+				<td>ADMINISTRADOR</td>
+				<td>
+					<img style="margin-right:17px;" src="<?=base_url('public/images/delete.png')?>">
+					<img src="<?=base_url('public/images/edit.png')?>">
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
+
+<div class="col_full">
+	<button class="button button-rounded">NUEVO USUARIO</button>
+</div>		
+
 
 
 <!-- JavaScripts
 ============================================= -->
 <script type="text/javascript">	
 	jQuery(window).load( function(){
-		$('#tituloPantalla').text('Consultar Usuario');
+		$('#tituloPantalla').text('Usuarios');
+	});
+
+	$(document).ready(function() {
+		$('#tabla-clases').DataTable();
 	});
 </script>
 

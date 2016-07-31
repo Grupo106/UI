@@ -198,16 +198,7 @@ h6 { font-weight: bold; }
 
 thead.headTable {
 	background-color: #dbfaed;
-	text-align: center;
-}
-
-thead.headTable td {
-	height: 70px;
-}
-
-thead.headTable td h4 {
-	margin-bottom: 0px;
-	margin-top: 10px;
+	font-weight: bold;
 }
 
 h1 > span:not(.nocolor),

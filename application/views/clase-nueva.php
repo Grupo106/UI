@@ -4,26 +4,22 @@
 <div id="div-busqueda">
 	<div class="col_full">
 		<div class="fancy-title title-block">
-			<h3>Nueva Clase de Tráfico</h3>
+			<h3>Complete los siguientes datos:</h3>
 		</div>		
 	</div>	
 
-	<div class="clear"></div>
-
 	<div class="col_one_third">
-		<label>Nombre:</label>
+		<label>Nombre</label>
 		<input id="nombre-clase" type="text" class="sm-form-control">
 	</div>
 
 	<div class="col_two_third col_last">
-		<label>Descripción:</label>
+		<label>Descripción</label>
 		<input id="descripcion-clase" type="text" class="sm-form-control"/>
 	</div>
 
-	<div class="clear"></div>
-	
 	<div class="col_one_third">
-		<label>Objetivo:</label>
+		<label>Objetivo</label>
 		<input id="objetivo-clase" type="text" class="sm-form-control" placeholder="XXX.XXX.XXX.XXX"/>
 	</div>
 	
@@ -42,7 +38,7 @@
 
 <script type="text/javascript">	
 	jQuery(window).load( function(){
-		$('#tituloPantalla').text('Monitoreo por Período');
+		$('#tituloPantalla').text('Nueva Clase de Tráfico');
 	});
 </script>
 

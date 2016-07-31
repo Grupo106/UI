@@ -1,35 +1,50 @@
 <?php include('estructura/header.php'); ?>
 <?php include('estructura/menu.php'); ?>
 
-<div> 
-	<div class="clear"></div>
-		<div class="col_one_third" style="margin-right:136px; margin-left:153px;">
-			<label>Nombre: </label>
-			<input id="inpUser" class="sm-form-control">
-		</div>
+<div class="col_full">
+	<div class="fancy-title title-block">
+		<h3>Complete los siguientes datos:</h3>
+	</div>		
+</div>	
 
-		<div class="col_one_third">
-			<label>Mail: </label>
-			<input id="inpMail" class="sm-form-control">
-		</div>
-		<div class="col_one_third" style="margin-right:136px; margin-left:153px;">
-			<label>Rol:</label>
-			<select id="cboRol" class="select-1 form-control" style="height:40px;">
-				<option value="Administrador">ADMINISTRADOR</option>
-			    <option value="Monitor">MONITOR</option>			    
-			</select>
-		</div>		
-		<div class="col_one_third">
-			<label>Contraseña:</label>
-			<input id="inpContraseña" class="sm-form-control" >
-		</div>	
-	<div class="col_full" style="text-align:center;">
-		<button class="button button-rounded">GUARDAR</button>
-		<button class="button button-rounded" style="background-color:#F44336;">CANCELAR</button>	
-	</div>	
-	
+<div class="col_one_third">
+	<label>Nombre</label>
+	<input id="inpNombre" type="text" class="sm-form-control">
 </div>
 
+<div class="col_one_third">
+	<label>Apellido</label>
+	<input id="inpApellido" type="text" class="sm-form-control">
+</div>
+
+<div class="col_one_third col_last">
+	<label>Mail</label>
+	<input id="inpMail" type="text" class="sm-form-control">
+</div>
+
+<div class="col_one_third">
+	<label>Usuario</label>
+	<input id="inpUsuario" type="text" class="sm-form-control">
+</div>
+
+<div class="col_one_third">
+	<label>Contraseña</label>
+	<input id="inpContraseña" type="password" class="sm-form-control" >
+</div>	
+
+<div class="col_one_third col_last">
+	<label>Rol</label>
+	<select id="cboRol" class="select-1 form-control">
+		<option value="Administrador">ADMINISTRADOR</option>
+	    <option value="Monitor">MONITOR</option>			    
+	</select>
+</div>		
+
+<div class="col_full" style="text-align:center;">
+	<button class="button button-rounded">GUARDAR</button>
+	<button class="button button-rounded button-red">CANCELAR</button>	
+</div>	
+	
 
 
 <!-- JavaScripts

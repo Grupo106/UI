@@ -11,11 +11,11 @@
 	<div class="clear"></div>
 
 	<div class="col_one_third">
-		<label>Fecha y hora - desde:</label>
+		<label>Fecha y hora - desde</label>
 		<input id="fecha-hora-desde" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
 	</div>
 	<div class="col_one_third">
-		<label>Fecha y hora - hasta:</label>
+		<label>Fecha y hora - hasta</label>
 		<input id="fecha-hora-hasta" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
 	</div>
 
