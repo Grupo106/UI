@@ -1,4 +1,4 @@
-<?php include('estructura/header.php'); ?>
+<?php //include('estructura/header.php'); ?>
 <?php //include('estructura/menu.php'); ?>
 
 <table class="table table-bordered table-striped" style="clear: both">

@@ -31,7 +31,7 @@
 	
 	<!-- JavaScripts Footer
 	============================================= -->
-	<script type="text/javascript" src="public/js/functions.js"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/functions.js')?>"></script>
 
 </body>
 </html>

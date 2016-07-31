@@ -23,6 +23,8 @@
 	<link rel="stylesheet" href="<?=base_url('public/css/components/timepicker.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/components/daterangepicker.css')?>" type="text/css" />
 
+	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-datatable.css')?>" type="text/css" />
+
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 
@@ -51,5 +53,8 @@
 
 	<!-- Include Date Range Picker -->
 	<script type="text/javascript" src="<?=base_url('public/js/components/daterangepicker.js')?>"></script>
+
+	<!-- Bootstrap Data Table Plugin -->
+	<script type="text/javascript" src="<?=base_url('public/js/components/bs-datatable.js')?>"></script>
 
 	<script type="text/javascript" src="<?=base_url('public/js/functions.js')?>"></script>

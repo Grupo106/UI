@@ -1,5 +1,5 @@
 <?php include('estructura/header.php'); ?>
-<?php //include('estructura/menu.php'); ?>
+<?php include('estructura/menu.php'); ?>
 
 <div id="div-busqueda">
 	<div class="col_full">

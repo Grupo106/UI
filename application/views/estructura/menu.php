@@ -23,37 +23,37 @@
 					<li class="current"><a href="<?=site_url('')?>"><div>Inicio</div></a></li>
 					<li><a href="#"><div>Monitoreo</div></a>
 						<ul>
-							<li><a href="<?=site_url('tiempo_real')?>"><div><i class="icon-bar-chart"></i>En tiempo real</div></a></li>
-							<li><a href="<?=site_url('historico')?>"><div><i class="icon-bar-chart"></i>Histórico</div></a></li>
-							<li><a href="<?=site_url('por_periodo')?>"><div><i class="icon-bar-chart"></i>Por período</div></a></li>
+							<li><a href="<?=site_url('monitoreo/tiempo_real')?>"><div><i class="icon-bar-chart"></i>En tiempo real</div></a></li>
+							<li><a href="<?=site_url('monitoreo/historico')?>"><div><i class="icon-bar-chart"></i>Histórico</div></a></li>
+							<li><a href="<?=site_url('monitoreo/por_periodo')?>"><div><i class="icon-bar-chart"></i>Por período</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Políticas</div></a>
 						<ul>
-							<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de políticas</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nueva política</div></a></li>
+							<li><a href="<?=site_url('politica/consulta')?>"><div><i class="icon-tasks"></i>Consulta de políticas</div></a></li>
+							<li><a href="<?=site_url('politica/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva política</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Clases de tráfico</div></a>
 						<ul>
-							<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de clases de tráfico</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nueva clase de tráfico</div></a></li>
+							<li><a href="<?=site_url('clasetrafico/consulta')?>"><div><i class="icon-tasks"></i>Consulta de clases de tráfico</div></a></li>
+							<li><a href="<?=site_url('clasetrafico/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva clase de tráfico</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Usuarios</div></a>
 						<ul>
-							<li><a href="inicio.php"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li>
+							<li><a href="<?=site_url('usuario/consulta')?>"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
+							<li><a href="<?=site_url('usuario/nuevo')?>"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li>
 							<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Sistema</div></a>
 						<ul>
-							<li><a href="inicio.php"><div><i class="icon-info"></i>Información</div></a></li>
-							<li><a href="inicio.php"><div><i class="icon-wrench"></i>Configuración</div></a></li>
+							<li><a href="<?=site_url('sistema/informacion')?>"><div><i class="icon-info"></i>Información</div></a></li>
+							<li><a href="<?=site_url('sistema/configuracion')?>"><div><i class="icon-wrench"></i>Configuración</div></a></li>
 						</ul>
 					</li>
-					<li><a href="inicio.php"><div>Ayuda</div></a></li>
+					<li><a href="<?=site_url('ayuda/ayuda')?>"><div>Ayuda</div></a></li>
 				</ul>
 
 				<!-- Top Search

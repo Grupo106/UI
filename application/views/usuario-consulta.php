@@ -1,4 +1,5 @@
 <?php include('estructura/header.php'); ?>
+<?php include('estructura/menu.php'); ?>
 <div>
 <div class="container clearfix" style="padding-left:6px;">
 <h3 class="title" style="margin-left:0px;">Lista de Usuarios</h3>
