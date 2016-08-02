@@ -16,5 +16,20 @@ class Usuario extends CI_Controller {
     public function nuevo() {
         $this->load->view('usuario-nuevo');
     }
+
+    public function eliminar() {
+        $id = $this->input->get('id');
+        //Eliminar usuario con ese id
+    }
+
+    public function modificar() {
+        $id = $this->input->get('id');
+        //Cargar datos del usuario con ese id
+        $this->load->view('usuario-nuevo');
+    }
+
+    public function guardar() {
+        echo "Guardando ID: ".$_POST['idUsuario'];
+    }
 }
 ?>

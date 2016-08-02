@@ -154,6 +154,8 @@ a img { border: none; }
 
 img { max-width: 100%; }
 
+img:hover { cursor: pointer; cursor: hand; }
+
 iframe { border: none !important; }
 
 
@@ -13016,5 +13018,9 @@ body:not(.no-transition) #wrapper,
 	transform: none!important;
 	margin:0!important;
 	padding:0!important
+}
+
+.editar {
+	margin-left:20px;
 }
 
