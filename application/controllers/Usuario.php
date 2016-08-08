@@ -10,7 +10,13 @@ class Usuario extends CI_Controller {
 	}
 
     public function consulta() {
-        $this->load->view('usuario-consulta');
+
+        $this->load->model('usuario_model');
+        $data['usuarios'] = $this->usuario_model->obtener_usuarios();
+
+        //$this->usuario_model->crear_usuario();
+        
+        $this->load->view('usuario-consulta', $data);
     }
 
     public function nuevo() {

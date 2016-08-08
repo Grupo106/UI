@@ -4,6 +4,9 @@
 
 <!-- UNA VEZ QUE TRAIGA LA INFO HACER LA TABLA DINAMICA -->	
 <div class="table-responsive">
+
+
+
 	<table id="tablaUsuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
@@ -14,26 +17,24 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<input id="id" type="hidden" value="1">
-				<td id="nombre">MMATOS</td>
-				<td>Mauro Matos</td>
-				<td>MONITOR</td>
+
+		<?php		
+				foreach ($usuarios as $usuario) {
+
+				$user=$usuario['usuario'];
+				$nombre=$usuario['nombre'];
+				$apellido=$usuario['apellido'];
+				$rol=$usuario['rol'];
+				
+                echo "<tr> <td> $user</td> <td> $nombre </td> <td> $rol </td>"?>
+
 				<td>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
 				</td>
-			</tr>
-			<tr>
-				<input id="id" type="hidden" value="2">
-				<td id="nombre">JRIQUELME</td>
-				<td>Juan Roman Riquelme</td>
-				<td>ADMINISTRADOR</td>
-				<td>
-					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
-				</td>
-			</tr>
+				</tr>
+              <?php } //fin foreach ?>
+			
 		</tbody>
 	</table>
 </div>
