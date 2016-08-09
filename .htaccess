@@ -1,4 +1,4 @@
 RewriteEngine On
 
-RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteCond $1 !^(index\.php|public|robots\.txt)
 RewriteRule ^(.*)$ /netcop/index.php/$1 [L]
