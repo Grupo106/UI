@@ -7,30 +7,44 @@ class ClaseTrafico extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-        $this->load->helper('form');
+        $this->load->model('claseModel');
 	}
 
     public function consulta() {
-        $this->load->view('clase-consulta');
+        $data = array(
+            'datos' => $this->claseModel->obtenerTodos()
+        ); 
+        $this->load->view('clase-consulta', $data);
     }
 
     public function nueva() {
         $this->load->view('clase-nueva');
     }
 
-    public function eliminar() {
+    public function editar() {
         $id = $this->input->get('id');
-        //Eliminar clase
-    }
-
-    public function modificar() {
-        $id = $this->input->get('id');
-        //Cargar datos de la clase
-        $this->load->view('clase-nueva');
+        $data['registro'] = $this->claseModel->obtener($id);
+        $this->load->view('clase-nueva', $data);
     }
 
     public function guardar() {
-        echo "Guardando ID: ".$_POST['idClase'];
+
+        $id = $this->input->post('id');
+        $data = array(
+            'nombre' => $this->input->post('nombre'),
+            'descripcion' => $this->input->post('descripcion'),
+            'tipo' => 1
+        );
+        if($id==""){
+            echo $this->claseModel->insertar($data);
+        } else {
+            echo $this->claseModel->actualizar($id, $data);
+        }
+    }
+
+    public function eliminar() {
+        $id = $this->input->post('id');
+        echo $this->claseModel->eliminar($id);
     }
 }
 ?>

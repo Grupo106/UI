@@ -8,33 +8,25 @@
 				<th width="20%">Nombre</th>
 				<th width="30%">Descripción</th>
 				<th width="20%">Objetivo</th>
-				<th width="15%">Precedencia</th>
+				<th width="15%">Tipo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<input id="id" type="hidden" value="1">
-				<td id="nombre">Facebook</td>
-				<td>Red Social</td>
-				<td>192.168.1.10</td>
-				<td>USUARIO</td>
-				<td>
-					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
-				</td>
-			</tr>
-			<tr>
-				<input id="id" type="hidden" value="2">
-				<td id="nombre">Instagram</td>
-				<td>Red Social</td>
-				<td>192.168.1.12</td>
-				<td>USUARIO</td>
-				<td>
-					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
-				</td>
-			</tr>
+
+			<?php foreach($datos as $item): ?>
+	            <tr>
+	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
+	                <td id="nombre"> <?= $item['nombre']?></td>
+	                <td> <?= $item['descripcion']?> </td>
+	                <td> <?= $item['objetivo']?> </td>
+	                <td> <?php if ($item['tipo']=="0"){echo 'SISTEMA';} else {echo 'USUARIO';} ?> </td>
+	                <td>
+						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
+						<img class="editar" src="<?=base_url('public/images/edit.png')?>">
+					</td>
+	            </tr>
+	        <?php endforeach;?>
 		</tbody>
 	</table>
 </div>
@@ -44,6 +36,7 @@
 </div>	
 
 <?php include('estructura/modal-eliminar.php'); ?>
+<?php include('estructura/modal-informacion.php'); ?>
 
 <!-- JavaScripts
 ============================================= -->
@@ -65,7 +58,7 @@
 		//EDITAR
 		$('.editar').click(function(){
 			var id = $(this).closest('tr').find('input:hidden').val();
-			window.location.href = "<?php echo site_url('clasetrafico/modificar');?>?id="+id;
+			window.location.href = "<?php echo site_url('clasetrafico/editar');?>?id="+id;
 		});
 
 		//ELIMINAR
@@ -80,20 +73,32 @@
 		//ACEPTAR ELIMINAR
 		$('#btnAceptarEliminar').click(function(){
 			var id = $("tr.selected").find('input:hidden').val();
-
 	        $.ajax({
 	            url : siteurl+'/clasetrafico/eliminar',
 	            data : { id : id},
-	            type: "GET"
+	            type: "POST",
+	            success: function(respuesta){
+	            	$('#modalEliminar').modal('hide');
+	            	if(respuesta!=1){
+	            		$("tr.selected").removeClass('selected');
+			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
+			            $('#modalInformacion').modal('show');
+			        } else {
+			        	table.row('.selected').remove().draw(false);
+			        }
+	            }
 	        })
 
-			table.row('.selected').remove().draw(false);
-			$('#modalEliminar').modal('hide');
 		});
 
 		//CANCELAR ELIMINAR
 		$('#btnCancelarEliminar').click(function(){
 			$("tr.selected").removeClass('selected');
+		});
+
+		//ACEPTAR INFORMACION
+		$('#btnAceptarInformacion').click(function(){
+	        $('#modalInformacion').modal('hide');
 		});
 
 	});
