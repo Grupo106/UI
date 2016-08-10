@@ -9,32 +9,32 @@
 
 <div class="col_one_third">
 	<label>Nombre</label>
-	<input id="inpNombre" type="text" class="sm-form-control">
+	<input id="inpNombre" type="text" class="sm-form-control" value="<?= $nombre?>">
 </div>
 
 <div class="col_one_third">
 	<label>Apellido</label>
-	<input id="inpApellido" type="text" class="sm-form-control">
+	<input id="inpApellido" type="text" class="sm-form-control" value="<?= $apellido?>">
 </div>
 
 <div class="col_one_third col_last">
 	<label>Mail</label>
-	<input id="inpMail" type="text" class="sm-form-control">
+	<input id="inpMail" type="text" class="sm-form-control" value="<?= $mail?>">
 </div>
 
 <div class="col_one_third">
 	<label>Usuario</label>
-	<input id="inpUsuario" type="text" class="sm-form-control" disabled>
+	<input id="inpUsuario" type="text" class="sm-form-control" value="<?= $usuario?>" disabled>
 </div>
 
 <div class="col_one_third">
 	<label>Contraseña</label>
-	<input id="inpContraseña" type="password" class="sm-form-control" >
+	<input id="inpContraseña" type="password" class="sm-form-control" value="<?= $password?>" >
 </div>	
 
 <div class="col_one_third col_last">
 	<label>Rol</label>
-	<select id="cboRol" class="select-1 form-control">
+	<select name="rol" class="select-1 form-control">
 		<option value="Administrador">ADMINISTRADOR</option>
 	    <option value="Monitor">MONITOR</option>			    
 	</select>

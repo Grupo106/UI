@@ -30,12 +30,23 @@ class Usuario extends CI_Controller {
 
     public function modificar() {
         $id = $this->input->get('id');
-        //Cargar datos del usuario con ese id
-        $this->load->view('usuario-nuevo');
+        $this->load->model('usuario_model');
+        $data = $this->usuario_model->obtener_usuarios_porId($id);
+
+        $this->load->view('usuario-modificacion', $data);
     }
 
     public function guardar() {
-        echo "Guardando ID: ".$_POST['idUsuario'];
-    }
+        $this->load->model('usuario_model');
+
+        $data = array('usuario' => $this->input->post('usuario'),
+                      'password' => $this->input->post('password'), 
+                      'nombre' => $this->input->post('nombre'),
+                      'apellido' => $this->input->post('apellido'),
+                      'mail' => $this->input->post('mail'),
+                      'rol' =>  $_POST['rol']);
+
+        $this->usuario_model->crear_usuario($data);
+    }               
 }
 ?>

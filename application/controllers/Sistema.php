@@ -14,7 +14,27 @@ class Sistema extends CI_Controller {
     }
 
     public function informacion() {
-        $this->load->view('sistema-informacion');
+
+        $usoCpu = 1;
+        $tempCpu = 2;
+        $ram = 3;
+        $dicRig = 4;
+        $intRed = 5;
+
+        $data = array("usoCpu" => $usoCpu,
+                      "tempCpu" => $tempCpu,
+                      "ram" => $ram, 
+                      "discRig" => $dicRig,
+                      "intRed" => $intRed);
+
+        $this->load->view('sistema-informacion', $data);
+
+    }
+
+
+
+    public function save() {
+        
     }
 }
 ?>

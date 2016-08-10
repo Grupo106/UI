@@ -7,36 +7,36 @@
 	</div>		
 </div>	
 
-<form id="formNuevo" action="<?=site_url('usuario/guardar')?>" mothod="post">
+<form id="formNuevo" action="guardar" method="post">
 	<input type="hidden" name="idUsuario" value="32">
 	<div class="col_one_third">
 		<label>Nombre</label>
-		<input id="inpNombre" type="text" class="sm-form-control">
+		<input name="nombre" type="text" class="sm-form-control">
 	</div>
 
 	<div class="col_one_third">
 		<label>Apellido</label>
-		<input id="inpApellido" type="text" class="sm-form-control">
+		<input name="apellido" type="text" class="sm-form-control">
 	</div>
 
 	<div class="col_one_third col_last">
 		<label>Mail</label>
-		<input id="inpMail" type="text" class="sm-form-control">
+		<input name="mail" type="text" class="sm-form-control">
 	</div>
 
 	<div class="col_one_third">
 		<label>Usuario</label>
-		<input id="inpUsuario" type="text" class="sm-form-control">
+		<input name="usuario" type="text" class="sm-form-control">
 	</div>
 
 	<div class="col_one_third">
 		<label>Contraseña</label>
-		<input id="inpContraseña" type="password" class="sm-form-control" >
+		<input name="password" type="password" class="sm-form-control" >
 	</div>	
 
 	<div class="col_one_third col_last">
 		<label>Rol</label>
-		<select id="cboRol" class="select-1 form-control">
+		<select name="rol" class="select-1 form-control">
 			<option value="Administrador">ADMINISTRADOR</option>
 		    <option value="Monitor">MONITOR</option>			    
 		</select>

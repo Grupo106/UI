@@ -21,13 +21,16 @@
 		<?php		
 				foreach ($usuarios as $usuario) {
 
+				$id=$usuario['id_usu'];
 				$user=$usuario['usuario'];
 				$nombre=$usuario['nombre'];
 				$apellido=$usuario['apellido'];
 				$rol=$usuario['rol'];
 				
-                echo "<tr> <td> $user</td> <td> $nombre </td> <td> $rol </td>"?>
-
+                echo "<tr> <td> $user</td><td> $nombre </td> <td> $rol </td>"?>
+                
+                <input type="hidden" value="<?php echo $id; ?>">
+                
 				<td>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
@@ -64,7 +67,7 @@
 		//EDITAR
 		$('.editar').click(function(){
 			var id = $(this).closest('tr').find('input:hidden').val();
-			window.location.href = "<?php echo site_url('usuario/modificar');?>?id="+id;
+			window.location.href = "<?php echo site_url('index.php/usuario/modificar');?>?id="+id;
 		});
 
 		//ELIMINAR

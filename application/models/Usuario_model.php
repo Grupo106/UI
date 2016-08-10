@@ -17,23 +17,14 @@ class Usuario_model extends CI_Model{
     }
 
 
-    function crear_usuario(){
+    function obtener_usuarios_porId($id){
 
-        $usuario='admin';
-        $password='123456';
-        $nombre='juan';
-        $apellido='rodriguez';
-        $mail='jrodriguez@netcop.com';
-        $rol='administrador';
+        $this->db->where('id_usu',$id);
+        $query = $this->db->get('usuarios');
+        return $query->first_row();
+    }
 
-    $data = array(
-           'usuario' => $usuario,
-           'password' => $password,           
-           'nombre' => $nombre,
-           'apellido' => $apellido,
-           'mail' => $mail,          
-           'rol' => $rol
-            );
+    function crear_usuario($data){
 
     $this->db->insert('usuarios',$data);
     $id = $this->db->insert_id();  
