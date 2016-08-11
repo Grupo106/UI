@@ -7,15 +7,11 @@ class Usuario extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+        $this->load->model('usuario_model');
 	}
 
     public function consulta() {
-
-        $this->load->model('usuario_model');
-        $data['usuarios'] = $this->usuario_model->obtener_usuarios();
-
-        //$this->usuario_model->crear_usuario();
-        
+        $data['usuarios'] = $this->usuario_model->obtener_usuarios();        
         $this->load->view('usuario-consulta', $data);
     }
 
@@ -23,30 +19,32 @@ class Usuario extends CI_Controller {
         $this->load->view('usuario-nuevo');
     }
 
-    public function eliminar() {
-        $id = $this->input->get('id');
-        //Eliminar usuario con ese id
-    }
-
     public function modificar() {
         $id = $this->input->get('id');
-        $this->load->model('usuario_model');
         $data = $this->usuario_model->obtener_usuarios_porId($id);
-
         $this->load->view('usuario-modificacion', $data);
     }
 
     public function guardar() {
-        $this->load->model('usuario_model');
-
-        $data = array('usuario' => $this->input->post('usuario'),
-                      'password' => $this->input->post('password'), 
+        $id = $this->input->post('id');
+        $data = array('password' => $this->input->post('password'), 
                       'nombre' => $this->input->post('nombre'),
                       'apellido' => $this->input->post('apellido'),
                       'mail' => $this->input->post('mail'),
                       'rol' =>  $_POST['rol']);
 
-        $this->usuario_model->crear_usuario($data);
-    }               
+        if($id=="") {
+            $data['usuario'] = $this->input->post('usuario');
+            echo $this->usuario_model->insertar($data);
+        } else {
+            echo $this->usuario_model->actualizar($id,$data);
+        }
+    }     
+
+
+    public function eliminar() {
+        $id = $this->input->post('id');
+        echo $this->usuario_model->eliminar($id);
+    }          
 }
 ?>

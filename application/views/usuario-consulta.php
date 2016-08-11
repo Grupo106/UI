@@ -7,7 +7,7 @@
 
 
 
-	<table id="tablaUsuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
+	<table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
 				<td width="20%">Usuario</td>
@@ -27,7 +27,7 @@
 				$apellido=$usuario['apellido'];
 				$rol=$usuario['rol'];
 				
-                echo "<tr> <td> $user</td><td> $nombre </td> <td> $rol </td>"?>
+                echo "<tr> <td> $user</td><td id='nombre'> $nombre </td> <td> $rol </td>"?>
                 
                 <input type="hidden" value="<?php echo $id; ?>">
                 
@@ -55,13 +55,13 @@
 
 		$('#tituloPantalla').text('Usuarios');
 
-		var table = $('#tablaUsuarios').DataTable();
+		var table = $('#tablaClases').DataTable();
 
 		var siteurl = '<?=site_url()?>';
 
 		//NUEVO USUARIO
 		$('#btnNuevoUsuario').click(function(){
-			window.location.href = "<?php echo site_url('usuario/nuevo');?>";
+			window.location.href = "<?php echo site_url('index.php/usuario/nuevo');?>";
 		});
 		
 		//EDITAR
@@ -84,18 +84,31 @@
 			var id = $("tr.selected").find('input:hidden').val();
 
 	        $.ajax({
-	            url : siteurl+'/usuario/eliminar',
+	            url : siteurl+'index.php/usuario/eliminar',
 	            data : { id : id},
-	            type: "GET"
+	            type: "POST",
+	            success: function(respuesta){
+	            	$('#modalEliminar').modal('hide');
+	            	if(respuesta!=1){
+	            		$("tr.selected").removeClass('selected');
+			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
+			            $('#modalInformacion').modal('show');
+			        } else {
+			        	table.row('.selected').remove().draw(false);
+			        }
+	            }
 	        })
 
-			table.row('.selected').remove().draw(false);
-			$('#modalEliminar').modal('hide');
 		});
 
 		//CANCELAR ELIMINAR
 		$('#btnCancelarEliminar').click(function(){
 			$("tr.selected").removeClass('selected');
+		});
+
+		//ACEPTAR INFORMACION
+		$('#btnAceptarInformacion').click(function(){
+	        $('#modalInformacion').modal('hide');
 		});
 
 

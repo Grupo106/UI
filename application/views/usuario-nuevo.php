@@ -7,7 +7,7 @@
 	</div>		
 </div>	
 
-<form id="formNuevo" action="guardar" method="post">
+<form id="form" action="guardar" method="post">
 	<input type="hidden" name="idUsuario" value="32">
 	<div class="col_one_third">
 		<label>Nombre</label>
@@ -48,7 +48,7 @@
 	</div>	
 </form>
 
-
+<?php include('estructura/modal-informacion.php'); ?>
 <!-- JavaScripts
 ============================================= -->
 <script type="text/javascript">	
@@ -58,9 +58,31 @@
 		var siteurl = '<?=site_url()?>';
 
 		$('#btnCancelar').click(function(){
-			window.location.href = "<?php echo site_url('usuario/consulta');?>";
+			window.location.href = "<?php echo site_url('index.php/usuario/consulta');?>";
 		});
 
+		//GUARDAR
+		$('#form').submit(function (event){
+			event.preventDefault();
+			$.ajax({
+	            url : $('#form').attr("action"),
+	            type : $('#form').attr("method"),
+	            data : $('#form').serialize(),
+	            success: function(respuesta){
+	            	if(respuesta==1){
+			            $('#mensaje').text("La clase fue guardada exitosamente.");
+			        } else {
+			            $('#mensaje').text("Error al guardar la clase de tráfico.");
+			        }
+	            	$('#modalInformacion').modal('show');
+	            }
+	        });
+	    });
+
+	    //ACEPTAR
+		$('#btnAceptarInformacion').click(function(){
+	        window.location.href = "<?php echo site_url('index.php/usuario/consulta');?>";
+		});
 	});
 </script>
 
