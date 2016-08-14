@@ -58,16 +58,17 @@
 		var table = $('#tablaClases').DataTable();
 
 		var siteurl = '<?=site_url()?>';
+        
 
 		//NUEVO USUARIO
 		$('#btnNuevoUsuario').click(function(){
-			window.location.href = "<?php echo site_url('index.php/usuario/nuevo');?>";
+			window.location.href = "<?php echo site_url('usuario/nuevo');?>";
 		});
 		
 		//EDITAR
 		$('.editar').click(function(){
 			var id = $(this).closest('tr').find('input:hidden').val();
-			window.location.href = "<?php echo site_url('index.php/usuario/modificar');?>?id="+id;
+			window.location.href = "<?php echo site_url('usuario/modificar');?>?id="+id;
 		});
 
 		//ELIMINAR
@@ -84,7 +85,7 @@
 			var id = $("tr.selected").find('input:hidden').val();
 
 	        $.ajax({
-	            url : siteurl+'index.php/usuario/eliminar',
+	            url : siteurl+'/usuario/eliminar',
 	            data : { id : id},
 	            type: "POST",
 	            success: function(respuesta){
