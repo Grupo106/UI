@@ -5,22 +5,33 @@
 	<table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
-				<th width="20%">Nombre</th>
-				<th width="30%">Descripción</th>
-				<th width="20%">Objetivo</th>
-				<th width="15%">Tipo</th>
+				<th colspan='1'></th>
+				<th colspan='2' style="text-align: center">DESTINO</th>
+				<th colspan='2' style="text-align: center">ORIGEN</th>
+				<th colspan='1'></th>
+				<th colspan='1'></th>
+			</tr>	
+			<tr>
+				<th width="18%">Nombre</th>
+				<th width="18%">Dirección de Red</th>
+				<th width="12%">Puerto</th>
+				<th width="18%">Dirección de Red</th>
+				<th width="12%">Puerto</th>
+				<th width="12%">Tipo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			<?php foreach($datos as $item): ?>
+			<?php foreach($listado as $item): ?>
 	            <tr>
 	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
-	                <td id="nombre"> <?= $item['nombre']?></td>
-	                <td> <?= $item['descripcion']?> </td>
-	                <td> <?= $item['objetivo']?> </td>
-	                <td> <?php if ($item['tipo']=="0"){echo 'SISTEMA';} else {echo 'USUARIO';} ?> </td>
+	                <td id="nombre"> <?= $item['nombre'] ?></td>
+	                <td> <?= $item['direccionO']?> </td>
+	                <td> <?= $item['puertoO']?> </td>
+	                <td> <?= $item['direccionI']?> </td>
+	                <td> <?= $item['puertoI']?> </td>
+	                <td> <?= $item['tipo']?> </td>
 	                <td>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 						<img class="editar" src="<?=base_url('public/images/edit.png')?>">
@@ -63,6 +74,9 @@
 
 		//ELIMINAR
 		$('.eliminar').click(function(){
+			//Quito la clase "selected" de la fila anterior seleccionada
+			$("tr.selected").removeClass('selected');
+			//Coloco el selected a la nueva fila
 			$(this).closest('tr').addClass('selected');
 			var nombre = $(this).closest('tr').find('td[id="nombre"]').text();
 
@@ -72,15 +86,15 @@
 
 		//ACEPTAR ELIMINAR
 		$('#btnAceptarEliminar').click(function(){
+			$('#modalEliminar').modal('hide');
 			var id = $("tr.selected").find('input:hidden').val();
+
 	        $.ajax({
 	            url : siteurl+'/clasetrafico/eliminar',
 	            data : { id : id},
 	            type: "POST",
 	            success: function(respuesta){
-	            	$('#modalEliminar').modal('hide');
 	            	if(respuesta!=1){
-	            		$("tr.selected").removeClass('selected');
 			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
 			            $('#modalInformacion').modal('show');
 			        } else {
@@ -88,7 +102,6 @@
 			        }
 	            }
 	        })
-
 		});
 
 		//CANCELAR ELIMINAR

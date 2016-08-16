@@ -58,3 +58,5 @@
 	<script type="text/javascript" src="<?=base_url('public/js/components/bs-datatable.js')?>"></script>
 
 	<script type="text/javascript" src="<?=base_url('public/js/functions.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/jquery.mask.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/jquery.validate.js')?>"></script>
