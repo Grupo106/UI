@@ -13024,3 +13024,10 @@ body:not(.no-transition) #wrapper,
 	margin-left:20px;
 }
 
+span.error {
+	color:red;
+}
+
+input.error {
+	border-color:red;
+}
