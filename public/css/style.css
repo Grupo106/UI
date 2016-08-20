@@ -3240,8 +3240,8 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner { left: auto; }
 
 #page-title {
 	position: relative;
-	padding: 50px 0;
-	background-color: #dbfaed;
+	padding: 30px 0;
+	background-color: #dbfaed; 
 	border-bottom: 1px solid #EEE;
 }
 
@@ -3253,9 +3253,8 @@ body:not(.stretched) .slider-parallax .slider-parallax-inner { left: auto; }
 	line-height: 1;
 	font-weight: 600;
 	letter-spacing: 1px;
-	color: #333;
-	font-size: 28px;
-	text-transform: uppercase;
+	color: #555;
+	font-size: 30px;
 }
 
 #page-title span {

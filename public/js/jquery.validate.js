@@ -624,4 +624,5 @@ jQuery.extend(jQuery.validator.messages, {
     required:"Este campo es requerido.",
     IPvalida: "Dirección IP inválida.",
     validarCamposCompletos: "",
+    valid_url: "URL inválida.",
 });

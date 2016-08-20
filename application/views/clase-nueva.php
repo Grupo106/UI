@@ -33,7 +33,7 @@
 
 	<div class="col_three_fifth">
 		<label>URL</label>
-		<input name="url" type="url" class="sm-form-control" value="<?=$clase->url?>">
+		<input name="url" type="text" class="sm-form-control" value="<?=$clase->url?>">
 	</div>
 	<div class="clear"></div>
 
@@ -58,10 +58,12 @@
 
 	<div class="col_one_sixth">
 		<label>Protocolo</label>
-		<select name="protocoloO" class="select-1 sm-form-control" value="<?=$clase->protocolo_o?>">
-			<option value="0"></option>
-		    <option value="6">TCP</option>			
-		    <option value="17">UDP</option>    
+		<select name="protocoloO" class="select-1 sm-form-control">
+			<?php foreach($protocolos as $key => $value){ ?>			  
+		    	<option value="<?= $key ?>" <?=$clase->protocolo_o == $key ? ' selected="selected"' : '';?> >
+		    	<?php echo $value ?>
+				</option>
+			<?php } ?>
 		</select>
 	</div>
 
@@ -97,10 +99,12 @@
 
 	<div class="col_one_sixth">
 		<label>Protocolo</label>
-		<select name="protocoloI" class="select-1 sm-form-control" value="<?=$clase->protocolo_i?>">
-			<option value="0"></option>
-		    <option value="6">TCP</option>			
-		    <option value="17">UDP</option>  
+		<select name="protocoloI" class="select-1 sm-form-control">
+			<?php foreach($protocolos as $key => $value){ ?>			  
+		    	<option value="<?= $key ?>" <?=$clase->protocolo_i == $key ? ' selected="selected"' : '';?> >
+		    	<?php echo $value ?>
+				</option>
+			<?php } ?>
 		</select>
 	</div>
 	<input type="hidden" name="id_cidrI" value="<?=$clase->id_cidr_i ?>">

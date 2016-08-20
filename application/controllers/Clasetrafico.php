@@ -24,6 +24,7 @@ class Clasetrafico extends CI_Controller {
 
             $clase = array();
             $clase['id_clase'] = $id_clase;
+            $clase['estado'] = $registro->activa;
             $clase['nombre'] = $registro->nombre;
             $clase['tipo'] = $tipo;
             $clase['direccionO'] = $this->obtenerCidr($registro->direccion_o, $registro->prefijo_o);
@@ -61,7 +62,8 @@ class Clasetrafico extends CI_Controller {
 
 
     public function nueva() {
-        $this->load->view('clase-nueva');
+        $data['protocolos'] = $this->getListaProtocolos();
+        $this->load->view('clase-nueva', $data);
     }
 
     public function editar() {

@@ -11,8 +11,7 @@
 			<!-- Logo
 			============================================= -->
 			<div id="logo">
-				<a href="inicio.php" class="standard-logo" data-dark-logo="public/images/logo-dark.png"><img src="<?=base_url('public/images/logo.png')?>" alt="NetCop Logo"></a>
-				<a href="inicio.php" class="retina-logo" data-dark-logo="public/images/logo-dark@2x.png"><img src="<?=base_url('public/images/logo@2x.png')?>" alt="NetCop Logo"></a>
+				<a href="<?=site_url('')?>" class="standard-logo" data-dark-logo="public/images/logo-horizontal.png"><img src="<?=base_url('public/images/logo-horizontal.png')?>" alt="NetCop Logo"></a>
 			</div><!-- #logo end -->
 
 			<!-- Primary Navigation
@@ -75,7 +74,7 @@
 
 <!-- Page Title
 ============================================= -->
-<section id="page-title">
+<section id="page-title" class="page-title-center">
 
 	<div class="container clearfix">
 		<h1 id="tituloPantalla"></h1>

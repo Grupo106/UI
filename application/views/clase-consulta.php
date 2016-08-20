@@ -6,16 +6,18 @@
 		<thead class="headTable">
 			<tr>
 				<th colspan='1'></th>
+				<th colspan='1'></th>
 				<th colspan='2' style="text-align: center">DESTINO</th>
 				<th colspan='2' style="text-align: center">ORIGEN</th>
 				<th colspan='1'></th>
 				<th colspan='1'></th>
 			</tr>	
 			<tr>
+				<th width="2%">Estado</th>
 				<th width="18%">Nombre</th>
-				<th width="18%">Dirección de Red</th>
+				<th width="15%">Dirección de Red</th>
 				<th width="12%">Puerto</th>
-				<th width="18%">Dirección de Red</th>
+				<th width="15%">Dirección de Red</th>
 				<th width="12%">Puerto</th>
 				<th width="12%">Tipo</th>
 				<th>Acciones</th>
@@ -26,6 +28,7 @@
 			<?php foreach($listado as $item): ?>
 	            <tr>
 	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
+	                <td> <?= $item['estado']?> </td>
 	                <td id="nombre"> <?= $item['nombre'] ?></td>
 	                <td> <?= $item['direccionO']?> </td>
 	                <td> <?= $item['puertoO']?> </td>
@@ -57,7 +60,9 @@
 
 		$('#tituloPantalla').text('Clases de Tráfico');
 
-		var table = $('#tablaClases').DataTable();
+		var table = $('#tablaClases').DataTable( { "aaSorting":[] } );
+
+		jQuery(".bt-switch").bootstrapSwitch();
 
 		var siteurl = '<?=site_url()?>';
 

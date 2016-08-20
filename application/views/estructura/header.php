@@ -24,6 +24,7 @@
 	<link rel="stylesheet" href="<?=base_url('public/css/components/daterangepicker.css')?>" type="text/css" />
 
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-datatable.css')?>" type="text/css" />
+	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-switches.css')?>" type="text/css" />
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
@@ -60,3 +61,4 @@
 	<script type="text/javascript" src="<?=base_url('public/js/functions.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.mask.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.validate.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/components/bs-switches.js')?>"></script>

@@ -7,9 +7,9 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '192.168.10.101',
-	'username' => 'netcop',
-	'password' => 'netcop',
+	'hostname' => 'localhost',
+	'username' => 'postgres',
+	'password' => 'admin',
 	'database' => 'netcop',
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
