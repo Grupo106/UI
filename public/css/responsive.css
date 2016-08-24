@@ -1123,6 +1123,7 @@
 	.col_three_fifth,
 	.col_four_fifth,
 	.col_one_sixth,
+	.col_icon,
 	.col_five_sixth {
 		width: 100%;
 		margin-right: 0;
@@ -1139,10 +1140,13 @@
 	form .col_three_fourth,
 	form .col_one_fourth,
 	form .col_one_fifth,
-	form .col_two_fifth,
+	form .col_t
+
+	wo_fifth,
 	form .col_three_fifth,
 	form .col_four_fifth,
 	form .col_one_sixth,
+	form .col_icon,
 	form .col_five_sixth { margin-bottom: 25px !important; }
 
 
