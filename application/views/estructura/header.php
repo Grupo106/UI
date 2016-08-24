@@ -45,7 +45,6 @@
 	============================================= -->
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/plugins.js')?>"></script>
-	<script type="text/javascript" src="<?=base_url('public/js/graficos.js')?>"></script>
 
 	<!-- Date & Time Picker JS -->
 	<script type="text/javascript" src="<?=base_url('public/js/components/moment.js')?>"></script>

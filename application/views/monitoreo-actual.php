@@ -4,6 +4,9 @@
 
 <?php include('graficos.php'); ?>
 
+<!-- JavaScripts
+============================================= -->
+<script type="text/javascript" src="<?=base_url('public/js/netcop/graficos.js')?>"></script>
 
 <script type="text/javascript">	
 	jQuery(window).load( function(){

@@ -69,6 +69,6 @@
 
 <!-- JavaScripts
 ============================================= -->
-<script type="text/javascript" src="<?=base_url('public/js/asistente.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/netcop/asistente.js')?>"></script>
 
 <?php include('estructura/footer-panel.php'); ?>
