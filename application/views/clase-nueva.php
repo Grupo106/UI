@@ -7,20 +7,18 @@
 	</div>		
 </div>	
 
-<?php foreach($registro as $clase){
-} ?>
-
 <form id="form" action="<?=site_url('clasetrafico/guardar/')?>" method="POST">
-	<input type="hidden" name="id" value="<?=$clase->id_clase ?>">
-	<input type="hidden" name="activa" value="<?=$clase->activa ?>">
+	<input type="hidden" name="id" value="<?=$registro->id_clase ?>">
+	<input type="hidden" name="activa" value="<?=$registro->activa ?>">
+
 	<div class="col_one_third">
 		<label>Nombre</label>
-		<input name="nombre" type="text" class="sm-form-control" value="<?=$clase->nombre?>"/>
+		<input name="nombre" type="text" class="sm-form-control" value="<?=$registro->nombre?>"/>
 	</div>
 
 	<div class="col_two_third col_last">
 		<label>Descripción</label>
-		<input name="descripcion" type="text" class="sm-form-control" value="<?=$clase->descripcion?>"/>
+		<input name="descripcion" type="text" class="sm-form-control" value="<?=$registro->descripcion?>"/>
 	</div>
 	<div class="clear"></div>
 	<br/>
@@ -29,47 +27,102 @@
 		<div class="fancy-title title-bottom-border">
 			<h4>Internet</h4>
 		</div>
-	</div>	
-
-	<div class="col_three_fifth">
-		<label>URL</label>
-		<input name="url" type="text" class="sm-form-control" value="<?=$clase->url?>">
-	</div>
-	<div class="clear"></div>
-
-	<div class="col_one_third">
-		<label>Dirección IP</label>
-		<input name="direccionO" id="direccionO" type="text" class="sm-form-control ipAddress"
-			placeholder="XXX.XXX.XXX.XXX" value="<?=$clase->direccion_o?>">
 	</div>
 
-	<div class="col_one_sixth">
-		<label>Prefijo</label>
-		<input name="prefijoO" type="number" class="sm-form-control prefijo" 
-			min="0" max="32" value="<?=$clase->prefijo_o?>">
+	<!-- Bloque de Cidr Outside-->
+	<div class="col_half">
+		<input type="hidden" name="indexCidrO" value="<?php if(sizeof($cidrO)==0) echo 0; else echo sizeof($cidrO)-1; ?>">
+
+		<div id="CidrO_0">
+			<div class="col_icon agregar">
+				<img src="<?=base_url('public/images/plus-icon.png')?>">
+			</div>
+			<div class="col_icon hidden borrar">
+				<img src="<?=base_url('public/images/delete.png')?>">
+			</div>
+            <div class="col_two_fifth">
+				<label>Dirección IP</label>
+				<input name="direccionO_0" type="text" class="form-control ipAddress ipValida" value="<?= array_values($cidrO)[0]['direccion']?>">
+			</div>
+			<div class="col_one_fourth col_last">
+				<label>Prefijo</label>
+				<input name="prefijoO_0" type="number" class="form-control prefijo" value="<?= array_values($cidrO)[0]['prefijo']?>"
+					min="0" max="32">
+			</div>
+			<input type="hidden" name="idCidrO_0" value="<?= array_values($cidrO)[0]['id_cidr']?>">
+			<div class="clear"></div>
+		</div>
+
+		<?php foreach($cidrO as $i => $item): if($i > 0) { ?>
+			<div id="CidrO_<?=$i?>">
+				<div class="col_icon borrar">
+					<img src="<?=base_url('public/images/delete.png')?>">
+				</div>
+	            <div class="col_two_fifth">
+					<input name="direccionO_<?=$i?>" type="text" class="form-control ipAddress ipValida" value="<?= $item['direccion']?>">
+				</div>
+				<div class="col_one_fourth col_last">
+					<input name="prefijoO_<?=$i?>" type="number" class="form-control prefijo" value="<?= $item['prefijo']?>"
+						min="0" max="32">
+				</div>
+				<input type="hidden" name="idCidrO_<?=$i?>" value="<?= $item['id_cidr']?>">
+				<div class="clear"></div>
+			</div>
+		<?php } endforeach;?>
 	</div>
-	<div style="width:1%; float:left; margin: 2%;"></div>
 
-	<div class="col_one_sixth">
-		<label>Número de Puerto</label>
-		<input name="puertoO" id="puertoO" type="number" class="sm-form-control puerto" 
-			min="1" max="65535" value="<?=$clase->puerto_o?>">
+	<!-- Bloque de Puerto Outside-->
+	<div class="col_half col_last">
+		<input type="hidden" name="indexPuertoO" value="<?php if(sizeof($puertoO)==0) echo 0; else echo sizeof($puertoO)-1; ?>">
+
+		<div id="PuertoO_0">
+			<div class="col_icon agregar">
+				<img src="<?=base_url('public/images/plus-icon.png')?>">
+			</div>
+			<div class="col_icon hidden borrar">
+				<img src="<?=base_url('public/images/delete.png')?>">
+			</div>
+			<div class="col_one_third">
+				<label>Puerto</label>
+				<input name="puertoO_0" type="number" class="form-control puerto" 
+					min="1" max="65535" value="<?= array_values($puertoO)[0]['numero']?>">
+			</div>
+			<div class="col_one_fourth col_last">
+				<label>Protocolo</label>
+				<select name="protocoloO_0" class="select-1 form-control">
+					<?php foreach($protocolos as $key => $value){ ?>			  
+				    	<option value="<?= $key ?>" <?= array_values($puertoO)[0]['protocolo'] == $key ? ' selected="selected"' : '';?> >
+				    		<?php echo $value ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<input type="hidden" name="idPuertoO_0" value="<?= array_values($puertoO)[0]['id_puerto']?>">
+			<div class="clear"></div>
+		</div>
+
+		<?php foreach($puertoO as $i => $item): if($i > 0) { ?>
+			<div id="PuertoO_<?=$i?>">
+				<div class="col_icon borrar">
+					<img src="<?=base_url('public/images/delete.png')?>">
+				</div>
+	            <div class="col_one_third">
+					<input name="puertoO_<?=$i?>" type="number" class="form-control puerto" 
+						min="1" max="65535" value="<?= $item['numero']?>">
+				</div>
+				<div class="col_one_fourth col_last">
+					<select name="protocoloO_<?=$i?>" class="select-1 form-control">
+						<?php foreach($protocolos as $key => $value){ ?>			  
+					    	<option value="<?= $key ?>" <?= $item['protocolo'] == $key ? ' selected="selected"' : '';?> >
+					    		<?php echo $value ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<input type="hidden" name="idPuertoO_<?=$i?>" value="<?= $item['id_puerto']?>">
+				<div class="clear"></div>
+			</div>
+		<?php } endforeach;?>
 	</div>
 
-	<div class="col_one_sixth">
-		<label>Protocolo</label>
-		<select name="protocoloO" class="select-1 sm-form-control">
-			<?php foreach($protocolos as $key => $value){ ?>			  
-		    	<option value="<?= $key ?>" <?=$clase->protocolo_o == $key ? ' selected="selected"' : '';?> >
-		    	<?php echo $value ?>
-				</option>
-			<?php } ?>
-		</select>
-	</div>
-
-
-	<input type="hidden" name="id_cidrO" value="<?=$clase->id_cidr_o ?>">
-	<input type="hidden" name="id_puertoO" value="<?=$clase->id_puerto_o ?>">
 	<div class="clear"></div>
 
 	<div class="col_full">
@@ -78,38 +131,103 @@
 		</div>
 	</div>
 
-	<div class="col_one_third">
-		<label>Dirección IP</label>
-		<input name="direccionI" id="direccionI" type="text" class="sm-form-control ipAddress" 
-			placeholder="XXX.XXX.XXX.XXX" value="<?=$clase->direccion_i?>">
+	<!-- Bloque de Cidr Inside-->
+	<div class="col_half">
+		<input type="hidden" name="indexCidrI" value="<?php if(sizeof($cidrI)==0) echo 0; else echo sizeof($cidrI)-1; ?>">
+
+		<div id="CidrI_0">
+			<div class="col_icon agregar">
+				<img src="<?=base_url('public/images/plus-icon.png')?>">
+			</div>
+			<div class="col_icon hidden borrar">
+				<img src="<?=base_url('public/images/delete.png')?>">
+			</div>
+            <div class="col_two_fifth">
+				<label>Dirección IP</label>
+				<input name="direccionI_0" type="text" class="form-control ipAddress ipValida" value="<?= array_values($cidrI)[0]['direccion']?>">
+			</div>
+			<div class="col_one_fourth col_last">
+				<label>Prefijo</label>
+				<input name="prefijoI_0" type="number" class="form-control prefijo" value="<?= array_values($cidrI)[0]['prefijo']?>"
+					min="0" max="32">
+			</div>
+			<input type="hidden" name="idCidrI_0" value="<?= array_values($cidrI)[0]['id_cidr']?>">
+			<div class="clear"></div>
+		</div>
+
+		<?php foreach($cidrI as $i => $item): if($i > 0) { ?>
+			<div id="CidrI_<?=$i?>">
+				<div class="col_icon borrar">
+					<img src="<?=base_url('public/images/delete.png')?>">
+				</div>
+	            <div class="col_two_fifth">
+					<input name="direccionI_<?=$i?>" type="text" class="form-control ipAddress ipValida" value="<?= $item['direccion']?>">
+				</div>
+				<div class="col_one_fourth col_last">
+					<input name="prefijoI_<?=$i?>" type="number" class="form-control prefijo" value="<?= $item['prefijo']?>"
+						min="0" max="32">
+				</div>
+				<input type="hidden" name="idCidrI_<?=$i?>" value="<?= $item['id_cidr']?>">
+				<div class="clear"></div>
+			</div>
+		<?php } endforeach;?>
 	</div>
 
-	<div class="col_one_sixth">
-		<label>Prefijo</label>
-		<input name="prefijoI" type="number" class="sm-form-control prefijo" 
-			min="0" max="32" value="<?=$clase->prefijo_i?>">
-	</div>
-	<div style="width:1%; float:left; margin: 2%;"></div>
+	<!-- Bloque de Puerto Inside-->
+	<div class="col_half col_last">
+		<input type="hidden" name="indexPuertoI" value="<?php if(sizeof($puertoI)==0) echo 0; else echo sizeof($puertoI)-1; ?>">
 
-	<div class="col_one_sixth">
-		<label>Número de Puerto</label>
-		<input name="puertoI" id="puertoI" type="number" class="sm-form-control puerto" 
-			min="1" max="65535" value="<?=$clase->puerto_i?>">
+		<div id="PuertoI_0">
+			<div class="col_icon agregar">
+				<img src="<?=base_url('public/images/plus-icon.png')?>">
+			</div>
+			<div class="col_icon hidden borrar">
+				<img src="<?=base_url('public/images/delete.png')?>">
+			</div>
+			<div class="col_one_third">
+				<label>Puerto</label>
+				<input name="puertoI_0" type="number" class="form-control puerto" 
+					min="1" max="65535" value="<?= array_values($puertoI)[0]['numero']?>">
+			</div>
+			<div class="col_one_fourth col_last">
+				<label>Protocolo</label>
+				<select name="protocoloI_0" class="select-1 form-control">
+					<?php foreach($protocolos as $key => $value){ ?>			  
+				    	<option value="<?= $key ?>" <?= array_values($puertoI)[0]['protocolo'] == $key ? ' selected="selected"' : '';?> >
+				    		<?php echo $value ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<input type="hidden" name="idPuertoI_0" value="<?= array_values($puertoI)[0]['id_puerto']?>">
+			<div class="clear"></div>
+		</div>
+
+		<?php foreach($puertoI as $i => $item): if($i > 0) { ?>
+			<div id="PuertoI_<?=$i?>">
+				<div class="col_icon borrar">
+					<img src="<?=base_url('public/images/delete.png')?>">
+				</div>
+	            <div class="col_one_third">
+					<input name="puertoI_<?=$i?>" type="number" class="form-control puerto" 
+						min="1" max="65535" value="<?= $item['numero']?>">
+				</div>
+				<div class="col_one_fourth col_last">
+					<select name="protocoloI_<?=$i?>" class="select-1 form-control">
+						<?php foreach($protocolos as $key => $value){ ?>			  
+					    	<option value="<?= $key ?>" <?= $item['protocolo'] == $key ? ' selected="selected"' : '';?> >
+					    		<?php echo $value ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<input type="hidden" name="idPuertoI_<?=$i?>" value="<?= $item['id_puerto']?>">
+				<div class="clear"></div>
+			</div>
+		<?php } endforeach;?>
 	</div>
 
-	<div class="col_one_sixth">
-		<label>Protocolo</label>
-		<select name="protocoloI" class="select-1 sm-form-control">
-			<?php foreach($protocolos as $key => $value){ ?>			  
-		    	<option value="<?= $key ?>" <?=$clase->protocolo_i == $key ? ' selected="selected"' : '';?> >
-		    	<?php echo $value ?>
-				</option>
-			<?php } ?>
-		</select>
-	</div>
-	<input type="hidden" name="id_cidrI" value="<?=$clase->id_cidr_i ?>">
-	<input type="hidden" name="id_puertoI" value="<?=$clase->id_puerto_i ?>">
 	<div class="clear"></div>
+
+
 
 	<div id="divError" class="alert alert-danger nobottommargin hidden">
 	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -127,11 +245,12 @@
 
 <!-- JavaScripts
 ============================================= -->
+<script type="text/javascript" src="<?=base_url('public/js/netcop/clase.nueva.js')?>"></script>
+
 <script type="text/javascript">	
-
 	$(document).ready(function() {
-
 		$('#tituloPantalla').text('Nueva Clase de Tráfico');
+
 		var siteurl = '<?=site_url()?>';
 
 		//ACEPTAR Y CERRAR MODAL INFORMACION, CANCELAR GUARDADO
@@ -161,68 +280,7 @@
 
 	    });
 
-
-		$.validator.addMethod('IPvalida', function(value) {
-			if (value=="") return true;
-            var regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
-            return regex.test(value);
-        });
-
-        $.validator.addMethod('validarCamposCompletos', function(value) {
-			if ($('#direccionI').val()=="" && $('#puertoI').val()=="" && $('#direccionO').val()=="" && $('#puertoO').val()==""){
-				mostrarDivError(true);
-				return false;
-			}
-			mostrarDivError(false);
-			return true;
-         });
-
-        $('#form').validate({
-        	errorElement: 'span',
-            rules: {
-            	nombre: "required",
-            	descripcion: "required",
-                direccionO: { 	IPvalida: true,
-                				validarCamposCompletos: true },
-                direccionI: {	IPvalida: true,
-                				validarCamposCompletos: true },
-                puertoO: "validarCamposCompletos",
-                puertoI: "validarCamposCompletos",
-            }
-        });
-
-        function mostrarDivError(valor){
-        	if(valor && $('#divError').hasClass("hidden")){
-				$('#divError').removeClass("hidden");
-			} else if (!valor && !$('#divError').hasClass("hidden")){
-				$('#divError').addClass("hidden");
-			}
-        }
-
-
-        $('.ipAddress').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
-		    translation: {'Z': {pattern: /[0-9]/, optional: true}}
-		});
-
-		$(".prefijo").keyup(function() {
-		   if(this.value.length > 2) {
-		        this.value = this.value.slice(0,2);
-		   }
-		   if(this.value > 32) {
-		        this.value = this.value.slice(0,-1);
-		   }
-		});
-
-		$(".puerto").keyup(function() {
-		   if(this.value.length > 5) {
-		        this.value = this.value.slice(0,5);
-		   }
-		   if(this.value < 1 || this.value > 65535) {
-		        this.value = this.value.slice(0,-1);
-		   }
-		});
 	});
-
 </script>
 
 <?php include('estructura/footer.php'); ?>

@@ -59,5 +59,16 @@ class PuertoModel extends CI_Model{
         $query = $this->db->get('clase_puerto');
         return $query->result();
     }
+
+    function obtener($id_clase, $grupo){
+        $this->db->select('*');
+        $this->db->from('clase_puerto'); 
+        $this->db->join('puerto', 'puerto.id_puerto=clase_puerto.id_puerto');
+        $this->db->where('clase_puerto.id_clase',$id_clase);
+        $this->db->where('clase_puerto.grupo',$grupo);
+        $this->db->order_by('puerto.id_puerto','asc');         
+        $query = $this->db->get(); 
+        return $query->result_array();
+    }
 }
 ?>

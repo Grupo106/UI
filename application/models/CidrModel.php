@@ -59,5 +59,16 @@ class CidrModel extends CI_Model{
         $query = $this->db->get('clase_cidr');
         return $query->result();
     }
+
+    function obtener($id_clase, $grupo){
+        $this->db->select('*');
+        $this->db->from('clase_cidr'); 
+        $this->db->join('cidr', 'cidr.id_cidr=clase_cidr.id_cidr');
+        $this->db->where('clase_cidr.id_clase',$id_clase);
+        $this->db->where('clase_cidr.grupo',$grupo);
+        $this->db->order_by('cidr.id_cidr','asc');         
+        $query = $this->db->get(); 
+        return $query->result_array();
+    }
 }
 ?>

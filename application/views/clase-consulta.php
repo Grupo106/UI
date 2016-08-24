@@ -5,21 +5,10 @@
 	<table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
-				<th colspan='1'></th>
-				<th colspan='1'></th>
-				<th colspan='2' style="text-align: center">DESTINO</th>
-				<th colspan='2' style="text-align: center">ORIGEN</th>
-				<th colspan='1'></th>
-				<th colspan='1'></th>
-			</tr>	
-			<tr>
-				<th width="2%">Estado</th>
-				<th width="18%">Nombre</th>
-				<th width="15%">Dirección de Red</th>
-				<th width="12%">Puerto</th>
-				<th width="15%">Dirección de Red</th>
-				<th width="12%">Puerto</th>
-				<th width="12%">Tipo</th>
+				<th width="5%">Estado</th>
+				<th width="20%">Nombre</th>
+				<th width="40%">Descripcion</th>
+				<th width="15%">Tipo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -28,13 +17,15 @@
 			<?php foreach($listado as $item): ?>
 	            <tr>
 	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
-	                <td> <?= $item['estado']?> </td>
+	                <td style="text-align:center;"> 
+	                	<?php if($item['activa']=='t') { ?>
+	                		<img src="<?=base_url('public/images/activa.png')?>">
+	                	<?php } else { ?>
+	                		<img src="<?=base_url('public/images/inactiva.png')?>"> <?php } ?>
+	                </td>
 	                <td id="nombre"> <?= $item['nombre'] ?></td>
-	                <td> <?= $item['direccionO']?> </td>
-	                <td> <?= $item['puertoO']?> </td>
-	                <td> <?= $item['direccionI']?> </td>
-	                <td> <?= $item['puertoI']?> </td>
-	                <td> <?= $item['tipo']?> </td>
+	                <td> <?= $item['descripcion']?> </td>
+	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 						<img class="editar" src="<?=base_url('public/images/edit.png')?>">
