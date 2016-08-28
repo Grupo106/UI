@@ -7,7 +7,7 @@
 	</div>		
 </div>	
 
-<form id="form" action="guardar" method="post">
+<form id="form" action="<?=site_url('usuario/guardar/')?>" method="post">
 	<input type="hidden" name="idUsuario" value="32">
 	<div class="col_one_third">
 		<label>Nombre</label>
@@ -58,7 +58,7 @@
 		var siteurl = '<?=site_url()?>';
 
 		$('#btnCancelar').click(function(){
-			window.location.href = "<?php echo site_url('index.php/usuario/consulta');?>";
+			window.location.href = "<?php echo site_url('usuario/consulta');?>";
 		});
 
 		//GUARDAR
@@ -81,7 +81,7 @@
 
 	    //ACEPTAR
 		$('#btnAceptarInformacion').click(function(){
-	        window.location.href = "<?php echo site_url('index.php/usuario/consulta');?>";
+	        window.location.href = "<?php echo site_url('usuario/consulta');?>";
 		});
 	});
 </script>

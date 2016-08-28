@@ -6,6 +6,7 @@ class ClaseModel extends CI_Model{
     }
 
     function obtenerTodos(){
+        $this->db->order_by("id_clase","desc");
         $query = $this->db->get('clase_trafico');
         return $query->result_array();
     }
@@ -13,7 +14,7 @@ class ClaseModel extends CI_Model{
     function insertar($data){
         $this->db->insert('clase_trafico',$data);
         if($this->db->affected_rows()>0){
-            return true;
+            return $this->db->insert_id();  
         } 
         return false;
     }
@@ -30,7 +31,7 @@ class ClaseModel extends CI_Model{
     function obtener($id){
         $this->db->where('id_clase', $id);
         $query = $this->db->get('clase_trafico');
-        return $query->result();
+        return $query->first_row();
     }
 
     function eliminar($id){

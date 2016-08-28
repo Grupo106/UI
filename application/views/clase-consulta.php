@@ -5,22 +5,27 @@
 	<table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
+				<th width="5%">Estado</th>
 				<th width="20%">Nombre</th>
-				<th width="30%">Descripción</th>
-				<th width="20%">Objetivo</th>
+				<th width="40%">Descripcion</th>
 				<th width="15%">Tipo</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
 		<tbody>
 
-			<?php foreach($datos as $item): ?>
+			<?php foreach($listado as $item): ?>
 	            <tr>
 	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
-	                <td id="nombre"> <?= $item['nombre']?></td>
+	                <td style="text-align:center;"> 
+	                	<?php if($item['activa']=='t') { ?>
+	                		<img src="<?=base_url('public/images/activa.png')?>">
+	                	<?php } else { ?>
+	                		<img src="<?=base_url('public/images/inactiva.png')?>"> <?php } ?>
+	                </td>
+	                <td id="nombre"> <?= $item['nombre'] ?></td>
 	                <td> <?= $item['descripcion']?> </td>
-	                <td> <?= $item['objetivo']?> </td>
-	                <td> <?php if ($item['tipo']=="0"){echo 'SISTEMA';} else {echo 'USUARIO';} ?> </td>
+	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 						<img class="editar" src="<?=base_url('public/images/edit.png')?>">
@@ -46,7 +51,9 @@
 
 		$('#tituloPantalla').text('Clases de Tráfico');
 
-		var table = $('#tablaClases').DataTable();
+		var table = $('#tablaClases').DataTable( { "aaSorting":[] } );
+
+		jQuery(".bt-switch").bootstrapSwitch();
 
 		var siteurl = '<?=site_url()?>';
 
@@ -63,6 +70,9 @@
 
 		//ELIMINAR
 		$('.eliminar').click(function(){
+			//Quito la clase "selected" de la fila anterior seleccionada
+			$("tr.selected").removeClass('selected');
+			//Coloco el selected a la nueva fila
 			$(this).closest('tr').addClass('selected');
 			var nombre = $(this).closest('tr').find('td[id="nombre"]').text();
 
@@ -72,15 +82,15 @@
 
 		//ACEPTAR ELIMINAR
 		$('#btnAceptarEliminar').click(function(){
+			$('#modalEliminar').modal('hide');
 			var id = $("tr.selected").find('input:hidden').val();
+
 	        $.ajax({
 	            url : siteurl+'/clasetrafico/eliminar',
 	            data : { id : id},
 	            type: "POST",
 	            success: function(respuesta){
-	            	$('#modalEliminar').modal('hide');
 	            	if(respuesta!=1){
-	            		$("tr.selected").removeClass('selected');
 			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
 			            $('#modalInformacion').modal('show');
 			        } else {
@@ -88,7 +98,6 @@
 			        }
 	            }
 	        })
-
 		});
 
 		//CANCELAR ELIMINAR

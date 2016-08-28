@@ -41,8 +41,9 @@
 
 <!-- JavaScripts
 ============================================= -->
-<script type="text/javascript" src="<?=base_url('public/js/fechas.js')?>"></script>
-<script type="text/javascript" src="<?=base_url('public/js/monitoreo.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/netcop/fechas.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/netcop/monitoreo.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/netcop/graficos.js')?>"></script>
 
 <script type="text/javascript">	
 	jQuery(window).load( function(){
