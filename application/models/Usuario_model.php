@@ -24,7 +24,32 @@ class Usuario_model extends CI_Model{
         return $query->first_row();
     }
 
+    function obtener_usuario_login($user, $pass){
+
+        $this->db->where('usuario',$user);
+        $this->db->where('password',$pass);
+        
+        $query = $this->db->get('usuarios');
+        $datos=$query->result();
+       
+        if($datos){
+            $data['idUsuario']= $datos[0]->id_usu;
+            $data['nombreUsuario']= $datos[0]->nombre;
+            $data['apellidoUsuario']= $datos[0]->apellido;
+            $data['rolUsuario']= $datos[0]->rol;
+            $data['mailUsuario']= $datos[0]->mail;
+            $data['userUsuario']= $datos[0]->usuario;
+            $data['passUsuario']= $datos[0]->password;
+            return $data;
+        }
+        else {
+            return null; 
+        }
+    }
+
+
     function insertar($data){
+
     $this->db->insert('usuarios',$data);
     if($this->db->affected_rows()>0){
             return true;
@@ -50,6 +75,20 @@ class Usuario_model extends CI_Model{
         } 
         return false;
     }
+
+
+
+    public function generateHash($plainText, $salt = null)
+    {
+        if ($salt === null)
+        { $salt = substr(md5(uniqid(rand(), true)), 0, 10);}
+        else
+        { $salt = substr($salt, 0, 10); }
+
+        return $salt . sha1($salt . $plainText);
+    }
+
+
 
 }
 ?>
