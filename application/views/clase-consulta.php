@@ -19,9 +19,10 @@
 	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
 	                <td style="text-align:center;"> 
 	                	<?php if($item['activa']=='t') { ?>
-	                		<img src="<?=base_url('public/images/activa.png')?>">
+	                		<input class="bt-switch estado" type="checkbox" checked data-size="mini">
 	                	<?php } else { ?>
-	                		<img src="<?=base_url('public/images/inactiva.png')?>"> <?php } ?>
+							<input class="bt-switch estado" type="checkbox" data-size="mini">
+	                	<?php } ?>
 	                </td>
 	                <td id="nombre"> <?= $item['nombre'] ?></td>
 	                <td> <?= $item['descripcion']?> </td>
@@ -63,10 +64,29 @@
 		});
 		
 		//EDITAR
-		$('.editar').click(function(){
+		$('.estado').on('switchChange.bootstrapSwitch', function (e, estado){
+			
 			var id = $(this).closest('tr').find('input:hidden').val();
-			window.location.href = "<?php echo site_url('clasetrafico/editar');?>?id="+id;
+			var input = $(this);
+			$.ajax({
+	            url : siteurl+'/clasetrafico/activar',
+	            data : { id : id, estado : estado},
+	            type: "POST",
+	            success: function(respuesta){
+	            	if(respuesta!=1){
+			            $('#mensaje').text("Error al cambiar el estado de la clase de tráfico.");
+			            $('#modalInformacion').modal('show');
+			    		jQuery(input).bootstrapSwitch('state', !estado, true);
+			        } 
+	            }
+	        })
 		});
+
+		//EDITAR
+		$('.editar').click(function(){
+		    var id = $(this).closest('tr').find('input:hidden').val();
+			window.location.href = "<?php echo site_url('clasetrafico/editar');?>?id="+id;
+		})
 
 		//ELIMINAR
 		$('.eliminar').click(function(){

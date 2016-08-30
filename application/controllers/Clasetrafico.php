@@ -133,6 +133,14 @@ class Clasetrafico extends CI_Controller {
         echo $this->claseModel->eliminar($id);
     }
 
+    public function activar() {
+        $id = $this->input->post('id');
+        $estado = $this->input->post('estado');
+        $data = array('activa' => $estado); 
+
+        echo $this->claseModel->actualizar($id, $data);
+    }
+
     public function getListaProtocolos(){
         $options = array(
               '0'  => '',
