@@ -1,10 +1,8 @@
 <?php
 /* Ansible managed: /home/netcop/ansible/templates/database.php.j2 modified on 2016-08-04 00:02:57 by netcop on netcop */
 defined('BASEPATH') OR exit('No direct script access allowed');
-
 $active_group = 'default';
 $query_builder = TRUE;
-
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',

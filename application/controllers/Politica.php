@@ -1,20 +1,20 @@
 <?php
-error_reporting(E_ALL^E_NOTICE^E_WARNING);
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class Politica extends CI_Controller {
-
+class Politica extends CI_Controller{
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+        $this->load->model('politicaM');
 	}
 
-    public function consulta() {
-        $this->load->view('politica-consulta');
-    }
+	function consulta(){    
+    	$listapoliticas = $this->politicaM->obtener_politicas();
 
-    public function nueva() {
-        $this->load->view('politica-nueva');
-    }
+    	$data = array(
+	        'politicas' => $listapoliticas
+	    );      
+        
+        // Cargar vista
+    	$this->load->view('consultar-politicas', $data);
+	}
 }
 ?>
