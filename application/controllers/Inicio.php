@@ -10,14 +10,40 @@ class Inicio extends CI_Controller {
 		$this->load->library('session');
 
 
-		if(! $_SESSION[SISENER_SESSION]['loggedIn']){
 
-			$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
+		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
+
+			//$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
  			$this->load->view("login");
 
  			
  		}
 	}
+
+ 	public function autenticar() {
+    	session_start();
+		$this->load->model('usuario_model');
+    	$user = $this->input->post('login-usuario');
+        $pass = $this->input->post('login-password');
+
+        $userLoggedIn = $this->usuario_model->obtener_usuario_login($user, $pass);
+
+        if(!$userLoggedIn)
+        {
+			//header("location:".URL);
+
+        }
+        else {
+
+        	$_SESSION['SISENER_SESSION'] = $userLoggedIn;
+			$_SESSION['SISENER_SESSION']['loggedIn'] = true;
+
+        	//$this->load->view("login");
+        	        print_r($_SESSION['SISENER_SESSION']);
+       			redirect("/inicio/index");
+        }
+
+    }
 
 
     public function index(){
