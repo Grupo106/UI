@@ -39,7 +39,7 @@ class Inicio extends CI_Controller {
 			$_SESSION['SISENER_SESSION']['loggedIn'] = true;
 
         	//$this->load->view("login");
-        	        print_r($_SESSION['SISENER_SESSION']);
+        	   //print_r($_SESSION['SISENER_SESSION']);
        			redirect("/inicio/index");
         }
 
