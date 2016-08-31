@@ -23,7 +23,7 @@
 		<!-- #fin de los Pasos -->
 		
 		
-		<form id="login-form" name="login-form" action="index.php" method="post">
+		<form id="form" action="<?=site_url('asistente/crearUsuario')?>" method="post">
 			<h4>Completá tus datos para crear un Usuario Administrador</h4>
 			
 			<div class="col_half">
