@@ -12,7 +12,7 @@
 	<input name="nombre" type="text" class="sm-form-control" value="<?= $nombre?>">
 </div>
 
-<div class="col_one_third">
+<div class="col_one_third" style="margin-bottom:50px;">
 	<label>Apellido</label>
 	<input name="apellido" type="text" class="sm-form-control" value="<?= $apellido?>">
 </div>
@@ -58,6 +58,7 @@
 <?php include('estructura/modal-informacion.php'); ?>
 <!-- JavaScripts
 ============================================= -->
+<script type="text/javascript" src="<?=base_url('public/js/netcop/usuario.js')?>"></script>
 <script type="text/javascript">	
 		$(document).ready(function() {
 
@@ -71,19 +72,21 @@
 		//GUARDAR
 		$('#form').submit(function (event){
 			event.preventDefault();
+			if($('#form').valid()) {
 			$.ajax({
 	            url : $('#form').attr("action"),
 	            type : $('#form').attr("method"),
 	            data : $('#form').serialize(),
 	            success: function(respuesta){
 	            	if(respuesta==1){
-			            $('#mensaje').text("La clase fue guardada exitosamente.");
+			            $('#mensaje').text("El usuario fue guardado exitosamente.");
 			        } else {
-			            $('#mensaje').text("Error al guardar la clase de tráfico.");
+			            $('#mensaje').text("Error al guardar el usuario.");
 			        }
 	            	$('#modalInformacion').modal('show');
 	            }
 	        });
+		  }
 	    });
 
 	    //ACEPTAR

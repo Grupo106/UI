@@ -15,18 +15,27 @@ class Asistente extends CI_Controller {
         $this->load->view('asistente-paso1');
     }
 
+    public function asistenteInicial() {
+        $this->load->view('asistente');
+    }
 
     public function crearUsuario() {
-        $id = $this->input->post('id');
-        $data = array('usuario' => $this->input->post('usuario-usuario'),
-                      'password' => $this->input->post('usuario-password'), 
-                      'nombre' => $this->input->post('usuario-nombre'),
-                      'apellido' => $this->input->post('usuario-apellido'),
-                      'mail' => $this->input->post('usuario-mail'),
+        $data = array('usuario' => $this->input->post('usuario'),
+                      'password' => $this->input->post('password'), 
+                      'nombre' => $this->input->post('nombre'),
+                      'apellido' => $this->input->post('apellido'),
+                      'mail' => $this->input->post('mail'),
                       'rol' =>  "Administrador");
 
-        $this->usuario_model->insertar($data);
+        echo $this->usuario_model->insertar($data);
+    } 
+
+    public function asistente2() {
         $this->load->view('asistente-paso2');
-    }              
+    }          
+
+    public function asistente3() {
+        $this->load->view('asistente-paso3');
+    }             
 }
 ?>
