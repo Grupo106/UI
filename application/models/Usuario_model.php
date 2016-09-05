@@ -27,11 +27,17 @@ class Usuario_model extends CI_Model{
     function obtener_usuario_login($user, $pass){
 
         $this->db->where('usuario',$user);
-        $this->db->where('password',$pass);
-        
+        //$this->db->where('password',$pass);
         $query = $this->db->get('usuarios');
-        $datos=$query->result();
-       
+        $password_db = $query->result();
+        $pass_db = $password_db[0]->password;
+        $securePassword = $this->generateHash($pass, $pass_db);
+        
+         $this->db->where('usuario',$user);
+         $this->db->where('password',$securePassword);
+         $query = $this->db->get('usuarios');
+         $datos = $query->result();
+
         if($datos){
             $data['idUsuario']= $datos[0]->id_usu;
             $data['nombreUsuario']= $datos[0]->nombre;
@@ -80,7 +86,7 @@ class Usuario_model extends CI_Model{
 
     public function generateHash($plainText, $salt = null)
     {
-        if ($salt === null)
+        if ($salt == null)
         { $salt = substr(md5(uniqid(rand(), true)), 0, 10);}
         else
         { $salt = substr($salt, 0, 10); }
@@ -88,7 +94,15 @@ class Usuario_model extends CI_Model{
         return $salt . sha1($salt . $plainText);
     }
 
+   /* public function generateHash($plainText, $salt = null)
+    {
+        if ($salt === null)
+        { $salt = substr(md5(uniqid(rand(), true)), 0, 10);}
+        else
+        { $salt = substr($salt, 0, 10); }
 
-
+        return $salt . sha1($salt . $plainText);
+    }
+    */
 }
 ?>
