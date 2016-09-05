@@ -29,7 +29,7 @@
 
 <div class="col_one_third">
 	<label>Contraseña</label>
-	<input name="password" type="password" class="sm-form-control" value="<?= $password?>">
+	<input name="password2" type="password2" class="sm-form-control" value="">
 </div>	
 <div class="col_one_third col_last">
 	<label>Rol</label>
