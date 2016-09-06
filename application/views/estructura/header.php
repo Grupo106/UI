@@ -61,3 +61,5 @@
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.mask.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.validate.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/components/bs-switches.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/jquery.canvasjs.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/date.js')?>"></script>
