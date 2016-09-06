@@ -9,4 +9,15 @@ $(document).ready(function() {
             $('#div-personalizada').addClass('hidden');   
        }
    });
+
+     $('#form').validate({
+    	errorElement: 'span',
+        rules: {
+          	nombre: "required",
+            usuario: "required",
+          	apellido: "required",
+            mail: "required",
+            password: "required"   
+        }
+    });
 });

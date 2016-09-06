@@ -11,7 +11,8 @@ class Usuario extends CI_Controller {
 	}
 
     public function consulta() {
-        $data['usuarios'] = $this->usuario_model->obtener_usuarios();        
+        $data['usuarios'] = $this->usuario_model->obtener_usuarios();  
+
         $this->load->view('usuario-consulta', $data);
     }
 
@@ -27,11 +28,32 @@ class Usuario extends CI_Controller {
 
     public function guardar() {
         $id = $this->input->post('id');
-        $data = array('password' => $this->input->post('password'), 
+        if($this->input->post('password')){
+
+        $pass=$this->input->post('password');
+        $password = $this->usuario_model->generateHash($pass);
+        $data = array('password' => $password, 
                       'nombre' => $this->input->post('nombre'),
                       'apellido' => $this->input->post('apellido'),
                       'mail' => $this->input->post('mail'),
                       'rol' =>  $_POST['rol']);
+        }
+        else if($this->input->post('password2')){
+
+        $pass=$this->input->post('password2');
+        $password = $this->usuario_model->generateHash($pass);
+        $data = array('password' => $password, 
+                      'nombre' => $this->input->post('nombre'),
+                      'apellido' => $this->input->post('apellido'),
+                      'mail' => $this->input->post('mail'),
+                      'rol' =>  $_POST['rol']);
+        }
+        else {
+            $data = array('nombre' => $this->input->post('nombre'),
+                      'apellido' => $this->input->post('apellido'),
+                      'mail' => $this->input->post('mail'),
+                      'rol' =>  $_POST['rol']);
+        }
 
         if($id=="") {
             $data['usuario'] = $this->input->post('usuario');
