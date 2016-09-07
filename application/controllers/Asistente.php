@@ -20,8 +20,10 @@ class Asistente extends CI_Controller {
     }
 
     public function crearUsuario() {
+        $pass=$this->input->post('password');
+        $password = $this->usuario_model->generateHash($pass);
         $data = array('usuario' => $this->input->post('usuario'),
-                      'password' => $this->input->post('password'), 
+                      'password' => $password, 
                       'nombre' => $this->input->post('nombre'),
                       'apellido' => $this->input->post('apellido'),
                       'mail' => $this->input->post('mail'),

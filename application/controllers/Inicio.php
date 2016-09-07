@@ -8,8 +8,12 @@ class Inicio extends CI_Controller {
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
+		$this->load->model('usuario_model');
 
-
+		 $anyuser = $this->usuario_model->existe_usuarios();  
+		 if(!$anyuser) {
+		 	$this->load->view("asistente");
+		 }
 
 		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
 
