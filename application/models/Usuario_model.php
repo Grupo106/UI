@@ -16,6 +16,16 @@ class Usuario_model extends CI_Model{
         return $query->result_array();
     }
 
+    function existe_usuarios(){
+
+        $query = $this->db->get('usuarios');
+        
+        if($query->num_rows() > 0) {
+            return true;
+        }
+        return false;
+    }
+
 
     function obtener_usuarios_porId($id){
 

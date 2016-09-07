@@ -36,7 +36,7 @@
 		<!-- #fin de los Pasos -->
 		
 		
-		<form id="login-form" name="login-form" action="index.php" method="post">
+		<form id="login-form" name="login-form" action="<?=site_url('asistente/asistente3')?>" method="post">
 			<h4>Elegí el tipo de Configuración del Sistema</h4>
 			
 			<div style="padding-bottom: 20px;">
@@ -82,5 +82,28 @@
 <!-- JavaScripts
 ============================================= -->
 <script type="text/javascript" src="<?=base_url('public/js/netcop/asistente.js')?>"></script>
+<script type="text/javascript">	
+	$(document).ready(function() {
 
+		//GUARDAR
+		/* $('#form').submit(function (event){ 
+			event.preventDefault();
+			if ($('#form').valid()) {
+			$.ajax({
+	            url : $('#form').attr("action"),
+	            type : $('#form').attr("method"),
+	            data : $('#form').serialize(),
+	            success: function(respuesta){
+	            	if(respuesta==1){
+			           window.location.href = "<?php echo site_url('asistente/asistente2');?>";
+			        } else {
+			            $('#mensaje').text("Error al guardar el usuario.");
+			        }
+	            	
+	            }
+	        });
+		   }
+	    });*/
+	});
+</script>
 <?php include('estructura/footer-panel.php'); ?>
