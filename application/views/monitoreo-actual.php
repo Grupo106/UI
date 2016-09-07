@@ -28,13 +28,9 @@
 			  margin: 20,
 			},
 			axisX: {						
-				//intervalType: "second",
-				//valueFormatString: "hh:mm:ss",
-				interval: 50,
 				gridColor: "#F2F2F2",
 				lineColor: "#D8D8D8",
 				labelAutoFit: false,
-				labelAngle: -45,
 			},
 			axisY: {						
 				title: "bytes",
@@ -52,7 +48,33 @@
 
 		var updateInterval = 1000; //intervalo de actualizacion = 1 segundo
 		var dataLength = 50; //numero de puntos visibles al mismo tiempo
-		var primeraConsulta = true;
+		var bajada = 0;
+		var subida = 1;
+
+		inicializarGraficos();
+		setInterval(function(){obtenerConsumoTotal(bajada)}, updateInterval); 
+
+
+		function inicializarGraficos() {
+
+			var totalesPorSegundo = <?php echo json_encode($totalesPorSegundoBajada); ?>;
+
+			for (i = 0; i < totalesPorSegundo.length; i++) { 
+
+				var fecha = Date.parse(totalesPorSegundo[i]['hora']);
+			    puntos.push({
+					x: fecha, 
+					y: Number(totalesPorSegundo[i]['bytes']),
+					label: fecha.toString("HH:mm:ss"),
+				});
+
+				if (puntos.length > dataLength){
+					puntos.shift();				
+				}
+			}
+			chart.render();	
+		}
+
 
 		function obtenerConsumoTotal(tipo) {
 
@@ -64,15 +86,16 @@
 	    	})
 		};
 
-		var count = 100;
 
 		function actualizarGrafico(data) {
-
-			count = count + 10;
+			debugger;
+			var totalPorSegundo = JSON.parse(data);
+			var fecha = Date.parse(totalPorSegundo['hora']);
 
 			puntos.push({
-				x: count, //new Date(), //new Date().toString("hh:mm:ss"),
-				y: Number(data),
+				x: fecha, 
+				y: Number(totalPorSegundo['bytes']),
+				label: fecha.toString("HH:mm:ss"),
 			});	
 			
 			if (puntos.length > dataLength){
@@ -80,27 +103,6 @@
 			}
 			chart.render();	
 		}
-
-		function inicializarGraficos() {
-
-			var totalPorSegundo = <?php echo json_encode($totalesPorSegundo); ?>;
-			console.log(totalPorSegundo);
-
-			for (i = 0; i < totalPorSegundo.length; i++) { 
-			    puntos.push({
-					x: i, //new Date(totalPorSegundo[i]['hora']), //.slice(11, 19),
-					y: Number(totalPorSegundo[i]['bytes']),
-				});
-
-				if (puntos.length > dataLength){
-					puntos.shift();				
-				}
-			}
-			chart.render();	
-		}
-
-		inicializarGraficos();
-		setInterval(function(){obtenerConsumoTotal('bajada')}, updateInterval); 
 
 
 	});
