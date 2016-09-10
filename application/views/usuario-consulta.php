@@ -27,14 +27,18 @@
 				$apellido=$usuario['apellido'];
 				$rol=$usuario['rol'];
 				
-                echo "<tr> <td> $user</td><td id='nombre'> $nombre </td> <td> $rol </td>"?>
+                echo "<tr> <td> $user</td><td id='nombre'> $nombre </td> <td> $rol </td>"; ?>
                 
                 <input type="hidden" value="<?php echo $id; ?>">
-                
+               
 				<td>
+					 <?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
+					<?php }
+					else { echo "No tiene permisos de administrador";} ?>
 				</td>
+						
 				</tr>
               <?php } //fin foreach ?>
 			

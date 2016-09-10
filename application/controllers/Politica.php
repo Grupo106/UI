@@ -3,7 +3,14 @@ class Politica extends CI_Controller{
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
+		$this->load->library('session');
         $this->load->model('politicaM');
+
+        if(! $_SESSION['SISENER_SESSION']['loggedIn']){
+
+        //$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
+        $this->load->view("login");
+        }
 	}
 
 	function consulta(){    

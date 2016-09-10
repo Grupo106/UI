@@ -11,18 +11,29 @@
 <form id="form" action="<?=site_url('sistema/guardar/')?>" method="post">
 	<div class="col_one_third">
 		<label>IP de Administración</label>
-		<input name="ip" class="sm-form-control" value="<?= $ip ?>">
+		<input name="ip" type="text" class="sm-form-control ipAddress ipValida" value="<?= $ip ?>">
+
 	</div>
 
-	<div class="col_one_third">
+	<div class="col_one_third" style="margin-bottom:47px;">
 		<label>Máscara de subred</label>
-		<input name="mascara" class="sm-form-control" value="<?= $mascara ?>">
+		<input name="mascara" class="sm-form-control ipAddress ipValida" value="<?= $mascara ?>">
 	</div>
 
 	<div class="col_one_third col_last">
 		<label>Puerta de enlace</label>
-		<input name="enlace" class="sm-form-control" value="<?= $enlace ?>">
+		<input name="enlace" class="sm-form-control ipAddress ipValida" value="<?= $enlace ?>">
 	</div>
+
+	<div class="col_half"  style="margin-bottom:47px;">
+		<label>DNS 1</label>
+		<input name="dns1" class="sm-form-control ipAddress ipValida" value="<?= $dns1 ?>">
+	</div>
+
+	<div class="col_half col_last">
+		<label>DNS 2</label>
+		<input name="dns2" class="sm-form-control ipAddress ipValida" value="<?= $dns2 ?>">
+	</div>	
 
 	<div class="col_half">
 		<label>Ancho de banda de Bajada</label>
@@ -43,6 +54,7 @@
 <?php include('estructura/modal-informacion.php'); ?>
 <!-- JavaScripts
 ============================================= -->
+<script type="text/javascript" src="<?=base_url('public/js/netcop/sistema.js')?>"></script>
 <script type="text/javascript">	
 	$(document).ready(function() {
 
@@ -56,19 +68,21 @@
 		//GUARDAR
 		$('#form').submit(function (event){
 			event.preventDefault();
+			if ($('#form').valid()) {
 			$.ajax({
 	            url : $('#form').attr("action"),
 	            type : $('#form').attr("method"),
 	            data : $('#form').serialize(),
 	            success: function(respuesta){
 	            	if(respuesta==1){
-			            $('#mensaje').text("La clase fue guardada exitosamente.");
+			            $('#mensaje').text("La configuración fue guardada con éxito.");
 			        } else {
-			            $('#mensaje').text("Error al guardar la clase de tráfico.");
+			            $('#mensaje').text("Error al guardar la configuración.");
 			        }
 	            	$('#modalInformacion').modal('show');
 	            }
 	        });
+		  }
 	    });
 
 	    //ACEPTAR

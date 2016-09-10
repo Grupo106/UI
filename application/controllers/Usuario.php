@@ -7,12 +7,19 @@ class Usuario extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-        $this->load->model('usuario_model');
+    $this->load->library('session');
+    $this->load->model('usuario_model');
+
+
+		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
+
+			//$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
+ 			$this->load->view("login");	
+ 		}
 	}
 
     public function consulta() {
         $data['usuarios'] = $this->usuario_model->obtener_usuarios();  
-
         $this->load->view('usuario-consulta', $data);
     }
 

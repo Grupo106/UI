@@ -1,29 +1,8 @@
 var $ = jQuery.noConflict();
 
 $(document).ready(function() {
-	
-   $('input[type="radio"]').click(function() {
-       if($(this).attr('id') == 'radio-personalizada') {
-            $('#div-personalizada').removeClass('hidden'); 
-            $('#radio-automatica').attr('checked',false);
-       } else {
-            $('#div-personalizada').addClass('hidden');   
-            $('#radio-personalizada').attr('checked',false);
-       }
-   });
 
-     $('#form1').validate({
-    	errorElement: 'span',
-        rules: {
-          	nombre: "required",
-            usuario: "required",
-          	apellido: "required",
-            mail: "required",
-            password: "required"   
-        }
-    });
-
-     $.validator.addMethod('IPvalida', function(value) {
+	$.validator.addMethod('IPvalida', function(value) {
 		if (value=="") return true;
         var regex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
         return regex.test(value);
@@ -34,7 +13,7 @@ $(document).ready(function() {
         IPvalida: true,
     });
 
-    $('#form2').validate({
+    $('#form').validate({
     	errorElement: 'span',
         rules: {
         	ip: "required",
