@@ -19,15 +19,19 @@ class Sistema extends CI_Controller {
     public function configuracion() {
 
         //levantar info del archivo
-        $ip = 1;
-        $mascara = 2;
-        $enlace = 3;
+        $ip = "192.212.212.1";
+        $mascara = "192.212.212.2";
+        $enlace = "192.212.212.3";
+        $dns1 = "192.212.212.4";
+        $dns2 = "192.212.212.5";
         $anchoBajada = 4;
         $anchoSubida = 5;
 
         $data = array("ip" => $ip,
                       "mascara" => $mascara,
                       "enlace" => $enlace, 
+                      "dns1" => $dns1,
+                      "dns2" => $dns2,
                       "anchoBajada" => $anchoBajada,
                       "anchoSubida" => $anchoSubida);
 
@@ -36,15 +40,48 @@ class Sistema extends CI_Controller {
 
     public function guardar() {
 
+        $dir = "/var/tmp/";
+        $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
+
         $ip = $this->input->post('ip');
         $mascara = $this->input->post('mascara');
         $enlace = $this->input->post('enlace');
-        $anchoBajada = $this->input->post('anchoBajada');
+        $dns1 = $this->input->post('dns1');
+        $dns2 = $this->input->post('dns2');
         $anchoSubida = $this->input->post('anchoSubida');
+        $anchoBajada = $this->input->post('anchoBajada');
+
+        $txt = "dhcp=no";
+        fwrite($myfile, $txt . PHP_EOL);
+
+        $txt = "ip=" . $ip;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        $txt = "mascara=" . $mascara;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        $txt = "gateway=" . $enlace;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        $txt = "dns1=" . $dns1;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        if($dns2 != null)
+        {
+            $txt = "dns2=" . $dns2;
+            fwrite($myfile, $txt . PHP_EOL);
+        }
+
+        $txt = "bajada=" . $anchoBajada;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        $txt = "subida=" . $anchoSubida;
+        fwrite($myfile, $txt . PHP_EOL);
+
+        fclose($myfile);
 
         echo true;
-        
-        //guardar en el archivo
+    
     }
 
     public function informacion() {

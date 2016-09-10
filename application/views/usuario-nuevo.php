@@ -14,7 +14,7 @@
 		<input name="nombre" type="text" class="sm-form-control">
 	</div>
 
-	<div class="col_one_third" style="margin-bottom:50px;">
+	<div class="col_one_third" style="margin-bottom:47px;">
 		<label>Apellido</label>
 		<input name="apellido" type="text" class="sm-form-control">
 	</div>

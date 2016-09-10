@@ -35,7 +35,7 @@
 		<!-- #fin de los Pasos -->
 		
 		
-		<form id="form" action="<?=site_url('asistente/crearUsuario')?>" method="post">
+		<form id="form1" action="<?=site_url('asistente/crearUsuario')?>" method="post">
 			<h4>Completá tus datos para crear un Usuario Administrador</h4>
 			
 			<div class="col_half">
@@ -73,13 +73,13 @@
 	$(document).ready(function() {
 
 		//GUARDAR
-		$('#form').submit(function (event){
+		$('#form1').submit(function (event){
 			event.preventDefault();
-			if ($('#form').valid()) {
+			if ($('#form1').valid()) {
 			$.ajax({
-	            url : $('#form').attr("action"),
-	            type : $('#form').attr("method"),
-	            data : $('#form').serialize(),
+	            url : $('#form1').attr("action"),
+	            type : $('#form1').attr("method"),
+	            data : $('#form1').serialize(),
 	            success: function(respuesta){
 	            	if(respuesta==1){
 			           window.location.href = "<?php echo site_url('asistente/asistente2');?>";

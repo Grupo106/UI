@@ -36,39 +36,45 @@
 		<!-- #fin de los Pasos -->
 		
 		
-		<form id="login-form" name="login-form" action="<?=site_url('asistente/asistente3')?>" method="post">
+		<form id="form2" name="login-form" action="<?=site_url('asistente/guardarConfiguracion')?>" method="post">
 			<h4>Elegí el tipo de Configuración del Sistema</h4>
 			
 			<div style="padding-bottom: 20px;">
 				<div>
-					<input id="radio-automatica" class="radio-style" type="radio" name="radio-group-2" checked>
+					<input id="radio-automatica" class="radio-style" type="radio" name="automatica" checked>
 					<label for="radio-automatica" class="radio-style-2-label">Automática</label>
 				</div>
 				<div>
-					<input id="radio-personalizada" class="radio-style" type="radio" name="radio-group-2">
+					<input id="radio-personalizada" class="radio-style" type="radio" name="personalizada">
 					<label for="radio-personalizada" class="radio-style-2-label">Personalizada</label>
 				</div>
 			</div>
 
 			<div id="div-personalizada" class="hidden">
 				<div class="col_one_third">
-					<input type="text" id="ip-administacion" class="sm-form-control" placeholder="IP DE ADMINISTRACION">
+					<input type="text" name="ip" class="sm-form-control ipAddress ipValida" placeholder="IP DE ADMINISTRACION">
 				</div>
 
-				<div class="col_one_third">
-					<input type="text" id="mascara-subred" class="sm-form-control" placeholder="MASCARA DE SUBRED" />
+				<div class="col_one_third" style="margin-bottom:47px;">
+					<input type="text" name="mascara" class="sm-form-control ipAddress ipValida" placeholder="MASCARA DE SUBRED" />
 				</div>
 
-				<div class="col_one_third col_last">
-					<input type="text" id="puerta-enlace" class="sm-form-control" placeholder="PUERTA DE ENLACE">
+				<div class="col_one_third col_last" >
+					<input type="text" name="enlace" class="sm-form-control ipAddress ipValida" placeholder="PUERTA DE ENLACE">
 				</div>
-
+				<div class="col_half" style="margin-bottom:47px;">
+					<input type="text" name="dns1" class="sm-form-control ipAddress ipValida" placeholder="DNS 1" />
+				</div>
+				
+				<div class="col_half col_last" >
+					<input type="text" name="dns2" class="sm-form-control ipAddress ipValida" placeholder="DNS 2" />
+				</div>
 				<div class="col_half">
-					<input type="text" id="ancho-banda-bajada" class="sm-form-control" placeholder="ANCHO DE BANDA DE BAJADA" />
+					<input type="text" name="anchoBajada" class="sm-form-control" placeholder="ANCHO DE BANDA DE BAJADA" />
 				</div>
 				
 				<div class="col_half col_last">
-					<input type="text" id="ancho-banda-subida" class="sm-form-control" placeholder="ANCHO DE BANDA DE SUBIDA" />
+					<input type="text" name="anchoSubida" class="sm-form-control" placeholder="ANCHO DE BANDA DE SUBIDA" />
 				</div>
 			</div>
 
@@ -86,24 +92,26 @@
 	$(document).ready(function() {
 
 		//GUARDAR
-		/* $('#form').submit(function (event){ 
+		$('#form2').submit(function (event){
 			event.preventDefault();
-			if ($('#form').valid()) {
+			if ($('#radio-automatica').checked || $('#form2').valid()) {
 			$.ajax({
-	            url : $('#form').attr("action"),
-	            type : $('#form').attr("method"),
-	            data : $('#form').serialize(),
+	            url : $('#form2').attr("action"),
+	            type : $('#form2').attr("method"),
+	            data : $('#form2').serialize(),
 	            success: function(respuesta){
 	            	if(respuesta==1){
-			           window.location.href = "<?php echo site_url('asistente/asistente2');?>";
-			        } else {
-			            $('#mensaje').text("Error al guardar el usuario.");
-			        }
-	            	
+			           window.location.href = "<?php echo site_url('asistente/asistente3');?>";
+			       } 	        
 	            }
 	        });
-		   }
-	    });*/
+		  }
+	    });
 	});
+
+	//ACEPTAR
+		$('#btnAceptarInformacion').click(function(){
+	        window.location.href = "<?php echo site_url('usuario/consulta');?>";
+		});
 </script>
 <?php include('estructura/footer-panel.php'); ?>
