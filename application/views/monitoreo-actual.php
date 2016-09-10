@@ -1,15 +1,27 @@
 <?php include('estructura/header.php'); ?>
 <?php include('estructura/menu.php'); ?>
 
-
 <div class="col_full">
 	<div class="fancy-title title-center title-border-color">
 		<h3>Tráfico de Bajada</h3>
 	</div>
 </div>
 
-<div id="chartContainer" style="height: 300px; width:50%;">
+<div class="col_half">
+	<div id="grafTotalBajada" style="height: 300px;"></div>
 </div>
+
+<div class="col_half col_last">
+	<div id="grafClasificadoBajada" style="height: 300px;"></div>
+</div>
+
+
+<div class="col_full">
+	<div class="fancy-title title-center title-border-color">
+		<h3>Tráfico de Subida</h3>
+	</div>
+</div>
+
 
 <!-- JavaScripts
 ============================================= -->
@@ -21,8 +33,9 @@
 
 		var siteurl = '<?=site_url()?>';
 
-		var puntos = []; 
-		var chart = new CanvasJS.Chart("chartContainer",{	
+		var puntosTotalSubida = []; 
+		var puntosTotalBajada = []; 
+		var grafTotalBajada = new CanvasJS.Chart("grafTotalBajada",{	
 			title:{
 			  text:"Consumo Total",
 			  margin: 20,
@@ -41,67 +54,110 @@
 			},	
 			data: [{
 				type: "splineArea",
-				dataPoints: puntos 
+				dataPoints: puntosTotalBajada 
 			}]
 		});
 
-
-		var updateInterval = 1000; //intervalo de actualizacion = 1 segundo
-		var dataLength = 50; //numero de puntos visibles al mismo tiempo
-		var bajada = 0;
-		var subida = 1;
+		var datosClasificadoSubida = []; 
+		var datosClasificadoBajada = []; 
+		var grafClasificadoBajada = new CanvasJS.Chart("grafClasificadoBajada",{
+			title:{
+				text:"Consumo Clasificado",
+			},
+	        animationEnabled: true,
+	        explodeOnClick: true,
+			data: [{       
+				type: "pie",
+				percentFormatString: "#0",
+				toolTipContent: "<strong>{name}</strong>",
+				indexLabel: "{name}: #percent%",
+				dataPoints: datosClasificadoBajada 
+			}]
+		});
+		
+		var intervaloUpdateClasificado = 3000;
+		var intervaloUpdateTotal = 1000; //intervalo de actualizacion = 1 segundo
+		var maxPuntos = 50; //numero de puntos visibles al mismo tiempo
 
 		inicializarGraficos();
-		setInterval(function(){obtenerConsumoTotal(bajada)}, updateInterval); 
+		//setInterval(function(){obtenerConsumoTotal()}, intervaloUpdateTotal); 
+		setInterval(function(){obtenerConsumoClasificado()}, intervaloUpdateClasificado); 
 
 
 		function inicializarGraficos() {
 
-			var totalesPorSegundo = <?php echo json_encode($totalesPorSegundoBajada); ?>;
+			//Dibuja los datos de los ultimos 50 segundos, en el grafico total de bajada y subida
+			var consumoTotal = <?php echo json_encode($consumoTotal); ?>;
+			for (i = 0; i < consumoTotal.length; i++) { 
+				agregarDato(puntosTotalBajada, consumoTotal[i]['bajada'], Date.parse(consumoTotal[i]['hora']));
+				agregarDato(puntosTotalSubida, consumoTotal[i]['subida'], Date.parse(consumoTotal[i]['hora']));
+			}	
+			grafTotalBajada.render();
 
-			for (i = 0; i < totalesPorSegundo.length; i++) { 
-
-				var fecha = Date.parse(totalesPorSegundo[i]['hora']);
-			    puntos.push({
-					x: fecha, 
-					y: Number(totalesPorSegundo[i]['bytes']),
-					label: fecha.toString("HH:mm:ss"),
-				});
-
-				if (puntos.length > dataLength){
-					puntos.shift();				
-				}
-			}
-			chart.render();	
+			//Dibuja el grafico clasificado de bajada y subida
+			var consumoClasificado = <?php echo json_encode($consumoClasificado); ?>;
+			actualizarGraficoClasificado(consumoClasificado);	
 		}
 
 
-		function obtenerConsumoTotal(tipo) {
+		function agregarDato(datos, bytes, fecha){
+			datos.push({
+				x: fecha, 
+				y: Number(bytes),
+				label: fecha.toString("HH:mm:ss"),
+			});
+			if (datos.length > maxPuntos){
+				datos.shift();				
+			}
+		}
 
+
+		function obtenerConsumoTotal() {
 			$.ajax({
-		        url : siteurl+'/monitoreo/obtenerConsumoTotal',
-		        data: { tipo: tipo },
+		        url : siteurl+'/monitoreo/obtenerConsumoTotalActual',
 		        type: "POST",
-		        success: actualizarGrafico,
+		        success: actualizarGraficoTotal,
 	    	})
 		};
 
+		function actualizarGraficoTotal(data) {
+			var consumoTotal = JSON.parse(data);
+			agregarDato(puntosTotalBajada, consumoTotal['bajada'], Date.parse(consumoTotal['hora']))
+			agregarDato(puntosTotalSubida, consumoTotal['subida'], Date.parse(consumoTotal['hora']))
+			grafTotalBajada.render();	
+		}
 
-		function actualizarGrafico(data) {
-			debugger;
-			var totalPorSegundo = JSON.parse(data);
-			var fecha = Date.parse(totalPorSegundo['hora']);
+		var index = 0;
+		function obtenerConsumoClasificado() {
+			index++;
+			if(index>5) index=0;
+			$.ajax({
+		        url : siteurl+'/monitoreo/obtenerConsumoClasificadoActual',
+		        data : { index : index },
+		        type: "POST",
+		        success: actualizarGraficoClasificado,
+	    	})
+		};
 
-			puntos.push({
-				x: fecha, 
-				y: Number(totalPorSegundo['bytes']),
-				label: fecha.toString("HH:mm:ss"),
-			});	
-			
-			if (puntos.length > dataLength){
-				puntos.shift();				
+		function actualizarGraficoClasificado(data) {
+			datosClasificadoBajada.length=0;
+			datosClasificadoSubida.length=0;
+
+			var consumoClasificado = JSON.parse(data);
+			for (i = 0; i < consumoClasificado.length; i++) { 
+				agregarDatoClasificado(datosClasificadoBajada, consumoClasificado[i]['bajada'], consumoClasificado[i]['nombre']);
+				agregarDatoClasificado(datosClasificadoSubida, consumoClasificado[i]['subida'], consumoClasificado[i]['nombre']);
 			}
-			chart.render();	
+			grafClasificadoBajada.render();
+		}
+
+		function agregarDatoClasificado(datos, bytes, nombre){
+			if(bytes>0){
+				datos.push({
+					y: Number(bytes),
+					name: nombre,
+				});
+			}
 		}
 
 
