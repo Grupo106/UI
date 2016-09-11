@@ -100,7 +100,7 @@
 					percentFormatString: "#0",
 					toolTipContent: "<strong>{name}</strong>",
 					indexLabel: "{name}: #percent%",
-					dataPoints: datosClasificadoBajada 
+					dataPoints: puntos 
 				}]
 			};
 			return options;
