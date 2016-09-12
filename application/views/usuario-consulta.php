@@ -26,8 +26,9 @@
 				$nombre=$usuario['nombre'];
 				$apellido=$usuario['apellido'];
 				$rol=$usuario['rol'];
+				$nombreApellido = $nombre . " " . $apellido;
 				
-                echo "<tr> <td> $user</td><td id='nombre'> $nombre </td> <td> $rol </td>"?>
+                echo "<tr> <td> $user</td><td id='nombre'> $nombreApellido </td> <td> $rol </td>"?>
                 
                 <input type="hidden" value="<?php echo $id; ?>">
                 

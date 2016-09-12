@@ -40,7 +40,7 @@ class Sistema extends CI_Controller {
 
     public function guardar() {
 
-        $dir = "/var/tmp/";
+        $dir = "/tmp/";
         $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
 
         $ip = $this->input->post('ip');
