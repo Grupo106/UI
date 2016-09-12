@@ -47,7 +47,9 @@
 </div>
 
 <div class="col_full">
+	<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 	<button id="btnNuevoUsuario" class="button button-rounded">NUEVO USUARIO</button>
+	<?php } ?>
 </div>		
 
 <?php include('estructura/modal-eliminar.php'); ?>
