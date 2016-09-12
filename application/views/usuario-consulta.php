@@ -31,11 +31,15 @@
                 echo "<tr> <td> $user</td><td id='nombre'> $nombreApellido </td> <td> $rol </td>"?>
                 
                 <input type="hidden" value="<?php echo $id; ?>">
-                
+               
 				<td>
+					 <?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
+					<?php }
+					else { echo "No tiene permisos de administrador";} ?>
 				</td>
+						
 				</tr>
               <?php } //fin foreach ?>
 			
@@ -44,7 +48,9 @@
 </div>
 
 <div class="col_full">
+	<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 	<button id="btnNuevoUsuario" class="button button-rounded">NUEVO USUARIO</button>
+	<?php } ?>
 </div>		
 
 <?php include('estructura/modal-eliminar.php'); ?>

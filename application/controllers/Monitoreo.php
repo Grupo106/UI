@@ -4,9 +4,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Monitoreo extends CI_Controller {
 
-	public function __construct() {
-		parent::__construct();
-		$this->load->helper('url');
+    public function __construct() {
+        parent::__construct();
+        $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('paqueteModel');
 
@@ -15,43 +15,46 @@ class Monitoreo extends CI_Controller {
         //$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
         $this->load->view("login");
         }
-	}
+    }
 
     public function tiempo_real() {
-    	
-        $array = array();
-        $horaActual = time();
-        //$horaActual = strtotime("2016-09-05 19:56:43"); //time();
 
-        //Por cada uno de los 50 ultimos segundos, obtengo el total de bytes
-        for ($i = 50; $i > 0 ; $i--){
-            $a = $i - 1;
-            $desde = date('Y-m-d H:i:s', strtotime("-$i second", $horaActual));
-            $hasta = date('Y-m-d H:i:s', strtotime("-$a second", $horaActual));
-            $totalPorSegundo = array(
-                'hora'  => $hasta,
-                'bytes' => $this->paqueteModel->obtenerTotal(0, $desde, $hasta),
-            );
-            array_push($array, $totalPorSegundo);
-        }
-        $data = array('totalesPorSegundoBajada' => $array);
+        $data = array(
+            'consumoTotal' => $this->obtenerConsumoTotal(),
+            'consumoClasificado' => $this->obtenerConsumoClasificado(),
+        );
         $this->load->view('monitoreo-actual', $data);
     }
 
 
-    public function obtenerConsumoTotal() {
-        $tipo = $this->input->post('tipo');
+    public function obtenerConsumoClasificado(){
+        $segundosAnalizar = 3;
+        return shell_exec('analizar '.$segundosAnalizar);
+    }
+
+    public function obtenerConsumoClasificadoActual(){
+        echo $this->obtenerConsumoClasificado();
+    }
+
+
+    public function obtenerConsumoTotal(){
+
+        $hasta = date('Y-m-d H:i:s');
+        $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
+
+        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:55:00"));
+        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
+        return $this->paqueteModel->obtenerTotal($desde, $hasta);
+    }
+
+    public function obtenerConsumoTotalActual() {
+        
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-1 second', time()));
-
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:43"));
-        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:44"));
-
-        $totalPorSegundo = array(
-            'hora'  => $hasta,
-            'bytes' => $this->paqueteModel->obtenerTotal($tipo, $desde, $hasta),
-        );
-        echo json_encode($totalPorSegundo);
+        
+        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
+        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:31"));
+        echo json_encode($this->paqueteModel->obtenerTotal($desde, $hasta)[0]);
     }
 
 
