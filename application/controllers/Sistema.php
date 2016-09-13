@@ -97,7 +97,7 @@ class Sistema extends CI_Controller {
         $intRed = 5;
 */
         $tempCpu = `wmic cpu get loadpercentage`;
-        $intRed = `ls -lart`;
+        $intRed = `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
 
         $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
