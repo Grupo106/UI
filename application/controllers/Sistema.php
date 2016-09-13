@@ -86,23 +86,21 @@ class Sistema extends CI_Controller {
 
     public function informacion() {
 
-        $free = shell_exec('free');
-        $free = (string)trim($free);
-        $free_arr = explode("\n", $free);
-        $mem = explode(" ", $free_arr[1]);
-        $mem = array_filter($mem);
-        $mem = array_merge($mem);
-        $ram = $mem[2]/$mem[1]*100;
+        $mem = shell_exec("free -m | awk 'NR==2{printf "%.2f\n",$3*100/$2 }'");
+        $usoCpu= shell_exec("top -bn1 | grep load | awk '{printf "%.2f\n", $(NF-2)}'");
+        $dicRig = shell_exec("df -h | awk '$NF=="/"{printf "%s\n",$5}'");
 
-        $usoCpu = 1;
+       /*$usoCpu = 1;
         $tempCpu = 2;
         //$ram = 3;
         $dicRig = 4;
         $intRed = 5;
-
-        $data = array("usoCpu" => $usoCpu[0],
+*/
+        $tempCpu = 2;
+        $intRed = 5;
+        $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
-                      "ram" => $mem, 
+                      "ram" => $mem . "%", 
                       "discRig" => $dicRig,
                       "intRed" => $intRed);
 
