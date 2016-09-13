@@ -88,20 +88,19 @@ class Sistema extends CI_Controller {
 
         $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
         $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
-        $discRig = `df -h | awk '$NF=="/"{printf "%s", $5}'`;
-       /*$usoCpu = 1;
-        $tempCpu = 2;
-        //$ram = 3;
-        $dicRig = 4;
-        $intRed = 5;
-*/
+        $discRig = `df -h | awk '{printf "%s", $5}'`;
+       
+        $discRigido = explode("%",$discRig);
+        $discRig = $discRigido[1];
+
+
         $tempCpu = 3;
-        $intRed = 4;
+        $intRed = 5;
 
         $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
                       "ram" => $mem . "%", 
-                      "discRig" => $discRig,
+                      "discRig" => $discRig . "%",
                       "intRed" => $intRed);
 
         $this->load->view('sistema-informacion', $data);
