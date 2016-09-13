@@ -96,8 +96,8 @@ class Sistema extends CI_Controller {
         $dicRig = 4;
         $intRed = 5;
 */
-        $tempCpu = 2;
-        $intRed = 5;
+        $tempCpu = `wmic cpu get loadpercentage`;
+        $intRed = `ls -lart`;
 
         $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
