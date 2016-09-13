@@ -88,7 +88,7 @@ class Sistema extends CI_Controller {
 
         $mem = `free -m | awk 'NR==2{print $3*100/$2 }'`;
         $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
-        $dicRig = `df -h | awk '$NF=="/"{print $5}'`;
+        $discRig = `df -h | awk '$NF=="/"{print $5}'`;
 
        /*$usoCpu = 1;
         $tempCpu = 2;
@@ -96,13 +96,13 @@ class Sistema extends CI_Controller {
         $dicRig = 4;
         $intRed = 5;
 */
-        $tempCpu = `wmic cpu get loadpercentage`;
+        $tempCpu = 3;
         $intRed = 4;
 
         $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
                       "ram" => $mem . "%", 
-                      "discRig" => $dicRig,
+                      "discRig" => $discRig,
                       "intRed" => $intRed);
 
         $this->load->view('sistema-informacion', $data);
