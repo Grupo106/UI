@@ -86,9 +86,9 @@ class Sistema extends CI_Controller {
 
     public function informacion() {
 
-        $mem = shell_exec("free -m | awk 'NR==2{printf "%.2f\n",$3*100/$2 }'");
-        $usoCpu= shell_exec("top -bn1 | grep load | awk '{printf "%.2f\n", $(NF-2)}'");
-        $dicRig = shell_exec("df -h | awk '$NF=="/"{printf "%s\n",$5}'");
+        $mem = `free -m | awk 'NR==2{printf "%.2f\n",$3*100/$2 }'`;
+        $usoCpu= `top -bn1 | grep load | awk '{printf "%.2f\n", $(NF-2)}'`;
+        $dicRig = `df -h | awk '$NF=="/"{printf "%s\n",$5}'`;
 
        /*$usoCpu = 1;
         $tempCpu = 2;
@@ -98,6 +98,7 @@ class Sistema extends CI_Controller {
 */
         $tempCpu = 2;
         $intRed = 5;
+
         $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
                       "ram" => $mem . "%", 
