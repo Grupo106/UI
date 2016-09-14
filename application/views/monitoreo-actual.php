@@ -77,8 +77,8 @@
 		var maxPuntos = 50; //numero de puntos visibles al mismo tiempo para los graficos de linea
 
 		inicializarGraficos();
-		//setInterval(function(){obtenerConsumoTotal()}, 1000); //intervalo de actualizacion = 1 segundo
-		//setInterval(function(){obtenerConsumoClasificado()}, 3000); 
+		setInterval(function(){obtenerConsumoTotal()}, 1000); //intervalo de actualizacion = 1 segundo
+		setInterval(function(){obtenerConsumoClasificado()}, 3000); 
 
 
 		function propiedadesGrafLinea(puntos){
