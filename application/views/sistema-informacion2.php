@@ -35,16 +35,16 @@
 
 		
 		var puntosCPU = []; 
-		var grafUsoCPU = new CanvasJS.Chart("grafUsoCPU", propiedadesGrafLinea(puntosCPU));
+		var grafUsoCPU = new CanvasJS.Chart("grafUsoCPU", propiedadesGrafLinea(puntosCPU, "#4D90FE"));
 
 		var puntosRAM = []; 
-		var grafMemRAM = new CanvasJS.Chart("grafMemRAM", propiedadesGrafLinea(puntosRAM));
+		var grafMemRAM = new CanvasJS.Chart("grafMemRAM", propiedadesGrafLinea(puntosRAM, "#FFA803"));
 
 		var puntosDisc = []; 
-		var grafDiscoRig = new CanvasJS.Chart("grafDiscoRig", propiedadesGrafLinea(puntosDisc));
+		var grafDiscoRig = new CanvasJS.Chart("grafDiscoRig", propiedadesGrafLinea(puntosDisc, "#04806F"));
 
 		var puntosTemp = []; 
-		var grafTemp = new CanvasJS.Chart("grafTemp", propiedadesGrafLinea(puntosTemp));
+		var grafTemp = new CanvasJS.Chart("grafTemp", propiedadesGrafLinea(puntosTemp, "#DD4B39"));
 		
 		var maxPuntos = 50; //numero de puntos visibles al mismo tiempo para los graficos de linea
 
@@ -52,7 +52,7 @@
 		setInterval(function(){obtenerConsumos()}, 3000); //intervalo de actualizacion = 1 segundo
 
 
-		function propiedadesGrafLinea(puntos){
+		function propiedadesGrafLinea(puntos, grafColor){
 			var options = {	
 				axisX: {						
 					gridColor: "#F2F2F2",
@@ -68,7 +68,8 @@
 				},	
 				data: [{
 					type: "splineArea",
-					dataPoints: puntos 
+					dataPoints: puntos,
+					color: grafColor
 				}]
 			};
 			return options;
