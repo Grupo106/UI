@@ -42,13 +42,14 @@
 					<li><a href="#"><div>Usuarios</div></a>
 						<ul>
 							<li><a href="<?=site_url('usuario/consulta')?>"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
-							<li><a href="<?=site_url('usuario/nuevo')?>"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li>
+							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+							<li><a href="<?=site_url('usuario/nuevo')?>"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li> <?php } ?>
 							<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>
 						</ul>
 					</li>
 					<li><a href="#"><div>Sistema</div></a>
 						<ul>
-							<li><a href="<?=site_url('sistema/informacion')?>"><div><i class="icon-info"></i>Información</div></a></li>
+							<li><a href="<?=site_url('sistema/informacion2')?>"><div><i class="icon-info"></i>Información</div></a></li>
 							<li><a href="<?=site_url('sistema/configuracion')?>"><div><i class="icon-wrench"></i>Configuración</div></a></li>
 						</ul>
 					</li>
