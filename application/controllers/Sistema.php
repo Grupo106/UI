@@ -8,6 +8,7 @@ class Sistema extends CI_Controller {
 		parent::__construct();
         $this->load->library('session');
 		$this->load->helper('url');
+        $this->load->model('paqueteModel');
 
         if(! $_SESSION['SISENER_SESSION']['loggedIn']){
 
@@ -107,7 +108,57 @@ class Sistema extends CI_Controller {
 
     }
 
+    public function informacion2() {
 
+        $data = array(
+            'consumoTotal' => $this->obtenerConsumoTotal(),
+        );
+        $this->load->view('sistema-informacion2', $data);
+    }
+
+    public function obtenerConsumoTotal(){
+
+        $fecha = date('Y-m-d H:i:s', strtotime('-25 second', time()));
+        $data = array();
+        for($i=0; $i<25; $i++)
+        {
+            $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
+            $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
+            $discRig = `df -h | awk '{printf "%s", $5}'`;
+            $discRigido = explode("%",$discRig);
+            $discRig = $discRigido[1];
+
+            $data[$i]['hora'] = $fecha;
+            $data[$i]['cpu'] = $usoCpu;
+            $data[$i]['ram'] = $mem;
+            $data[$i]['disco'] = $discRig;
+            $data[$i]['temp'] = 40; //averiguar comando de temp
+
+           $fecha = date('Y-m-d H:i:s',strtotime('+1 seconds', strtotime($fecha)));
+        }
+
+        return $data;
+        
+    }
+
+    public function obtenerConsumos() {
+        
+         $fecha = date('Y-m-d H:i:s', strtotime('-1 second', time()));
+
+         $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
+         $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
+         $discRig = `df -h | awk '{printf "%s", $5}'`;
+         $discRigido = explode("%",$discRig);
+         $discRig = $discRigido[1];
+
+         $data = array('hora' =>$fecha ,
+                       'cpu' => $usoCpu,
+                       'ram' => $mem,
+                       'disco' =>$discRig,
+                       'temp' => 35);
+         
+         echo json_encode($data);
+    }
 
     public function save() {
         
