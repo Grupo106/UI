@@ -9,14 +9,14 @@
 
 <div class="col_half center">
 	<h3>Consumo Total</h3>
-	<div id="grafTotalBajada" style="weigth: 600px; height: 320px;"></div>
+	<div id="grafTotalBajada" class="graficoLinea"></div>
 </div>
 
 <div class="col_half col_last center">
-	<h3 id="titleClasificadoBajada">Consumo Clasificado</h3>
+	<h3 id="titleClasificadoBajada" class="titleSinMargen">Consumo Clasificado</h3>
 	<a id="btnDetalleBajada" class="detallePopover" href="#">Ver Detalle</a>
 	<div id="msjSinDatosBajada">No se encontraron datos de consumo en los últimos segundos</div>
-	<div id="grafClasificadoBajada" style="height: 300px;"></div>
+	<div id="grafClasificadoBajada" class="graficoTorta"></div>
 </div>
 
 
@@ -28,21 +28,21 @@
 
 <div class="col_half center">
 	<h3>Consumo Total</h3>
-	<div id="grafTotalSubida" style="height: 300px;"></div>
+	<div id="grafTotalSubida" class="graficoLinea"></div>
 </div>
 
 <div class="col_half col_last center">
-	<h3 id="titleClasificadoSubida">Consumo Clasificado</h3>
+	<h3 id="titleClasificadoSubida" class="titleSinMargen">Consumo Clasificado</h3>
 	<a id="btnDetalleSubida" class="detallePopover" href="#">Ver Detalle</a>
 	<div id="msjSinDatosSubida">No se encontraron datos de consumo en los últimos segundos</div>
-	<div id="grafClasificadoSubida" style="height: 300px;"></div>
+	<div id="grafClasificadoSubida" class="graficoTorta"></div>
 </div>
 
 
 <div id="popoverContenido">
   	<table id="tablaDetalle" class="table table-bordered table-striped">
   		<thead><tr>
-			<th width="95%">Nombre</th>
+			<th width="95%">Clase de tráfico</th>
 			<th width="5%">Porcentaje</th>
 		</tr></thead>
   		<tbody></tbody>

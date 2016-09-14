@@ -13070,3 +13070,20 @@ input.error {
 .popover-content{
     padding: 2px; 
 }
+
+.titleSinMargen {
+	margin-bottom: 1px;
+}
+
+.detallePopover {
+	font-style: : bold;
+	font-size: 15px;
+}
+
+.graficoTorta {
+	height: 320px;
+}
+
+.graficoLinea {
+	height: 320px;
+}
