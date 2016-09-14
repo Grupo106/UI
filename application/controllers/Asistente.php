@@ -53,7 +53,7 @@ class Asistente extends CI_Controller {
         }
         else
         {
-            $dir = "/var/tmp/";
+            $dir = "/tmp/";
             $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
 
             $ip = $this->input->post('ip');

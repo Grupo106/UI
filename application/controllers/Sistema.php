@@ -40,7 +40,7 @@ class Sistema extends CI_Controller {
 
     public function guardar() {
 
-        $dir = "/var/tmp/";
+        $dir = "/tmp/";
         $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
 
         $ip = $this->input->post('ip');
@@ -86,24 +86,21 @@ class Sistema extends CI_Controller {
 
     public function informacion() {
 
-        $free = shell_exec('free');
-        $free = (string)trim($free);
-        $free_arr = explode("\n", $free);
-        $mem = explode(" ", $free_arr[1]);
-        $mem = array_filter($mem);
-        $mem = array_merge($mem);
-        $ram = $mem[2]/$mem[1]*100;
+        $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
+        $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
+        $discRig = `df -h | awk '{printf "%s", $5}'`;
+       
+        $discRigido = explode("%",$discRig);
+        $discRig = $discRigido[1];
 
-        $usoCpu = 1;
-        $tempCpu = 2;
-        //$ram = 3;
-        $dicRig = 4;
+
+        $tempCpu = 3;
         $intRed = 5;
 
-        $data = array("usoCpu" => $usoCpu[0],
+        $data = array("usoCpu" => $usoCpu . "%",
                       "tempCpu" => $tempCpu,
-                      "ram" => $mem, 
-                      "discRig" => $dicRig,
+                      "ram" => $mem . "%", 
+                      "discRig" => $discRig . "%",
                       "intRed" => $intRed);
 
         $this->load->view('sistema-informacion', $data);
