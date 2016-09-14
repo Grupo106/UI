@@ -2,16 +2,18 @@
 <?php include('estructura/menu.php');   ?>
 
 <link rel="stylesheet" href="<?=base_url('public/font-awesome-4.6.3/css/font-awesome.min.css')?>">
+<?php foreach($politica as $item): echo "<br>"; ?>
+<?php endforeach;?>
 
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
-    	<input name="id_politica" type="hidden" class="form-control" value="">
+    	<input name="id_politica" type="hidden" class="form-control" value="<?= $item['id_politica']?>">
         <div class="row">
             <div class="col-sm-15 col-lg-10">
                 <div class="form-group">
                     <label class="col-md-4 control-label">Nombre</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="inputNombre" value="">
+                        <input type="text" class="form-control" name="inputNombre" value="<?= $item['nombre']?>">
                     </div>
                 </div>
             </div>
@@ -22,7 +24,18 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label">Descripcion</label>
                     <div class="col-md-8">
-                        <input type="text" class="form-control" name="inputDescripcion" value="">
+                        <input type="text" class="form-control" name="inputDescripcion" value="<?= $item['descripcion']?>">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-15 col-lg-10">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Fecha de creación</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" name="inputFcCreacion" value="<?= date('d/m/Y H:i', strtotime(str_replace('-','/', $item['fc_creacion'])))?>" disabled>
                     </div>
                 </div>
             </div>
@@ -85,25 +98,25 @@
                 <label class="col-md-4 control-label">Tipo</label>
                 <input type="hidden" class="form-control" id="tipo" name="tipo" value="">
                 <ul class="nav nav-pills col-sm-8 col-md-8 col-lg-8">
-                    <li class="active"><a data-toggle="tab" href="#menuBloqueo">Bloqueo</a></li>
-                    <li class="">      <a data-toggle="tab" href="#menuLimitacion">Limitación</a></li>
-                    <li class="">      <a data-toggle="tab" href="#menuPriorizacion">Priorización</a></li>
+                    <li class="<?php if($item['velocidad_bajada']=='' && $item['prioridad']=='') echo 'active';?>"><a data-toggle="tab" href="#menuBloqueo">Bloqueo</a></li>
+                    <li class="<?php if($item['velocidad_bajada']!='') echo 'active';?>"><a data-toggle="tab" href="#menuLimitacion">Limitación</a></li>
+                    <li class="<?php if($item['prioridad']!='') echo 'active';?>"><a data-toggle="tab" href="#menuPriorizacion">Priorización</a></li>
                 </ul>
 
                 <div class="container-fluid col-sm-15 col-lg-10"">
                     <div class="tab-content" style="padding:30px 150px">
-                        <div id="menuBloqueo" class="tab-pane fade">
+                        <div id="menuBloqueo" class="tab-pane fade <?php if($item['velocidad_bajada']=='' && $item['prioridad']=='') echo 'in active';?>">
                             <div class="col-sm-15 col-lg-10">
                                 <label class="col-md-4 control-label"></label>
                             </div>
                         </div>
 
-                        <div id="menuLimitacion" class="tab-pane fade">
+                        <div id="menuLimitacion" class="tab-pane fade <?php if($item['velocidad_bajada']!='') echo 'in active';?>">
                             <div class="col-sm-15 col-lg-10">
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Bajada</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="inputBajada" value="">
+                                        <input type="text" class="form-control" name="inputBajada" value="<?= $item['velocidad_bajada']?>">
                                     </div>
                                 </div>
                             </div>
@@ -111,18 +124,18 @@
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Subida</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="inputSubida" value="">
+                                        <input type="text" class="form-control" name="inputSubida" value="<?= $item['velocidad_subida']?>">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="menuPriorizacion" class="tab-pane fade">
+                        <div id="menuPriorizacion" class="tab-pane fade <?php if($item['prioridad']!='') echo 'in active';?>">
                             <div class="col-sm-15 col-lg-10">
                                 <div class="form-group">
                                     <label class="col-md-4 control-label">Prioridad</label>
                                     <div class="col-md-8">
-                                        <input type="text" class="form-control" name="inputPrioridad" value="">
+                                        <input type="text" class="form-control" name="inputPrioridad" value="<?= $item['prioridad']?>">
                                     </div>
                                 </div>
                             </div>
@@ -177,6 +190,10 @@
 <?php include('estructura/modal-eliminar.php');        ?>
 <?php include('estructura/modal-informacion.php');     ?>
 
+<script type="text/javascript" src="<?=base_url('public/js/components/moment.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/components/daterangepicker.js')?>"></script>
+<link rel="stylesheet" type="text/css" href="<?=base_url('public/css/components/daterangepicker.css')?>"/>
+
 <script src="<?=base_url('public/js/components/bootstrap-clockpicker.min.js')?>"></script>
 <link href="<?=base_url('public/css/components/bootstrap-clockpicker.min.css')?>" rel="stylesheet">
 <script type="text/javascript" src="<?=base_url('public/js/plugins/jquery.mask.min.js')?>"></script>  
@@ -209,6 +226,16 @@
                 e.preventDefault();
         });
     });
+
+    //$(function() {
+    //    $('input[name="daterange"]').daterangepicker({
+    //        timePicker: true,
+    //        timePickerIncrement: 10,
+    //        locale: {
+    //            format: 'h:mm'
+    //        }
+    //    });
+    //});
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         var target = $(e.target).attr("href")
@@ -250,7 +277,7 @@
             data : $('#form').serialize(),
             success: function(response){
             	if(response)
-		            $('#mensaje').text("La politica fue creada exitosamente");
+		            $('#mensaje').text("Los cambios fueron guardados exitosamente");
 		         else
 		            $('#mensaje').text(response);
                 
