@@ -161,8 +161,8 @@
 
 		function actualizarGraficoTotal(data) {
 			var consumoTotal = JSON.parse(data);
-			agregarDato(puntosTotalBajada, consumoTotal['bajada'], Date.parse(consumoTotal['hora']))
-			agregarDato(puntosTotalSubida, consumoTotal['subida'], Date.parse(consumoTotal['hora']))
+			agregarDato('bajada', puntosTotalBajada, consumoTotal);
+			agregarDato('subida', puntosTotalSubida, consumoTotal);
 			grafTotalBajada.render();	
 			grafTotalSubida.render();	
 		}
@@ -179,6 +179,8 @@
 		function actualizarGraficoClasificado(data) {
 			datosClasificadoBajada.length=0;
 			datosClasificadoSubida.length=0;
+			totalBajada=0;
+			totalSubida=0;
 
 			//** borrar
 			//agregarDatoClasificadoPrueba(datosClasificadoBajada);
@@ -187,8 +189,8 @@
 			if(data!=null && data!=""){
 				var consumoClasificado = JSON.parse(data);
 				for (i = 0; i < consumoClasificado.length; i++) { 
-					agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i], totalBajada);
-					agregarDatoClasificado('subida', datosClasificadoSubida, consumoClasificado[i], totalSubida);
+					agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i]);
+					agregarDatoClasificado('subida', datosClasificadoSubida, consumoClasificado[i]);
 				}
 			}
 			mostrarMensaje();
@@ -196,7 +198,7 @@
 			grafClasificadoSubida.render();
 		}
 
-		function agregarDatoClasificado(tipo, datosGrafico, consumoItem, total){
+		function agregarDatoClasificado(tipo, datosGrafico, consumoItem){
 			var bytes = Number(consumoItem[tipo]);
 			if(bytes>0){
 				datosGrafico.push({
@@ -204,7 +206,11 @@
 					name: consumoItem['nombre'],
 					text: consumoItem['descripcion'],
 				});
-				total = total + bytes;
+				if(tipo="bajada"){
+					totalBajada = totalBajada + bytes;
+				} else {
+					totalSubida = totalSubida + bytes;
+				}
 			}
 		}
 
