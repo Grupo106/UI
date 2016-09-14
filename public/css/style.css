@@ -13045,3 +13045,28 @@ span.error {
 input.error {
 	border-color:red;
 }
+
+
+
+#tablaDetalle tr{
+	font-size: 13px;
+	font-family: 'Lato', sans-serif;
+	padding: 3px;
+}
+
+#tablaDetalle tbody .t1 {
+	text-align: left;
+	padding: 3px 7px;
+}
+
+#tablaDetalle tbody .t2 {
+	font-weight: bold;
+	text-align: center;
+	padding: 3px;
+}
+
+
+#popoverContenido {display: none;}
+.popover-content{
+    padding: 2px; 
+}
