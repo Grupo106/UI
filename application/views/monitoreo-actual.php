@@ -9,13 +9,13 @@
 
 <div class="col_half center">
 	<h3>Consumo Total</h3>
-	<div id="grafTotalBajada" style="height: 300px;"></div>
+	<div id="grafTotalBajada" style="weigth: 600px; height: 320px;"></div>
 </div>
 
 <div class="col_half col_last center">
 	<h3 id="titleClasificadoBajada">Consumo Clasificado</h3>
-	<a id="btnDetalleBajada" class="hidden detallePopover" href="#">Ver Detalle</a>
-	<div id="msjSinDatosBajada" class="hidden">No se encontraron datos de consumo en los últimos segundos</div>
+	<a id="btnDetalleBajada" class="detallePopover" href="#">Ver Detalle</a>
+	<div id="msjSinDatosBajada">No se encontraron datos de consumo en los últimos segundos</div>
 	<div id="grafClasificadoBajada" style="height: 300px;"></div>
 </div>
 
@@ -33,8 +33,8 @@
 
 <div class="col_half col_last center">
 	<h3 id="titleClasificadoSubida">Consumo Clasificado</h3>
-	<a id="btnDetalleSubida" class="hidden detallePopover" href="#">Ver Detalle</a>
-	<div id="msjSinDatosSubida" class="hidden">No se encontraron datos de consumo en los últimos segundos</div>
+	<a id="btnDetalleSubida" class="detallePopover" href="#">Ver Detalle</a>
+	<div id="msjSinDatosSubida">No se encontraron datos de consumo en los últimos segundos</div>
 	<div id="grafClasificadoSubida" style="height: 300px;"></div>
 </div>
 
@@ -58,7 +58,9 @@
 		$('#tituloPantalla').text('Monitoreo en Tiempo Real');
 
 		var siteurl = '<?=site_url()?>';
-
+		
+		var colores = [ "#51B1FF","#A9F5A9","#FACC2E","#58FA82","#819FF7","#D0FA58","#AC58FA","#BCA9F5","#2E64FE",
+		"#A9E2F3","#D358F7","#00FFFF","#BCF5A9","#F4FA58","#FAAC58","#A4A4A4","#FA5858","#A4A4A4","#FE9A2E","#F781F3"];
 		
 		var puntosTotalBajada = []; 
 		var grafTotalBajada = new CanvasJS.Chart("grafTotalBajada", propiedadesGrafLinea(puntosTotalBajada));
@@ -83,37 +85,44 @@
 
 		function propiedadesGrafLinea(puntos){
 			var options = {	
+				animationEnabled: true,
 				axisX: {						
 					gridColor: "#F2F2F2",
 					lineColor: "#D8D8D8",
 					labelAutoFit: false,
+					labelFontSize: 12
 				},
 				axisY: {						
 					title: "bytes",
 					interval: 2000,
 					maximum: 20000,
 					gridColor: "#F2F2F2",
-					lineColor: "#D8D8D8"
+					lineColor: "#D8D8D8",
+					labelFontSize: 12,
+					valueFormatString:  "#.###"
 				},	
 				data: [{
 					type: "splineArea",
 					dataPoints: puntos 
-				}]
+				}],
 			};
 			return options;
 		}
+
 
 		function propiedadesGrafTorta(puntos){
 			var options = {
 		        animationEnabled: true,
 		        explodeOnClick: true,
 				data: [{       
+					indexLabelFontStyle: "bold",
 					type: "pie",
+					startAngle: 1,
 					percentFormatString: "#0",
 					toolTipContent: "<strong>{text}</strong>",
 					indexLabel: "{name}: #percent%",
 					dataPoints: puntos 
-				}]
+				}],
 			};
 			return options;
 		}
@@ -175,12 +184,13 @@
 	    	})
 		};
 
-
+		var colorIndex = 0;
 		function actualizarGraficoClasificado(data) {
 			datosClasificadoBajada.length=0;
 			datosClasificadoSubida.length=0;
 			totalBajada=0;
 			totalSubida=0;
+			colorIndex = 0;
 
 			//** borrar
 			//agregarDatoClasificadoPrueba(datosClasificadoBajada);
@@ -191,6 +201,8 @@
 				for (i = 0; i < consumoClasificado.length; i++) { 
 					agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i]);
 					agregarDatoClasificado('subida', datosClasificadoSubida, consumoClasificado[i]);
+					colorIndex++;
+					if(colorIndex >= colores.length){ colorIndex = 0;}
 				}
 			}
 			mostrarMensaje();
@@ -198,6 +210,7 @@
 			grafClasificadoSubida.render();
 		}
 
+		
 		function agregarDatoClasificado(tipo, datosGrafico, consumoItem){
 			var bytes = Number(consumoItem[tipo]);
 			if(bytes>0){
@@ -205,12 +218,14 @@
 					y: bytes,
 					name: consumoItem['nombre'],
 					text: consumoItem['descripcion'],
+					color: colores[colorIndex],
 				});
 				if(tipo="bajada"){
 					totalBajada = totalBajada + bytes;
 				} else {
 					totalSubida = totalSubida + bytes;
 				}
+				
 			}
 		}
 
@@ -290,16 +305,27 @@
 					y: 5345,
 					name: "Facebook",
 					text: "Red Social",
+					color: colores[0]
+					
 				});
 			datos.push({
 					y: 3455,
 					name: "Twitter",
 					text: "Red Social",
+					color: colores[1]
 				});
 			datos.push({
 					y: 9000,
 					name: "Clarin",
 					text: "Red Social",
+					color: colores[2],
+
+				});
+			datos.push({
+					y: 5345,
+					name: "Facebook",
+					text: "Red Social",
+					color: colores[3],
 				});
 		}
 

@@ -5,7 +5,7 @@
 	<table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
 		<thead class="headTable">
 			<tr>
-				<th width="5%">Estado</th>
+				<th width="5%">Activa</th>
 				<th width="20%">Nombre</th>
 				<th width="40%">Descripcion</th>
 				<th width="15%">Tipo</th>
