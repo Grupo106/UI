@@ -59,7 +59,7 @@ class Inicio extends CI_Controller {
     public function desloguearse() {
 
 		$_SESSION[SISENER_SESSION]['loggedIn'] = FALSE;
-		        $this->load->view("login");
+		redirect("/");
     }
 
 }
