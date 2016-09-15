@@ -36,7 +36,7 @@ class Asistente extends CI_Controller {
         
         if($_POST['automatica'])
         {
-            $dir = "/var/tmp/";
+            $dir = "/tmp/";
             $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
 
             $txt = "dhcp=si";
