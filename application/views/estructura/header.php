@@ -25,7 +25,7 @@
 
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-datatable.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-switches.css')?>" type="text/css" />
-
+	<link rel="icon" type="image/x-icon" href=<?php echo base_url()."/favicon.ico"?> />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 
