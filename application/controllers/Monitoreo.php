@@ -28,7 +28,7 @@ class Monitoreo extends CI_Controller {
 
 
     public function obtenerConsumoClasificado(){
-        $segundosAnalizar = 3;
+        $segundosAnalizar = 60;
         return shell_exec('analizar '.$segundosAnalizar);
     }
 
