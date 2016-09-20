@@ -41,12 +41,20 @@
 
     <div class="col_half">
         <label>Ancho de banda de Bajada</label>
-        <input name="bajada" class="sm-form-control" value="<?= $bajada ?>">
+        <div class="input-group">
+            <input type="text" name="bajada" class="sm-form-control" 
+                   value="<?= $bajada ?>" id="bajada">
+            <div class="input-group-addon">Mbits</div>
+        </div>
     </div>
 
     <div class="col_half col_last">
         <label>Ancho de banda de Subida</label>
-        <input name="subida" class="sm-form-control" value="<?= $subida ?>">
+        <div class="input-group">
+            <input type="text" name="subida" class="sm-form-control" 
+                   value="<?= $subida ?>" id="subida">
+            <div class="input-group-addon">Mbits</div>
+        </div>
     </div>  
 
     <div class="col_full" style="text-align:center;">
