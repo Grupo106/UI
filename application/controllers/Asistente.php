@@ -11,33 +11,58 @@ class Asistente extends CI_Controller {
 	}
 
 
-    public function asistente() {
-        $this->load->view('asistente-paso1');
+    public function inicio() {
+        $this->load->view('asistente-inicio');
     }
 
-    public function asistenteInicial() {
-        $this->load->view('asistente');
+    public function informacion() {
+        $this->load->view('asistente-informacion');
     }
 
-    public function crearUsuario() {
-        $pass=$this->input->post('password');
+    public function finalizar() {
+        $this->load->view('asistente-finalizar');
+    }  
+    
+    public function existeUsuario() {
+
+        $existeUsuario = $this->usuario_model->existeNombreUsuario($this->input->post('usuario'));
+        if($existeUsuario) {
+            echo 0;
+        } else
+        {
+            echo 1;
+        }
+    }
+
+    public function guardar()
+    {
+        parse_str($_POST['usuario'], $usuario);
+        parse_str($_POST['configuracion'],  $configuracion);
+
+        $this->crearUsuario($usuario);
+        $this->guardarConfiguracion($configuracion);
+    }
+
+    public function crearUsuario($usuario) {
+
+        $pass=$usuario['password'];
         $password = $this->usuario_model->generateHash($pass);
-        $data = array('usuario' => $this->input->post('usuario'),
+        $data = array('usuario' => $usuario['usuario'],
                       'password' => $password, 
-                      'nombre' => $this->input->post('nombre'),
-                      'apellido' => $this->input->post('apellido'),
-                      'mail' => $this->input->post('mail'),
+                      'nombre' => $usuario['nombre'],
+                      'apellido' => $usuario['apellido'],
+                      'mail' => $usuario['mail'],
                       'rol' =>  "Administrador");
 
-        echo $this->usuario_model->insertar($data);
+        $this->usuario_model->insertar($data);
     } 
 
-    public function guardarConfiguracion() {
+    public function guardarConfiguracion($configuracion) {
         
-        if($_POST['automatica'])
+        if($configuracion['automatica'])
         {
             $dir = "/tmp/";
-            $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
+            $myfile = fopen($dir . "netcop-cfg.txt", "w") or die("Unable to open file!");
 
             $txt = "dhcp=si";
             fwrite($myfile, $txt . PHP_EOL);
@@ -54,15 +79,15 @@ class Asistente extends CI_Controller {
         else
         {
             $dir = "/tmp/";
-            $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
+            $myfile = fopen($dir . "netcop-cfg.txt", "w") or die("Unable to open file!");
 
-            $ip = $this->input->post('ip');
-            $mascara = $this->input->post('mascara');
-            $enlace = $this->input->post('enlace');
-            $dns1 = $this->input->post('dns1');
-            $dns2 = $this->input->post('dns2');
-            $anchoSubida = $this->input->post('anchoSubida');
-            $anchoBajada = $this->input->post('anchoBajada');
+            $ip = $configuracion['ip'];
+            $mascara =$configuracion['mascara'];
+            $enlace = $configuracion['enlace'];
+            $dns1 = $configuracion['dns1'];
+            $dns2 = $configuracion['dns2'];
+            $anchoSubida = $configuracion['anchoSubida'];
+            $anchoBajada = $configuracion['anchoBajada'];
 
             $txt = "dhcp=no";
             fwrite($myfile, $txt . PHP_EOL);
@@ -94,14 +119,6 @@ class Asistente extends CI_Controller {
             fclose($myfile);
             echo true;
         }
-    }
-
-    public function asistente2() {
-        $this->load->view('asistente-paso2');
-    }          
-
-    public function asistente3() {
-        $this->load->view('asistente-paso3');
-    }             
+    }           
 }
 ?>

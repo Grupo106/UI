@@ -64,7 +64,12 @@ class Usuario extends CI_Controller {
 
         if($id=="") {
             $data['usuario'] = $this->input->post('usuario');
+            $existeUsuario = $this->usuario_model->existeNombreUsuario($data['usuario']);
+            if($existeUsuario) {
+                echo 2;
+            } else {
             echo $this->usuario_model->insertar($data);
+          }
         } else {
             echo $this->usuario_model->actualizar($id,$data);
         }

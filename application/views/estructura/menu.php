@@ -49,7 +49,7 @@
 					</li>
 					<li><a href="#"><div>Sistema</div></a>
 						<ul>
-							<li><a href="<?=site_url('sistema/informacion2')?>"><div><i class="icon-info"></i>Información</div></a></li>
+							<li><a href="<?=site_url('sistema/informacion')?>"><div><i class="icon-info"></i>Información</div></a></li>
 							<li><a href="<?=site_url('sistema/configuracion')?>"><div><i class="icon-wrench"></i>Configuración</div></a></li>
 						</ul>
 					</li>

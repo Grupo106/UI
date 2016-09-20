@@ -19,7 +19,7 @@
 
 <div class="col_one_third col_last">
 	<label>Mail</label>
-	<input name="mail" type="text" class="sm-form-control" value="<?= $mail?>">
+	<input name="mail" type="text" class="sm-form-control mailInvalido" value="<?= $mail?>">
 </div>
 
 <div class="col_one_third">
@@ -29,7 +29,7 @@
 
 <div class="col_one_third">
 	<label>Contraseña</label>
-	<input name="password2" type="password2" class="sm-form-control" value="">
+	<input name="password2" type="password" class="sm-form-control" value="">
 </div>	
 <div class="col_one_third col_last">
 	<label>Rol</label>

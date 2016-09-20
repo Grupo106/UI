@@ -31,6 +31,6 @@
 
 <script type="text/javascript">
 	$('#btnSiguiente').click(function(){
-	        window.location.href = "<?php echo site_url('asistente/asistente');?>";
+	        window.location.href = "<?php echo site_url('asistente/informacion');?>";
 		});
 </script>

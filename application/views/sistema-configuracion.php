@@ -11,7 +11,7 @@
 <form id="form" action="<?=site_url('sistema/guardar/')?>" method="post">
 	<div class="col_one_third">
 		<label>IP de Administración</label>
-		<input name="ip" type="text" class="sm-form-control ipAddress ipValida" value="<?= $ip ?>">
+		<input id="ip" name="ip" type="text" class="sm-form-control ipAddress ipValida" value="<?= $ip ?>">
 
 	</div>
 
@@ -22,7 +22,7 @@
 
 	<div class="col_one_third col_last">
 		<label>Puerta de enlace</label>
-		<input name="enlace" class="sm-form-control ipAddress ipValida" value="<?= $enlace ?>">
+		<input name="gateway" class="sm-form-control ipAddress ipValida" value="<?= $gateway ?>">
 	</div>
 
 	<div class="col_half"  style="margin-bottom:47px;">
@@ -37,12 +37,12 @@
 
 	<div class="col_half">
 		<label>Ancho de banda de Bajada</label>
-		<input name="anchoBajada" class="sm-form-control" value="<?= $anchoBajada ?>">
+		<input name="bajada" class="sm-form-control" value="<?= $bajada ?>">
 	</div>
 
 	<div class="col_half col_last">
 		<label>Ancho de banda de Subida</label>
-		<input name="anchoSubida" class="sm-form-control" value="<?= $anchoSubida ?>">
+		<input name="subida" class="sm-form-control" value="<?= $subida ?>">
 	</div>	
 
 	<div class="col_full" style="text-align:center;">
@@ -88,6 +88,12 @@
 	    //ACEPTAR
 		$('#btnAceptarInformacion').click(function(){
 	        window.location.href = "<?php echo site_url();?>";
+		});
+
+		$.each($('.sm-form-control'), function(index,value) {
+			if($(value).val() == "") {
+				$(value).prop('disabled', true);
+			}
 		});
 	});
 </script>

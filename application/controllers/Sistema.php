@@ -19,23 +19,17 @@ class Sistema extends CI_Controller {
 
     public function configuracion() {
 
-        //levantar info del archivo
-        $ip = "192.212.212.1";
-        $mascara = "192.212.212.2";
-        $enlace = "192.212.212.3";
-        $dns1 = "192.212.212.4";
-        $dns2 = "192.212.212.5";
-        $anchoBajada = 4;
-        $anchoSubida = 5;
+        $data = array();
+        $config = "mascara=255.255.255.0<br>bajada=3<br>gateway=192.168.1.111<br>dns1=192.168.1.112<br>dns2=192.168.1.113";
 
-        $data = array("ip" => $ip,
-                      "mascara" => $mascara,
-                      "enlace" => $enlace, 
-                      "dns1" => $dns1,
-                      "dns2" => $dns2,
-                      "anchoBajada" => $anchoBajada,
-                      "anchoSubida" => $anchoSubida);
+        $configArray = explode("<br>",$config);
 
+        for($i=0; $i< count($configArray); $i++)
+        {
+            $keyvalue = explode("=", $configArray[$i]);
+            $data[$keyvalue[0]] = $keyvalue[1];          
+        }
+     
         $this->load->view('sistema-configuracion', $data);
     }
 
@@ -46,11 +40,11 @@ class Sistema extends CI_Controller {
 
         $ip = $this->input->post('ip');
         $mascara = $this->input->post('mascara');
-        $enlace = $this->input->post('enlace');
+        $enlace = $this->input->post('gateway');
         $dns1 = $this->input->post('dns1');
         $dns2 = $this->input->post('dns2');
-        $anchoSubida = $this->input->post('anchoSubida');
-        $anchoBajada = $this->input->post('anchoBajada');
+        $anchoSubida = $this->input->post('subida');
+        $anchoBajada = $this->input->post('bajada');
 
         $txt = "dhcp=no";
         fwrite($myfile, $txt . PHP_EOL);
@@ -85,7 +79,7 @@ class Sistema extends CI_Controller {
     
     }
 
-    public function informacion() {
+    public function informacion2() {
 
         $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
         $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
@@ -104,16 +98,16 @@ class Sistema extends CI_Controller {
                       "discRig" => $discRig . "%",
                       "intRed" => $intRed);
 
-        $this->load->view('sistema-informacion', $data);
+        $this->load->view('sistema-informacion2', $data);
 
     }
 
-    public function informacion2() {
+    public function informacion() {
 
         $data = array(
             'consumoTotal' => $this->obtenerConsumoTotal(),
         );
-        $this->load->view('sistema-informacion2', $data);
+        $this->load->view('sistema-informacion', $data);
     }
 
     public function obtenerConsumoTotal(){

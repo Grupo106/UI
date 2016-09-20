@@ -18,10 +18,10 @@ $(document).ready(function() {
         rules: {
         	ip: "required",
         	mascara: "required",
-            enlace: "required",
+            gateway: "required",
             dns1: "required",
-            anchoBajada: "required",
-            anchoSubida: "required"
+            bajada: "required",
+            subida: "required"
         }
     });
 
