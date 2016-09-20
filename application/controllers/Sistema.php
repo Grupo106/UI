@@ -20,9 +20,8 @@ class Sistema extends CI_Controller {
     public function configuracion() {
 
         $data = array();
-        $config = "mascara=255.255.255.0<br>bajada=3<br>gateway=192.168.1.111<br>dns1=192.168.1.112<br>dns2=192.168.1.113";
-
-        $configArray = explode("<br>",$config);
+        $config = `/usr/local/bin/configurador`;
+        $configArray = explode("\n",$config);
 
         for($i=0; $i< count($configArray); $i++)
         {
