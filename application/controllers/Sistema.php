@@ -37,6 +37,7 @@ class Sistema extends CI_Controller {
         $dir = "/tmp/";
         $myfile = fopen($dir . "netcop-cfg.tmp", "w") or die("Unable to open file!");
 
+        $dhcp = $this->input->post('dhcp') == 'on'? 'si' : 'no';
         $ip = $this->input->post('ip');
         $mascara = $this->input->post('mascara');
         $enlace = $this->input->post('gateway');
@@ -45,7 +46,7 @@ class Sistema extends CI_Controller {
         $anchoSubida = $this->input->post('subida');
         $anchoBajada = $this->input->post('bajada');
 
-        $txt = "dhcp=no";
+        $txt = "dhcp=" . $dhcp;
         fwrite($myfile, $txt . PHP_EOL);
 
         $txt = "ip=" . $ip;
