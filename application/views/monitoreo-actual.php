@@ -168,8 +168,7 @@
 	    	})
 		};
 
-		function actualizarGraficoTotal(data) {
-			var consumoTotal = JSON.parse(data);
+		function actualizarGraficoTotal(consumoTotal) {
 			agregarDato('bajada', puntosTotalBajada, consumoTotal);
 			agregarDato('subida', puntosTotalSubida, consumoTotal);
 			grafTotalBajada.render();	
@@ -197,7 +196,7 @@
 			//agregarDatoClasificadoPrueba(datosClasificadoSubida);
 			//********
 			if(data!=null && data!=""){
-				var consumoClasificado = JSON.parse(data);
+				var consumoClasificado = data;
 				for (i = 0; i < consumoClasificado.length; i++) { 
 					agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i]);
 					agregarDatoClasificado('subida', datosClasificadoSubida, consumoClasificado[i]);
