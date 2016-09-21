@@ -163,7 +163,6 @@
 		function obtenerConsumoTotal() {
 			$.ajax({
 		        url : siteurl+'/monitoreo/obtenerConsumoTotalActual',
-		        type: "POST",
 		        success: actualizarGraficoTotal,
 	    	})
 		};
@@ -178,7 +177,6 @@
 		function obtenerConsumoClasificado() {
 			$.ajax({
 		        url : siteurl+'/monitoreo/obtenerConsumoClasificadoActual',
-		        type: "POST",
 		        success: actualizarGraficoClasificado,
 	    	})
 		};
