@@ -33,28 +33,23 @@ class Monitoreo extends CI_Controller {
     }
 
     public function obtenerConsumoClasificadoActual(){
-        echo $this->obtenerConsumoClasificado();
+        $this->output->set_content_type('application/json');
+        $this->output->set_output($this->obtenerConsumoClasificado());
     }
 
 
     public function obtenerConsumoTotal(){
-
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
-
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:55:00"));
-        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
         return $this->paqueteModel->obtenerTotal($desde, $hasta);
     }
 
     public function obtenerConsumoTotalActual() {
-        
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-1 second', time()));
-        
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
-        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:31"));
-        echo json_encode($this->paqueteModel->obtenerTotal($desde, $hasta)[0]);
+        $data = $this->paqueteModel->obtenerTotal($desde, $hasta)[0];
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 
 
