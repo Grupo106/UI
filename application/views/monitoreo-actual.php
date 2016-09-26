@@ -3,7 +3,7 @@
 
 <div class="col_full">
 	<div class="fancy-title title-center title-border-color">
-		<h3>Tráfico de Bajada</h3>
+		<h3>Tráfico de Bajada <i class="fa fa-cloud-download"></i></h3>
 	</div>
 </div>
 
@@ -22,7 +22,7 @@
 
 <div class="col_full">
 	<div class="fancy-title title-center title-border-color">
-		<h3>Tráfico de Subida</h3>
+		<h3>Tráfico de Subida <i class="fa fa-cloud-upload"></i></h3>
 	</div>
 </div>
 
