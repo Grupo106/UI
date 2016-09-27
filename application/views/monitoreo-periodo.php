@@ -10,18 +10,20 @@
 
 	<div class="clear"></div>
 
-	<div class="col_one_third">
-		<label>Fecha y hora - desde</label>
-		<input id="fecha-hora-desde" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
-	</div>
-	<div class="col_one_third">
-		<label>Fecha y hora - hasta</label>
-		<input id="fecha-hora-hasta" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
-	</div>
+	<form id="form" action="<?=site_url('monitoreo/obtenerConsumoPorPeriodo/')?>" method="POST">
+		<div class="col_one_third">
+			<label>Fecha y hora - desde</label>
+			<input id="fechaDesdeInput" name="fechaDesde" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
+		</div>
+		<div class="col_one_third">
+			<label>Fecha y hora - hasta</label>
+			<input id="fechaHastaInput" name="fechaHasta" type="text" class="sm-form-control daterange2" placeholder="DD/MM/YYYY 00:00 AM/PM"/>
+		</div>
 
-	<div class="col_one_third col_last" style="padding-top:25px">
-		<button class="button button-rounded" onclick="buscarDatosPeriodo()">BUSCAR</button>
-	</div>	 
+		<div class="col_one_third col_last" style="padding-top:25px">
+			<button type="submit" class="button button-rounded">BUSCAR</button>
+		</div>	 
+	</form>
 </div>	
 				
 <div id="div-graficos" class="hidden">
@@ -32,7 +34,7 @@
 	</div>	
 
 	<div class="col_one_fifth col_last">
-		<button class="button button-rounded" onclick="nuevaBusqueda()">NUEVA BÚSQUEDA</button>		
+		<button id="btnNuevaBusqueda" class="button button-rounded">NUEVA BÚSQUEDA</button>		
 	</div>
 
 	<?php include('graficos.php'); ?>
@@ -42,12 +44,116 @@
 <!-- JavaScripts
 ============================================= -->
 <script type="text/javascript" src="<?=base_url('public/js/netcop/fechas.js')?>"></script>
-<script type="text/javascript" src="<?=base_url('public/js/netcop/monitoreo.js')?>"></script>
 <script type="text/javascript" src="<?=base_url('public/js/netcop/graficos.js')?>"></script>
 
 <script type="text/javascript">	
 	jQuery(window).load( function(){
 		$('#tituloPantalla').text('Monitoreo por Período');
+
+		var siteurl = '<?=site_url()?>';
+
+		maxPuntos = 50;
+
+		//Inicializacion de DatePickers
+		var fechaMinima = <?php echo json_encode($fechaMinima); ?>;
+		fechaMinima = moment(fechaMinima['hora_captura'], formatoFechaBD).toDate();
+		var fechaActual = new Date();
+
+	    $("#fechaDesdeInput").daterangepicker({
+	    	startDate: fechaMinima,
+	    	minDate: fechaMinima,
+	    	maxDate: fechaActual, 
+	    	"opens": "center",
+			singleDatePicker: true,
+			autoUpdateInput: true,
+			timePicker: true,
+			locale: {
+				format: formatoFechaPicker
+			}
+	    });
+
+
+	    $("#fechaHastaInput").daterangepicker({
+	    	startDate: fechaActual,
+	    	minDate: fechaMinima,
+	    	maxDate: fechaActual,
+	    	"opens": "center",
+			singleDatePicker: true,
+			autoUpdateInput: true,
+			timePicker: true,
+			locale: {
+				format: formatoFechaPicker
+			}
+	    });
+	    //Fin Inicializacion de DatePickers
+
+	    //Validaciones de Fechas
+	    $('#form').validate({
+			onfocusout: false,
+   			onkeyup: false,
+   			onblur: false,
+   			onclick: false,
+	    	errorElement: 'span',
+	        rules: {fechaDesde: "validarFecha",}
+	    });
+
+		var fechaDesdeMoment;
+		var fechaHastaMoment;
+		
+	    $.validator.addMethod('validarFecha', function(value) {
+			fechaDesdeMoment = moment($("#fechaDesdeInput").val(), formatoFechaPicker);
+			fechaHastaMoment = moment($("#fechaHastaInput").val(), formatoFechaPicker);
+			return fechaDesdeMoment < fechaHastaMoment;
+     	});
+	    //Fin Validaciones de Fechas
+
+
+		$('#form').submit(function (event){
+			event.preventDefault();
+			if ($('#form').valid()) {
+
+				var fechaDesdeString = fechaDesdeMoment.format(formatoFechaBD);
+				var fechaHastaString = fechaHastaMoment.format(formatoFechaBD);
+				obtenerConsumoPorPeriodo(fechaDesdeString, fechaHastaString);
+
+			    $('#titulo-periodo').text( "Período: " + $("#fechaDesdeInput").val() + " - " + $("#fechaHastaInput").val());
+			    $('#div-graficos').removeClass('hidden');
+			    $('#div-busqueda').addClass('hidden');
+	        } 
+
+	    });
+
+		function obtenerConsumoPorPeriodo(fechaDesde, fechaHasta) {
+			$.ajax({
+		        url : $('#form').attr("action"),
+		        type : $('#form').attr("method"),
+		        data : { fechaDesde : fechaDesde , fechaHasta : fechaHasta },
+		        success: actualizarGraficos,
+	    	})
+		}
+
+
+		$("#btnNuevaBusqueda").click(function() {
+		    $('#titulo-periodo').text('');
+		    $('#div-graficos').addClass('hidden');
+		    $('#div-busqueda').removeClass('hidden');
+		});
+
+		function actualizarGraficos(data){
+			resetearDatosGraficoTotal();
+			var consumo = JSON.parse(data);
+			
+			inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida']);
+	        actualizarGraficoTotal(consumo['consumoTotal'], obtenerFormatoFecha(consumo['intervaloBusqueda']));
+			actualizarGraficoClasificado(consumo['consumoClasificado']);	
+		}
+
+		//PENDIENTE: ver el formato del label x en dependiendo de si son dias, horas
+		function obtenerFormatoFecha(intervalo){
+			return "DD/MM/YYYY HH:mm:ss";
+		}
+
+
 	});
 </script>
 

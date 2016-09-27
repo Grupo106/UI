@@ -625,4 +625,5 @@ jQuery.extend(jQuery.validator.messages, {
     IPvalida: "Dirección IP inválida.",
     validarCamposCompletos: "",
     valid_url: "URL inválida.",
+    validarFecha: "Debe ser menor a la fecha y hora HASTA.",
 });

@@ -5,7 +5,7 @@ class PaqueteModel extends CI_Model{
         $this->load->database();
     }
 
-    function obtenerTotal($desde, $hasta){
+    function obtenerTotal($desde, $hasta, $rango){
 
         $query =    "SELECT
                       hora,
@@ -15,26 +15,32 @@ class PaqueteModel extends CI_Model{
                      generate_series(
                        '".$desde."'::timestamp,
                        '".$hasta."'::timestamp,
-                       '1 second') AS hora
+                       '1 ".$rango."') AS hora
                     LEFT OUTER JOIN
                       (SELECT
-                         date_trunc('second', hora_captura) as hora_captura,
+                         date_trunc('".$rango."', hora_captura) as hora_captura,
                          sum(bytes) as bytes_bajada
                        FROM paquetes
                        WHERE hora_captura >= '".$desde."' AND hora_captura < '".$hasta."' and direccion = 0
-                       GROUP BY date_trunc('second',hora_captura)) datos_bajada
-                    ON (hora = datos_bajada.hora_captura) 
+                       GROUP BY date_trunc('".$rango."',hora_captura)) datos_bajada
+                    ON (date_trunc('".$rango."',hora) = datos_bajada.hora_captura) 
                     LEFT OUTER JOIN
                       (SELECT
-                         date_trunc('second', hora_captura) as hora_captura,
+                         date_trunc('".$rango."', hora_captura) as hora_captura,
                          sum(bytes) as bytes_subida
                        FROM paquetes
                        WHERE hora_captura >= '".$desde."' AND hora_captura < '".$hasta."' and direccion = 1
-                       GROUP BY date_trunc('second',hora_captura)) datos_subida
-                    ON (hora = datos_subida.hora_captura)";
+                       GROUP BY date_trunc('".$rango."',hora_captura)) datos_subida
+                    ON (date_trunc('".$rango."',hora) = datos_subida.hora_captura)";
 
         $query = $this->db->query($query);
         return $query->result_array();
+    }
+
+    function obtenerFechaMinima(){
+       $this->db->select_min('hora_captura');
+       $query = $this->db->get('paquetes');
+       return $query->result()[0];
     }
 
 }

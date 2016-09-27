@@ -12,58 +12,142 @@ class Monitoreo extends CI_Controller {
 
         if(! $_SESSION['SISENER_SESSION']['loggedIn']){
 
-        //$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
-        $this->load->view("login");
+            $_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
+            $this->load->view("login");
         }
     }
 
     public function tiempo_real() {
 
-        $data = array(
-            'consumoTotal' => $this->obtenerConsumoTotal(),
-            'consumoClasificado' => $this->obtenerConsumoClasificado(),
-        );
+        $data = $this->obtenerConsumoUltimosSegundos();
         $this->load->view('monitoreo-actual', $data);
     }
 
+    public function por_periodo() {
+
+        $data['fechaMinima'] = $this->paqueteModel->obtenerFechaMinima();
+        $this->load->view('monitoreo-periodo', $data);
+    }
+
+
+    public function obtenerConsumoUltimosSegundos(){
+
+        //DATOS DE PRUEBA
+        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:55:00"));
+-       //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
+
+        $hasta = date('Y-m-d H:i:s');
+        $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
+        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, "second");
+        $valorMaximo =  $this->obtenerValorMaximo($consumoTotal);
+
+        $data = array(
+            'consumoTotal' => $consumoTotal,
+            'consumoClasificado' => $this->obtenerConsumoClasificado(),
+            'maximoBajada' => $valorMaximo['bajada'],
+            'maximoSubida' => $valorMaximo['subida'],
+        );
+        return $data;
+    }
+
+    //Metodo llamado desde la view, para buscar datos por periodo
+    public function obtenerConsumoPorPeriodo() {
+        
+        $desde = $this->input->post('fechaDesde');
+        $hasta = $this->input->post('fechaHasta');
+
+        $dateTimeDesde = new DateTime($desde);
+        $dateTimeHasta = new DateTime($hasta);
+
+        $intervalo = $this->obtenerIntervalo($dateTimeDesde, $dateTimeHasta);
+        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, $intervalo);
+        $valorMaximo = $this->obtenerValorMaximo($consumoTotal);
+
+        $data = array(
+            'consumoTotal' => $consumoTotal,
+            'consumoClasificado' => $this->obtenerConsumoClasificadoPorFecha($dateTimeDesde, $dateTimeHasta),
+            'intervaloBusqueda' => $intervalo,
+            'maximoBajada' => $valorMaximo['bajada'],
+            'maximoSubida' => $valorMaximo['subida'],
+        );
+        echo json_encode($data);
+    }
+
+
+    public function obtenerConsumoTotal($desde, $hasta, $intervalo){
+        return $this->paqueteModel->obtenerTotal($desde, $hasta, $intervalo);
+    }
 
     public function obtenerConsumoClasificado(){
         $segundosAnalizar = 3;
         return shell_exec('analizar '.$segundosAnalizar);
     }
 
+    public function obtenerConsumoClasificadoPorFecha($dateTimeDesde, $dateTimeHasta){
+
+        $stringISODesde = date('Y-m-d\TH:i', $dateTimeDesde->getTimestamp());
+        $stringISOHasta = date('Y-m-d\TH:i', $dateTimeHasta->getTimestamp());
+
+        return shell_exec('analizar '.$stringISODesde.' '.$stringISOHasta);
+    }
+
+
+    //Metodo llamado desde la view cada 3 segundos para actualizar el grafico de torta
     public function obtenerConsumoClasificadoActual(){
-        echo $this->obtenerConsumoClasificado();
+        $this->output->set_content_type('application/json');
+        $this->output->set_output($this->obtenerConsumoClasificado());
     }
 
-
-    public function obtenerConsumoTotal(){
-
-        $hasta = date('Y-m-d H:i:s');
-        $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
-
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:55:00"));
-        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
-        return $this->paqueteModel->obtenerTotal($desde, $hasta);
-    }
-
+    //Metodo llamado desde la view, para actualizar el grafico de linea
     public function obtenerConsumoTotalActual() {
-        
+
+        //DATOS DE PRUEBA
+        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
+-       //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:31"));
+
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-1 second', time()));
-        
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
-        //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:31"));
-        echo json_encode($this->paqueteModel->obtenerTotal($desde, $hasta)[0]);
+        $data = $this->paqueteModel->obtenerTotal($desde, $hasta, "second")[0];
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($data));
     }
 
+
+    
+    public function obtenerIntervalo($dateTimeDesde, $dateTimeHasta){
+
+        $diferencia = $dateTimeHasta->diff($dateTimeDesde);
+        if($diferencia->m > 0){
+            $intervalo = "month";
+        } else if ($diferencia->d > 0){
+            $intervalo = "day";
+        } else if ($diferencia->h > 0){
+            $intervalo = "hour";
+        } else {
+            $intervalo = "minute";
+        }
+        return $intervalo;
+    }
+    
+    public function obtenerValorMaximo($consumoTotal){
+        $valoresBajada = array();
+        $valoresSubida = array();
+
+        foreach($consumoTotal as $obj){
+            $valoresBajada[] = $obj['bajada'];
+            $valoresSubida[] = $obj['subida'];
+        }
+        $data = array(
+            'bajada' => max($valoresBajada),
+            'subida' => max($valoresSubida),
+        );
+        return $data;
+    }
 
     public function historico() {
         $this->load->view('monitoreo-historico');
     }
 
-    public function por_periodo() {
-        $this->load->view('monitoreo-periodo');
-    }
+    
 }
 ?>
