@@ -10,5 +10,5 @@
 			<div class="container vertical-middle divcenter clearfix">
 
 				<div class="row center" style="padding: 30px;">
-					<a href="index.html"><img src="<?=base_url('public/images/logo-chico.png')?>" alt="NetCop Logo"></a>
+					<a href="/"><img src="<?=base_url('public/images/logo-chico.png')?>" alt="NetCop Logo"></a>
 				</div>

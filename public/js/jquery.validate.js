@@ -623,6 +623,7 @@ if (typeof module !== 'undefined' && module.exports) {
 jQuery.extend(jQuery.validator.messages, {
     required:"Este campo es requerido.",
     IPvalida: "Dirección IP inválida.",
+    MailInvalido: "Dirección de Mail inválida.",
     validarCamposCompletos: "",
     valid_url: "URL inválida.",
     validarFecha: "Debe ser menor a la fecha y hora HASTA.",

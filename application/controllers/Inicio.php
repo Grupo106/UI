@@ -12,7 +12,7 @@ class Inicio extends CI_Controller {
 
 		 $anyuser = $this->usuario_model->existe_usuarios();  
 		 if(!$anyuser) {
-		 	$this->load->view("asistente");
+		 	$this->load->view("asistente-inicio");
 		 }
 
 		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
@@ -59,7 +59,7 @@ class Inicio extends CI_Controller {
     public function desloguearse() {
 
 		$_SESSION[SISENER_SESSION]['loggedIn'] = FALSE;
-		        $this->load->view("login");
+		redirect("/");
     }
 
 }

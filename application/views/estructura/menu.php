@@ -30,13 +30,17 @@
 					<li><a href="#"><div>Políticas</div></a>
 						<ul>
 							<li><a href="<?=site_url('politica/consulta')?>"><div><i class="icon-tasks"></i>Consulta de políticas</div></a></li>
+							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('politica/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva política</div></a></li>
+							 <?php } ?>
 						</ul>
 					</li>
 					<li><a href="#"><div>Clases de tráfico</div></a>
 						<ul>
 							<li><a href="<?=site_url('clasetrafico/consulta')?>"><div><i class="icon-tasks"></i>Consulta de clases de tráfico</div></a></li>
+							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('clasetrafico/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva clase de tráfico</div></a></li>
+							 <?php } ?>
 						</ul>
 					</li>
 					<li><a href="#"><div>Usuarios</div></a>
@@ -44,13 +48,16 @@
 							<li><a href="<?=site_url('usuario/consulta')?>"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
 							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('usuario/nuevo')?>"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li> <?php } ?>
-							<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>
+							<!--<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>-->
 						</ul>
 					</li>
 					<li><a href="#"><div>Sistema</div></a>
 						<ul>
-							<li><a href="<?=site_url('sistema/informacion2')?>"><div><i class="icon-info"></i>Información</div></a></li>
+
+							<li><a href="<?=site_url('sistema/informacion')?>"><div><i class="icon-info"></i>Información</div></a></li>
+							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('sistema/configuracion')?>"><div><i class="icon-wrench"></i>Configuración</div></a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<li><a href="<?=site_url('ayuda/ayuda')?>"><div>Ayuda</div></a></li>
@@ -59,10 +66,11 @@
 				<!-- Top Search
 				============================================= -->
 				<div id="top-search">
-					<a href="#" id="top-search-trigger"><i class="icon-search3"></i><i class="icon-line-cross"></i></a>
-					<form action="search.html" method="get">
+				
+					<a href="<?=site_url('desloguearse')?>" id="top-off-trigger"><i class="icon-off"></i><i class="icon-line-cross"></i> </a>
+					<!--<form action="search.html" method="get">
 						<input type="text" name="q" class="form-control" value="" placeholder="Type &amp; Hit Enter..">
-					</form>
+					</form>-->
 				</div><!-- #top-search end -->
 
 			</nav><!-- #primary-menu end -->

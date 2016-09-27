@@ -7,7 +7,7 @@
 
 	<!-- Stylesheets
 	============================================= -->
-	<link href="http://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,400italic,600,700|Raleway:300,400,500,600,700|Crete+Round:400italic" rel="stylesheet" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/bootstrap.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/style.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/dark.css')?>" type="text/css" />
@@ -25,7 +25,8 @@
 
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-datatable.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-switches.css')?>" type="text/css" />
-
+	<link rel="stylesheet" href="<?=base_url('public/font-awesome-4.6.3/css/font-awesome.css')?>" type="text/css" />
+	<link rel="icon" type="image/x-icon" href=<?php echo base_url()."/favicon.ico"?> />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 

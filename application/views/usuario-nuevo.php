@@ -21,7 +21,7 @@
 
 	<div class="col_one_third col_last">
 		<label>Mail</label>
-		<input name="mail" type="text" class="sm-form-control">
+		<input name="mail" type="text" class="sm-form-control mailInvalido">
 	</div>
 
 	<div class="col_one_third">
@@ -73,6 +73,9 @@
 	            success: function(respuesta){
 	            	if(respuesta==1){
 			            $('#mensaje').text("El usuario fue guardado exitosamente.");
+			        } else if(respuesta == 2){
+			        	$('#mensaje').text("Ya existe ese nombre de usuario.");
+			        	$('#modalInformacion').addClass('stayPage');
 			        } else {
 			            $('#mensaje').text("Error al guardar el usuario.");
 			        }
@@ -85,7 +88,12 @@
 
 	    //ACEPTAR
 		$('#btnAceptarInformacion').click(function(){
-	        window.location.href = "<?php echo site_url('usuario/consulta');?>";
+		    if($('#modalInformacion').hasClass('stayPage')) {
+				$('#modalInformacion').modal('hide');
+				$('#modalInformacion').removeClass('stayPage');
+			} else {
+	          window.location.href = "<?php echo site_url('usuario/consulta');?>";				
+			}
 		});
 	});
 </script>
