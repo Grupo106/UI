@@ -13,8 +13,6 @@
 
 		var siteurl = '<?=site_url()?>';
 
-		var formatoFechaLabelX = "HH:mm:ss";
-		
 		//Variable definida en graficos.js
 		//Representa el numero de puntos visibles al mismo tiempo para los graficos de linea
 		maxPuntos = 50;
@@ -30,8 +28,8 @@
 			var consumoTotal = <?php echo json_encode($consumoTotal); ?>;
 			var maximoBajada = <?php echo json_encode($maximoBajada); ?>;
 			var maximoSubida = <?php echo json_encode($maximoSubida); ?>;
-			inicializarPropiedadesGraficos(maximoBajada, maximoSubida);
-			actualizarGraficoTotal(consumoTotal, formatoFechaLabelX);
+			inicializarPropiedadesGraficos(maximoBajada, maximoSubida, "second");
+			actualizarGraficoTotal(consumoTotal);
 
 			//Dibuja el grafico clasificado de bajada y subida
 			var consumoClasificado = <?php echo json_encode($consumoClasificado); ?>;
@@ -45,7 +43,7 @@
 		        success: function(data){
 	            	var consumoTotal = [];
 	            	consumoTotal.push( data );
-	            	actualizarGraficoTotal(consumoTotal, formatoFechaLabelX);
+	            	actualizarGraficoTotal(consumoTotal);
 	            }
 	    	})
 		};

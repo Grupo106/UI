@@ -52,7 +52,7 @@
 
 		var siteurl = '<?=site_url()?>';
 
-		maxPuntos = 50;
+		maxPuntos = 1000;
 
 		//Inicializacion de DatePickers
 		var fechaMinima = <?php echo json_encode($fechaMinima); ?>;
@@ -143,14 +143,9 @@
 			resetearDatosGraficoTotal();
 			var consumo = JSON.parse(data);
 			
-			inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida']);
-	        actualizarGraficoTotal(consumo['consumoTotal'], obtenerFormatoFecha(consumo['intervaloBusqueda']));
-			actualizarGraficoClasificado(consumo['consumoClasificado']);	
-		}
-
-		//PENDIENTE: ver el formato del label x en dependiendo de si son dias, horas
-		function obtenerFormatoFecha(intervalo){
-			return "DD/MM/YYYY HH:mm:ss";
+			inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida'], consumo['intervaloBusqueda']);
+	        actualizarGraficoTotal(consumo['consumoTotal']);
+			actualizarGraficoClasificado(JSON.parse(consumo['consumoClasificado']));	
 		}
 
 

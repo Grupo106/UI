@@ -1,7 +1,7 @@
 var $ = jQuery.noConflict();
 
 var formatoFechaBD = "YYYY-MM-DD HH:mm:ss";
-var formatoFechaPicker = "DD-MM-YYYY HH:mm";
+var formatoFechaPicker = "DD/MM/YYYY HH:mm";
 			
 var colores = [ "#51B1FF","#A9F5A9","#FACC2E","#58FA82","#819FF7","#D0FA58","#AC58FA","#BCA9F5","#2E64FE",
 "#A9E2F3","#D358F7","#00FFFF","#BCF5A9","#F4FA58","#FAAC58","#A4A4A4","#FA5858","#A4A4A4","#FE9A2E","#F781F3"];
@@ -26,35 +26,17 @@ var intervaloYSubida;
 var maximoYSubida;
 var intervaloYBajada;
 var maximoYBajada;
+var formatoLabelX;
 
-function inicializarPropiedadesGraficos(valorMaximoYBajada, valorMaximoYSubida){
+function inicializarPropiedadesGraficos(valorMaximoYBajada, valorMaximoYSubida, intervaloTiempo){
 	calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida);
+	obtenerFormatoFecha(intervaloTiempo);
 	grafTotalBajada = new CanvasJS.Chart("grafTotalBajada", propiedadesGrafLinea(puntosTotalBajada, intervaloYBajada, maximoYBajada));
 	grafTotalSubida = new CanvasJS.Chart("grafTotalSubida", propiedadesGrafLinea(puntosTotalSubida, intervaloYSubida, maximoYSubida));
 	grafClasificadoBajada = new CanvasJS.Chart("grafClasificadoBajada", propiedadesGrafTorta(datosClasificadoBajada));
 	grafClasificadoSubida = new CanvasJS.Chart("grafClasificadoSubida", propiedadesGrafTorta(datosClasificadoSubida));
 }
 
-function calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida){
-	maximoYBajada = calcularMaximo(valorMaximoYBajada);
-	intervaloYBajada = calcularIntervalo(maximoYBajada);
-
-	maximoYSubida = calcularMaximo(valorMaximoYSubida);
-	intervaloYSubida = calcularIntervalo(maximoYSubida);
-}
-
-function calcularMaximo(valorMaximo){
-	if (Number(valorMaximo)<=20000) return 20000;
-
-	var primerDigito = valorMaximo.substr(0,1);
-	var cantDigitos = valorMaximo.length;
-	var potencia = Math.pow(10, cantDigitos-1);
-	return potencia * (Number(primerDigito)+1);
-}
-
-function calcularIntervalo(valorMaximo){
-	return valorMaximo / 10;
-}
 
 function propiedadesGrafLinea(puntos, intervaloY, maximoY){
 	var options = {	
@@ -63,7 +45,8 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY){
 			gridColor: "#F2F2F2",
 			lineColor: "#D8D8D8",
 			labelAutoFit: false,
-			labelFontSize: 12
+			labelFontSize: 12,
+			valueFormatString: formatoLabelX, 
 		},
 		axisY: {						
 			title: "bytes",
@@ -72,7 +55,8 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY){
 			gridColor: "#F2F2F2",
 			lineColor: "#D8D8D8",
 			labelFontSize: 12,
-			valueFormatString:  "#.###"
+			intervalType: "number",
+			//valueFormatString:  "#.###"
 		},	
 		data: [{
 			type: "splineArea",
@@ -94,6 +78,7 @@ function propiedadesGrafTorta(puntos){
 			percentFormatString: "#0",
 			toolTipContent: "<strong>{text}</strong>",
 			indexLabel: "{name}: #percent%",
+			//percentFormatString: "#0.##",
 			dataPoints: puntos 
 		}],
 	};
@@ -101,23 +86,23 @@ function propiedadesGrafTorta(puntos){
 }
 
 
-function actualizarGraficoTotal(consumoTotal, formatoFecha) {
+function actualizarGraficoTotal(consumoTotal) {
 	for (i = 0; i < consumoTotal.length; i++) { 
-		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i], formatoFecha);
-		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i], formatoFecha);
+		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i]);
+		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i]);
 	}
 	grafTotalBajada.render();	
 	grafTotalSubida.render();	
 }
 
 
-function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem, formatoFecha){
+function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem){
 	var bytes = Number(consumoItem[tipo]);
 	var fecha = moment(consumoItem['hora'], formatoFechaBD);
 	datosGrafico.push({
 		x: fecha.toDate(), 
 		y: bytes,
-		label: fecha.format(formatoFecha),
+		label: fecha.format(formatoLabelX),
 	});
 	if (datosGrafico.length > maxPuntos){
 		datosGrafico.shift();				
@@ -238,6 +223,48 @@ function calcularPorcentaje(item, total){
 	var value = 100 * item['y'] / total;
 	return Math.round(value) + "%";
 }
+
+
+function obtenerFormatoFecha(intervalo){
+	switch (intervalo) {
+		case "month":
+	        formatoLabelX = "MM/YYYY";
+	        break;
+	    case "day":
+	        formatoLabelX = "DD/MM";
+	        break;
+	    case "hour":
+	        formatoLabelX = "DD/MM HH:00";
+	        break;
+	    case "minute":
+	        formatoLabelX = "DD/MM HH:mm";
+	        break;
+	    case "second":
+	    	formatoLabelX = "HH:mm:ss";
+	}
+}
+
+function calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida){
+	maximoYBajada = calcularMaximo(valorMaximoYBajada);
+	intervaloYBajada = calcularIntervalo(maximoYBajada);
+
+	maximoYSubida = calcularMaximo(valorMaximoYSubida);
+	intervaloYSubida = calcularIntervalo(maximoYSubida);
+}
+
+function calcularMaximo(valorMaximo){
+	if (Number(valorMaximo)<=20000) return 20000;
+
+	var primerDigito = valorMaximo.substr(0,1);
+	var cantDigitos = valorMaximo.length;
+	var potencia = Math.pow(10, cantDigitos-1);
+	return potencia * (Number(primerDigito)+1);
+}
+
+function calcularIntervalo(valorMaximo){
+	return valorMaximo / 10;
+}
+
 
 //Funcion para salir del popover cuando se hace click fuera del mismo
 $(document).on('click', function (e) {

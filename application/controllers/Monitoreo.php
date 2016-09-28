@@ -117,14 +117,16 @@ class Monitoreo extends CI_Controller {
     public function obtenerIntervalo($dateTimeDesde, $dateTimeHasta){
 
         $diferencia = $dateTimeHasta->diff($dateTimeDesde);
-        if($diferencia->m > 0){
+        if($diferencia->m > 10){
             $intervalo = "month";
-        } else if ($diferencia->d > 0){
+        } else if ($diferencia->m > 0  || ($diferencia->m ==0 && $diferencia->d > 10)){
             $intervalo = "day";
-        } else if ($diferencia->h > 0){
+        } else if ($diferencia->d > 0  || ($diferencia->d ==0 && $diferencia->h > 10)){
             $intervalo = "hour";
-        } else {
+        } else if ($diferencia->h> 0  || ($diferencia->h ==0 && $diferencia->i > 10)){
             $intervalo = "minute";
+        } else {
+            $intervalo = "second";
         }
         return $intervalo;
     }
