@@ -27,18 +27,20 @@ var maximoYSubida;
 var intervaloYBajada;
 var maximoYBajada;
 var formatoLabelX;
+var formatoLabelYSubida = "bytes";
+var formatoLabelYBajada = "bytes";
 
 function inicializarPropiedadesGraficos(valorMaximoYBajada, valorMaximoYSubida, intervaloTiempo){
 	calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida);
 	obtenerFormatoFecha(intervaloTiempo);
-	grafTotalBajada = new CanvasJS.Chart("grafTotalBajada", propiedadesGrafLinea(puntosTotalBajada, intervaloYBajada, maximoYBajada));
-	grafTotalSubida = new CanvasJS.Chart("grafTotalSubida", propiedadesGrafLinea(puntosTotalSubida, intervaloYSubida, maximoYSubida));
+	grafTotalBajada = new CanvasJS.Chart("grafTotalBajada", propiedadesGrafLinea(puntosTotalBajada, intervaloYBajada, maximoYBajada, formatoLabelYBajada));
+	grafTotalSubida = new CanvasJS.Chart("grafTotalSubida", propiedadesGrafLinea(puntosTotalSubida, intervaloYSubida, maximoYSubida, formatoLabelYSubida));
 	grafClasificadoBajada = new CanvasJS.Chart("grafClasificadoBajada", propiedadesGrafTorta(datosClasificadoBajada));
 	grafClasificadoSubida = new CanvasJS.Chart("grafClasificadoSubida", propiedadesGrafTorta(datosClasificadoSubida));
 }
 
 
-function propiedadesGrafLinea(puntos, intervaloY, maximoY){
+function propiedadesGrafLinea(puntos, intervaloY, maximoY, formatoLabelY){
 	var options = {	
 		animationEnabled: true,
 		axisX: {						
@@ -49,7 +51,7 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY){
 			valueFormatString: formatoLabelX, 
 		},
 		axisY: {						
-			title: "bytes",
+			title: formatoLabelY,
 			interval: intervaloY,
 			maximum: maximoY,
 			gridColor: "#F2F2F2",
@@ -88,20 +90,23 @@ function propiedadesGrafTorta(puntos){
 
 function actualizarGraficoTotal(consumoTotal) {
 	for (i = 0; i < consumoTotal.length; i++) { 
-		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i]);
-		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i]);
+		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i], formatoLabelYBajada);
+		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i], formatoLabelYSubida);
 	}
 	grafTotalBajada.render();	
 	grafTotalSubida.render();	
 }
 
 
-function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem){
-	var bytes = Number(consumoItem[tipo]);
+function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem, formatoLabelY){
 	var fecha = moment(consumoItem['hora'], formatoFechaBD);
+	var bytes = Number(consumoItem[tipo]);
+	if(formatoLabelY!="bytes"){ bytes = bytes/1024;}
+	if(formatoLabelY=="Megabytes"){ bytes = bytes/1024;}
+	
 	datosGrafico.push({
 		x: fecha.toDate(), 
-		y: bytes,
+		y: Number(bytes.toFixed(2)),
 		label: fecha.format(formatoLabelX),
 	});
 	if (datosGrafico.length > maxPuntos){
@@ -245,20 +250,40 @@ function obtenerFormatoFecha(intervalo){
 }
 
 function calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida){
-	maximoYBajada = calcularMaximo(valorMaximoYBajada);
+	maximoYBajada = calcularMaximo(valorMaximoYBajada, "bajada");
 	intervaloYBajada = calcularIntervalo(maximoYBajada);
 
-	maximoYSubida = calcularMaximo(valorMaximoYSubida);
+	maximoYSubida = calcularMaximo(valorMaximoYSubida, "subida");
 	intervaloYSubida = calcularIntervalo(maximoYSubida);
 }
 
-function calcularMaximo(valorMaximo){
-	if (Number(valorMaximo)<=20000) return 20000;
+function calcularMaximo(valorMaximo, tipo){
 
-	var primerDigito = valorMaximo.substr(0,1);
-	var cantDigitos = valorMaximo.length;
-	var potencia = Math.pow(10, cantDigitos-1);
-	return potencia * (Number(primerDigito)+1);
+	formatoLabelY = "bytes";
+	var maximo;
+	if (valorMaximo>20000) {
+		var kbytes = Math.round(Number(valorMaximo)/1024);
+		formatoLabelY = "Kilobytes";
+
+		var megabytes = Math.round(kbytes/1024);
+		if(megabytes>10){
+			kbytes = megabytes;
+			formatoLabelY = "Megabytes";
+		}
+
+		var primerDigito = kbytes.toString().substr(0,1);
+		var cantDigitos = kbytes.toString().length;
+		var potencia = Math.pow(10, cantDigitos-1);
+		maximo = potencia * (Number(primerDigito)+1);
+	} else {
+		maximo = 20000;
+	}
+	if(tipo=="bajada"){
+		formatoLabelYBajada = formatoLabelY;
+	} else {
+		formatoLabelYSubida = formatoLabelY;
+	}
+	return maximo;
 }
 
 function calcularIntervalo(valorMaximo){

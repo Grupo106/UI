@@ -57,34 +57,40 @@
 		//Inicializacion de DatePickers
 		var fechaMinima = <?php echo json_encode($fechaMinima); ?>;
 		fechaMinima = moment(fechaMinima['hora_captura'], formatoFechaBD).toDate();
-		var fechaActual = new Date();
+		
+		inicializarDateRangePicker(new Date());
 
-	    $("#fechaDesdeInput").daterangepicker({
-	    	startDate: fechaMinima,
-	    	minDate: fechaMinima,
-	    	maxDate: fechaActual, 
-	    	"opens": "center",
-			singleDatePicker: true,
-			autoUpdateInput: true,
-			timePicker: true,
-			locale: {
-				format: formatoFechaPicker
-			}
-	    });
+		function inicializarDateRangePicker(fechaActual){
+			$("#fechaDesdeInput").daterangepicker({
+		    	startDate: fechaMinima,
+		    	minDate: fechaMinima,
+		    	maxDate: fechaActual, 
+		    	"opens": "center",
+				singleDatePicker: true,
+				autoUpdateInput: true,
+				timePicker: true,
+				timePicker24Hour: true,
+				locale: {
+					format: formatoFechaPicker
+				}
+		    });
 
 
-	    $("#fechaHastaInput").daterangepicker({
-	    	startDate: fechaActual,
-	    	minDate: fechaMinima,
-	    	maxDate: fechaActual,
-	    	"opens": "center",
-			singleDatePicker: true,
-			autoUpdateInput: true,
-			timePicker: true,
-			locale: {
-				format: formatoFechaPicker
-			}
-	    });
+		    $("#fechaHastaInput").daterangepicker({
+		    	startDate: fechaActual,
+		    	minDate: fechaMinima,
+		    	maxDate: fechaActual,
+		    	"opens": "center",
+				singleDatePicker: true,
+				autoUpdateInput: true,
+				timePicker: true,
+				timePicker24Hour: true,
+				locale: {
+					format: formatoFechaPicker
+				}
+		    });
+		}
+	    
 	    //Fin Inicializacion de DatePickers
 
 	    //Validaciones de Fechas
@@ -134,6 +140,11 @@
 
 
 		$("#btnNuevaBusqueda").click(function() {
+
+		    $('#fechaDesdeInput').daterangepicker('destroy');
+		    $('#fechaHastaInput').daterangepicker('destroy');
+		    inicializarDateRangePicker(new Date());
+
 		    $('#titulo-periodo').text('');
 		    $('#div-graficos').addClass('hidden');
 		    $('#div-busqueda').removeClass('hidden');
