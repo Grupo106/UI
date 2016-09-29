@@ -8,13 +8,21 @@
 ============================================= -->
 <div class="col_half center">
 	<h3>Consumo Total</h3>
+	
+	<div class="loading" style="display:none">
+		<img src="<?=base_url('public/images/loading.gif')?>"/>
+	</div>
 	<div id="grafTotalBajada" class="graficoLinea"></div>
 </div>
 
 <div class="col_half col_last center">
 	<h3 id="titleClasificadoBajada" class="titleSinMargen">Consumo Clasificado</h3>
-	<a id="btnDetalleBajada" class="detallePopover" href="#">Ver Detalle</a>
-	<div id="msjSinDatosBajada" style="margin-top:20px">No se encontraron datos de consumo</div>
+	<a id="btnDetalleBajada" class="hidden detallePopover" href="#">Ver Detalle</a>
+	<div id="msjSinDatosBajada" class="hidden msjSinDatos" style="margin-top:30px">No se encontraron datos de consumo</div>
+	
+	<div class="loading" style="display:none; margin-top:30px">
+		<img src="<?=base_url('public/images/loading.gif')?>"/>
+	</div>
 	<div id="grafClasificadoBajada" class="graficoTorta"></div>
 </div>
 <!-- #Fin Graficos de Bajada -->
@@ -29,13 +37,21 @@
 ============================================= -->
 <div class="col_half center">
 	<h3>Consumo Total</h3>
+
+	<div class="loading" style="display:none">
+		<img src="<?=base_url('public/images/loading.gif')?>"/>
+	</div>
 	<div id="grafTotalSubida" class="graficoLinea"></div>
 </div>
 
 <div class="col_half col_last center">
 	<h3 id="titleClasificadoSubida" class="titleSinMargen">Consumo Clasificado</h3>
-	<a id="btnDetalleSubida" class="detallePopover" href="#">Ver Detalle</a>
-	<div id="msjSinDatosSubida" style="margin-top:20px">No se encontraron datos de consumo</div>
+	<a id="btnDetalleSubida" class="hidden detallePopover" href="#">Ver Detalle</a>
+	<div id="msjSinDatosSubida" class="hidden msjSinDatos" style="margin-top:30px">No se encontraron datos de consumo</div>
+
+	<div class="loading" style="display:none; margin-top:30px">
+		<img src="<?=base_url('public/images/loading.gif')?>"/>
+	</div>
 	<div id="grafClasificadoSubida" class="graficoTorta"></div>
 </div>
 <!-- #Fin Graficos de Subida -->

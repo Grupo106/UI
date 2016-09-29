@@ -32,10 +32,6 @@ class Monitoreo extends CI_Controller {
 
     public function obtenerConsumoUltimosSegundos(){
 
-        //DATOS DE PRUEBA
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:55:00"));
--       //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
-
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
         $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, "second");
@@ -60,7 +56,7 @@ class Monitoreo extends CI_Controller {
         $dateTimeHasta = new DateTime($hasta);
 
         $intervalo = $this->obtenerIntervalo($dateTimeDesde, $dateTimeHasta);
-        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, $intervalo);
+        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, explode("-", $intervalo)[0]);
         $valorMaximo = $this->obtenerValorMaximo($consumoTotal);
 
         $data = array(
@@ -101,10 +97,6 @@ class Monitoreo extends CI_Controller {
     //Metodo llamado desde la view, para actualizar el grafico de linea
     public function obtenerConsumoTotalActual() {
 
-        //DATOS DE PRUEBA
-        //$desde = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:30"));
--       //$hasta = date('Y-m-d H:i:s', strtotime("2016-09-05 19:56:31"));
-
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-1 second', time()));
         $data = $this->paqueteModel->obtenerTotal($desde, $hasta, "second")[0];
@@ -119,14 +111,17 @@ class Monitoreo extends CI_Controller {
         $diferencia = $dateTimeHasta->diff($dateTimeDesde);
         if($diferencia->m > 10){
             $intervalo = "month";
-        } else if ($diferencia->m > 0  || ($diferencia->m ==0 && $diferencia->d > 10)){
+        } else if ($diferencia->d > 10){
             $intervalo = "day";
-        } else if ($diferencia->d > 0  || ($diferencia->d ==0 && $diferencia->h > 10)){
+        } else if ($diferencia->d > 0 || $diferencia->h > 10){
             $intervalo = "hour";
-        } else if ($diferencia->h> 0  || ($diferencia->h ==0 && $diferencia->i > 10)){
+        } else if ($diferencia->h > 0 || $diferencia->i > 10){
             $intervalo = "minute";
         } else {
             $intervalo = "second";
+        }
+        if(($intervalo=="hour" || $intervalo=="minute") && ($dateTimeDesde->format('Y-m-d') == $dateTimeHasta->format('Y-m-d'))) {
+            $intervalo = $intervalo.'-sameDay';
         }
         return $intervalo;
     }

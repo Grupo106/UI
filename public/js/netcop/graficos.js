@@ -93,6 +93,8 @@ function actualizarGraficoTotal(consumoTotal) {
 		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i], formatoLabelYBajada);
 		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i], formatoLabelYSubida);
 	}
+
+	$('.loading').hide();
 	grafTotalBajada.render();	
 	grafTotalSubida.render();	
 }
@@ -119,10 +121,6 @@ var colorIndex = 0;
 function actualizarGraficoClasificado(consumoClasificado) {
 	resetearDatos();
 
-	//** borrar
-	//agregarDatoClasificadoPrueba(datosClasificadoBajada);
-	//agregarDatoClasificadoPrueba(datosClasificadoSubida);
-	//********
 	if(consumoClasificado!=null && consumoClasificado!=""){
 		for (i = 0; i < consumoClasificado.length; i++) { 
 			agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i]);
@@ -131,6 +129,8 @@ function actualizarGraficoClasificado(consumoClasificado) {
 			if(colorIndex >= colores.length){ colorIndex = 0;}
 		}
 	}
+
+	$('.loading').hide();
 	mostrarMensaje();
 	grafClasificadoBajada.render();
 	grafClasificadoSubida.render();
@@ -238,8 +238,14 @@ function obtenerFormatoFecha(intervalo){
 	    case "day":
 	        formatoLabelX = "DD/MM";
 	        break;
+	    case "hour-sameDay":
+	        formatoLabelX = "HH:00";
+	        break;
 	    case "hour":
 	        formatoLabelX = "DD/MM HH:00";
+	        break;
+	    case "minute-sameDay":
+	        formatoLabelX = "HH:mm";
 	        break;
 	    case "minute":
 	        formatoLabelX = "DD/MM HH:mm";
@@ -290,6 +296,11 @@ function calcularIntervalo(valorMaximo){
 	return valorMaximo / 10;
 }
 
+function borrarGraficos(){
+	$('.canvasjs-chart-container').remove();
+	$('.msjSinDatos').addClass('hidden');
+	$('.detallePopover').addClass('hidden');
+}
 
 //Funcion para salir del popover cuando se hace click fuera del mismo
 $(document).on('click', function (e) {
@@ -299,21 +310,3 @@ $(document).on('click', function (e) {
         }
     });
 });
-
-
-// BORRAR, DATOS DE PRUEBA
-function agregarDatoClasificadoPrueba(datos){
-	datos.push({
-			y: 5345,
-			name: "Facebook",
-			text: "Red Social",
-			color: colores[0]
-			
-		});
-	datos.push({
-			y: 3455,
-			name: "Twitter",
-			text: "Red Social",
-			color: colores[1]
-		});
-}
