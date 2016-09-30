@@ -28,7 +28,7 @@ class Sistema extends CI_Controller {
             $keyvalue = explode("=", $configArray[$i]);
             $data[$keyvalue[0]] = $keyvalue[1];          
         }
-     
+        $data['section'] = 'sistema';
         $this->load->view('sistema-configuracion', $data);
     }
 
@@ -98,6 +98,7 @@ class Sistema extends CI_Controller {
                       "discRig" => $discRig . "%",
                       "intRed" => $intRed);
 
+        $data['section'] = 'sistema';
         $this->load->view('sistema-informacion2', $data);
 
     }
@@ -106,6 +107,7 @@ class Sistema extends CI_Controller {
 
         $data = array(
             'consumoTotal' => $this->obtenerConsumoTotal(),
+            'section' => 'sistema'
         );
         $this->load->view('sistema-informacion', $data);
     }

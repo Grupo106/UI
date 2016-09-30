@@ -20,18 +20,20 @@ class Monitoreo extends CI_Controller {
     public function tiempo_real() {
 
         $data = $this->obtenerConsumoUltimosSegundos();
+        $data['section'] = 'monitoreo';
         $this->load->view('monitoreo-actual', $data);
     }
 
     public function por_periodo() {
 
         $data['fechaMinima'] = $this->paqueteModel->obtenerFechaMinima();
+        $data['section'] = 'monitoreo';
         $this->load->view('monitoreo-periodo', $data);
     }
 
     public function historico() {
-
         $data['fechaMinima'] = $this->paqueteModel->obtenerFechaMinima();
+        $data['section'] = 'monitoreo';
         $this->load->view('monitoreo-historico', $data);
     }
 

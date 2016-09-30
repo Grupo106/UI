@@ -17,7 +17,7 @@ class Ayuda extends CI_Controller {
 	}
 
     public function ayuda() {
-        $this->load->view('ayuda');
+        $this->load->view('ayuda', array('section'=>'ayuda'));
     }
 }
 ?>
