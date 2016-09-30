@@ -1,5 +1,7 @@
 var $ = jQuery.noConflict();
 
+var siteurl;
+
 var formatoFechaBD = "YYYY-MM-DD HH:mm:ss";
 var formatoFechaPicker = "DD/MM/YYYY HH:mm";
 			
@@ -49,6 +51,7 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY, formatoLabelY){
 			labelAutoFit: false,
 			labelFontSize: 12,
 			valueFormatString: formatoLabelX, 
+			labelAutoFit: true
 		},
 		axisY: {						
 			title: formatoLabelY,
@@ -87,6 +90,28 @@ function propiedadesGrafTorta(puntos){
 	return options;
 }
 
+
+function obtenerConsumoPorPeriodo(fechaDesde, fechaHasta) {
+	$('.loading').show();
+
+	$.ajax({
+        url : siteurl+'/monitoreo/obtenerConsumoPorPeriodo',
+        type : "POST",
+        data : { fechaDesde : fechaDesde , fechaHasta : fechaHasta },
+        success: actualizarGraficos,
+        error: function() {
+        	$('.loading').hide();
+        }
+	})
+}
+
+function actualizarGraficos(data){
+	var consumo = JSON.parse(data);
+	inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida'], consumo['intervaloBusqueda']);
+	
+    actualizarGraficoTotal(consumo['consumoTotal']);
+	actualizarGraficoClasificado(JSON.parse(consumo['consumoClasificado']));	
+}
 
 function actualizarGraficoTotal(consumoTotal) {
 	for (i = 0; i < consumoTotal.length; i++) { 

@@ -11,7 +11,7 @@
 	jQuery(window).load( function(){
 		$('#tituloPantalla').text('Monitoreo en Tiempo Real');
 
-		var siteurl = '<?=site_url()?>';
+		siteurl = '<?=site_url()?>';
 
 		//Variable definida en graficos.js
 		//Representa el numero de puntos visibles al mismo tiempo para los graficos de linea

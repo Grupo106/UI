@@ -52,16 +52,49 @@
 	jQuery(window).load( function(){
 		$('#tituloPantalla').text('Monitoreo por Período');
 
-		var siteurl = '<?=site_url()?>';
+		siteurl = '<?=site_url()?>';
 
 		maxPuntos = 1000;
 
-		//Inicializacion de DatePickers
 		var fechaMinima = <?php echo json_encode($fechaMinima); ?>;
 		fechaMinima = moment(fechaMinima['hora_captura'], formatoFechaBD).toDate();
 		
 		inicializarDateRangePicker();
 
+
+		$('#form').submit(function (event){
+			event.preventDefault();
+			if ($('#form').valid()) {
+
+				var fechaDesdeString = fechaDesdeMoment.format(formatoFechaBD);
+				var fechaHastaString = fechaHastaMoment.format(formatoFechaBD);
+
+				$('#titulo-periodo').text( "Período: " + $("#fechaDesdeInput").val() + " - " + $("#fechaHastaInput").val());
+			    $('#div-graficos').removeClass('hidden');
+			    $('#div-busqueda').addClass('hidden');
+
+				obtenerConsumoPorPeriodo(fechaDesdeString, fechaHastaString);
+	        } 
+
+	    });
+
+
+		$("#btnNuevaBusqueda").click(function() {
+
+		    $('#fechaDesdeInput').daterangepicker('destroy');
+		    $('#fechaHastaInput').daterangepicker('destroy');
+		    inicializarDateRangePicker();
+
+		    $('#titulo-periodo').text('');
+		    $('#div-graficos').addClass('hidden');
+		    $('#div-busqueda').removeClass('hidden');
+
+		    borrarGraficos();
+		    resetearDatosGraficoTotal();
+		});
+
+
+		//Inicializacion de DatePickers
 		function inicializarDateRangePicker(){
 			var fechaActual = new Date();
 			var fechaInicio = new Date().setHours(0,0,0,0);
@@ -118,59 +151,6 @@
      	});
 	    //Fin Validaciones de Fechas
 
-
-		$('#form').submit(function (event){
-			event.preventDefault();
-			if ($('#form').valid()) {
-
-				var fechaDesdeString = fechaDesdeMoment.format(formatoFechaBD);
-				var fechaHastaString = fechaHastaMoment.format(formatoFechaBD);
-
-				$('#titulo-periodo').text( "Período: " + $("#fechaDesdeInput").val() + " - " + $("#fechaHastaInput").val());
-			    $('#div-graficos').removeClass('hidden');
-			    $('#div-busqueda').addClass('hidden');
-
-				obtenerConsumoPorPeriodo(fechaDesdeString, fechaHastaString);
-	        } 
-
-	    });
-
-		function obtenerConsumoPorPeriodo(fechaDesde, fechaHasta) {
-			$('.loading').show();
-
-			$.ajax({
-		        url : $('#form').attr("action"),
-		        type : $('#form').attr("method"),
-		        data : { fechaDesde : fechaDesde , fechaHasta : fechaHasta },
-		        success: actualizarGraficos,
-		        error: function() {
-		        	$('.loading').hide();
-		        }
-	    	})
-		}
-
-
-		$("#btnNuevaBusqueda").click(function() {
-
-		    $('#fechaDesdeInput').daterangepicker('destroy');
-		    $('#fechaHastaInput').daterangepicker('destroy');
-		    inicializarDateRangePicker();
-
-		    $('#titulo-periodo').text('');
-		    $('#div-graficos').addClass('hidden');
-		    $('#div-busqueda').removeClass('hidden');
-
-		    borrarGraficos();
-		});
-
-		function actualizarGraficos(data){
-			var consumo = JSON.parse(data);
-			inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida'], consumo['intervaloBusqueda']);
-
-			resetearDatosGraficoTotal();
-	        actualizarGraficoTotal(consumo['consumoTotal']);
-			actualizarGraficoClasificado(JSON.parse(consumo['consumoClasificado']));	
-		}
 
 
 	});

@@ -5,7 +5,7 @@ class PaqueteModel extends CI_Model{
         $this->load->database();
     }
 
-    function obtenerTotal($desde, $hasta, $rango){
+    function obtenerTotal($desde, $hasta, $rango, $hastaSerie){
 
         $query =    "SELECT
                       hora,
@@ -14,7 +14,7 @@ class PaqueteModel extends CI_Model{
                     FROM
                      generate_series(
                        '".$desde."'::timestamp,
-                       '".$hasta."'::timestamp,
+                       '".$hastaSerie."'::timestamp,
                        '1 ".$rango."') AS hora
                     LEFT OUTER JOIN
                       (SELECT

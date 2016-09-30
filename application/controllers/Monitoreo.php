@@ -29,12 +29,18 @@ class Monitoreo extends CI_Controller {
         $this->load->view('monitoreo-periodo', $data);
     }
 
+    public function historico() {
+
+        $data['fechaMinima'] = $this->paqueteModel->obtenerFechaMinima();
+        $this->load->view('monitoreo-historico', $data);
+    }
+
 
     public function obtenerConsumoUltimosSegundos(){
 
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-50 second', time()));
-        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, "second");
+        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, "second", $hasta);
         $valorMaximo =  $this->obtenerValorMaximo($consumoTotal);
 
         $data = array(
@@ -56,7 +62,8 @@ class Monitoreo extends CI_Controller {
         $dateTimeHasta = new DateTime($hasta);
 
         $intervalo = $this->obtenerIntervalo($dateTimeDesde, $dateTimeHasta);
-        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, explode("-", $intervalo)[0]);
+        $hastaSerie = $this->obtenerValorHastaSerie($dateTimeDesde, $hasta, explode("-", $intervalo)[0]);
+        $consumoTotal = $this->obtenerConsumoTotal($desde, $hasta, explode("-", $intervalo)[0], $hastaSerie);
         $valorMaximo = $this->obtenerValorMaximo($consumoTotal);
 
         $data = array(
@@ -70,8 +77,8 @@ class Monitoreo extends CI_Controller {
     }
 
 
-    public function obtenerConsumoTotal($desde, $hasta, $intervalo){
-        return $this->paqueteModel->obtenerTotal($desde, $hasta, $intervalo);
+    public function obtenerConsumoTotal($desde, $hasta, $intervalo, $hastaSerie){
+        return $this->paqueteModel->obtenerTotal($desde, $hasta, $intervalo, $hastaSerie);
     }
 
     public function obtenerConsumoClasificado(){
@@ -99,7 +106,7 @@ class Monitoreo extends CI_Controller {
 
         $hasta = date('Y-m-d H:i:s');
         $desde = date('Y-m-d H:i:s', strtotime('-1 second', time()));
-        $data = $this->paqueteModel->obtenerTotal($desde, $hasta, "second")[0];
+        $data = $this->obtenerConsumoTotal($desde, $hasta, "second", $hasta)[0];
         $this->output->set_content_type('application/json');
         $this->output->set_output(json_encode($data));
     }
@@ -126,6 +133,20 @@ class Monitoreo extends CI_Controller {
         return $intervalo;
     }
     
+    //Funcion para setear el valor que debe tener el "hasta" de la serie.
+    public function obtenerValorHastaSerie($dateTimeDesde, $hasta, $intervalo){
+
+        $hastaSerie = new DateTime($hasta);
+        //Si el intervalo es de horas, seteo los mismos minutos para el desde y hasta de la serie, porque si los minutos del
+        //hasta son menores a los del desde, la serie no incluye la ultima hora.
+        if($intervalo=="hour"){
+            $hastaSerie->setTime($hastaSerie->format('H'), $dateTimeDesde->format('i'), $dateTimeDesde->format('s'));
+        } else if ($intervalo=="day"){
+            $hastaSerie->setTime($dateTimeDesde->format('H'), $dateTimeDesde->format('i'), $dateTimeDesde->format('s'));
+        }
+        return $hastaSerie->format('Y-m-d H:i:s');
+    }
+
     public function obtenerValorMaximo($consumoTotal){
         $valoresBajada = array();
         $valoresSubida = array();
@@ -141,9 +162,7 @@ class Monitoreo extends CI_Controller {
         return $data;
     }
 
-    public function historico() {
-        $this->load->view('monitoreo-historico');
-    }
+
 
     
 }
