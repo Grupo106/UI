@@ -259,3 +259,4 @@
     	});
     });
 </script>
+<?php include('estructura/footer.php');   ?>
