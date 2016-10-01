@@ -51,20 +51,23 @@
 	$(document).ready(function() {
 
 		$('#tituloPantalla').text('Clases de Tráfico');
+		
+		var siteurl = '<?=site_url()?>';
 
 		var table = $('#tablaClases').DataTable( { "aaSorting":[] } );
-
-		jQuery(".bt-switch").bootstrapSwitch();
-
-		var siteurl = '<?=site_url()?>';
+		
+		jQuery('.bt-switch').bootstrapSwitch();
+		$('#tablaClases').on( 'draw.dt', function () {
+			jQuery('.bt-switch').bootstrapSwitch();
+		});
 
 		//NUEVA CLASE
 		$('#btnNuevaClase').click(function(){
 			window.location.href = "<?php echo site_url('clasetrafico/nueva');?>";
 		});
 		
-		//EDITAR
-		$('.estado').on('switchChange.bootstrapSwitch', function (e, estado){
+		//ACTIVAR / DESACTIVAR
+		$('#tablaClases').on('switchChange.bootstrapSwitch','.estado', function (e, estado){
 			
 			var id = $(this).closest('tr').find('input:hidden').val();
 			var input = $(this);
@@ -83,13 +86,13 @@
 		});
 
 		//EDITAR
-		$('.editar').click(function(){
+		$('#tablaClases').on('click', '.editar', function (){
 		    var id = $(this).closest('tr').find('input:hidden').val();
 			window.location.href = "<?php echo site_url('clasetrafico/editar');?>?id="+id;
 		})
 
 		//ELIMINAR
-		$('.eliminar').click(function(){
+		$('#tablaClases').on('click', '.eliminar', function (){
 			//Quito la clase "selected" de la fila anterior seleccionada
 			$("tr.selected").removeClass('selected');
 			//Coloco el selected a la nueva fila
