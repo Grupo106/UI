@@ -14,11 +14,9 @@ var grafTotalBajada;
 var puntosTotalSubida = []; 
 var grafTotalSubida;
 
-var totalBajada = 0;
 var datosClasificadoBajada = []; 
 var grafClasificadoBajada;
 
-var totalSubida = 0;
 var datosClasificadoSubida = []; 
 var grafClasificadoSubida;
 
@@ -29,8 +27,8 @@ var maximoYSubida;
 var intervaloYBajada;
 var maximoYBajada;
 var formatoLabelX;
-var formatoLabelYSubida = "bytes";
-var formatoLabelYBajada = "bytes";
+var formatoLabelYSubida = 0;
+var formatoLabelYBajada = 0;
 
 function inicializarPropiedadesGraficos(valorMaximoYBajada, valorMaximoYSubida, intervaloTiempo){
 	calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida);
@@ -54,7 +52,7 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY, formatoLabelY){
 			labelAutoFit: true
 		},
 		axisY: {						
-			title: formatoLabelY,
+			title: obtenerMedida(formatoLabelY),
 			interval: intervaloY,
 			maximum: maximoY,
 			gridColor: "#F2F2F2",
@@ -127,13 +125,11 @@ function actualizarGraficoTotal(consumoTotal) {
 
 function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem, formatoLabelY){
 	var fecha = moment(consumoItem['hora'], formatoFechaBD);
-	var bytes = Number(consumoItem[tipo]);
-	if(formatoLabelY!="bytes"){ bytes = bytes/1024;}
-	if(formatoLabelY=="Megabytes"){ bytes = bytes/1024;}
+	var bytes = obtenerBytesPorMedida(Number(consumoItem[tipo]), formatoLabelY);
 	
 	datosGrafico.push({
 		x: fecha.toDate(), 
-		y: Number(bytes.toFixed(2)),
+		y: bytes,
 		label: fecha.format(formatoLabelX),
 	});
 	if (datosGrafico.length > maxPuntos){
@@ -171,20 +167,12 @@ function agregarDatoClasificado(tipo, datosGrafico, consumoItem){
 			text: consumoItem['descripcion'],
 			color: colores[colorIndex],
 		});
-		if(tipo="bajada"){
-			totalBajada = totalBajada + bytes;
-		} else {
-			totalSubida = totalSubida + bytes;
-		}
-		
 	}
 }
 
 function resetearDatos(){
 	datosClasificadoBajada.length=0;
 	datosClasificadoSubida.length=0;
-	totalBajada=0;
-	totalSubida=0;
 	colorIndex = 0;
 }
 
@@ -218,28 +206,27 @@ $(".detallePopover").popover({
 });
 
 $("#btnDetalleBajada").click(function() {
-	generarTablaDatos(datosClasificadoBajada, totalBajada);
+	generarTablaDatos(datosClasificadoBajada);
     $(this).popover('show');
 });
 
 $("#btnDetalleSubida").click(function() {
-	generarTablaDatos(datosClasificadoSubida, totalSubida);
+	generarTablaDatos(datosClasificadoSubida);
     $(this).popover('show');
 });
 
 
 //Genera el contenido del popover "Detalle"
-function generarTablaDatos(arrayDatos, totalBytes){
+function generarTablaDatos(arrayDatos){
 	
 	var arrayOrdenado = arrayDatos.slice(0).sort(compararDatos);
 
 	$("#tablaDetalle tbody tr").remove();
 	for (i = 0; i < arrayOrdenado.length; i++) { 
-		var o = calcularPorcentaje(arrayOrdenado[i], totalBytes );
 		$("#tablaDetalle tbody")
 		    .append($('<tr>')
 		        .append($('<td class="t1">').text( arrayOrdenado[i]['name'] ))
-		        .append($('<td class="t2">').text( calcularPorcentaje(arrayOrdenado[i], totalBytes )))
+		        .append($('<td class="t2">').text( obtenerBytes(arrayOrdenado[i]['y'])))
 			);
 	}
 }
@@ -249,9 +236,50 @@ function compararDatos(a, b){
 	return parseInt(b['y']) - parseInt(a['y']);
 }
 
-function calcularPorcentaje(item, total){
-	var value = 100 * item['y'] / total;
-	return Math.round(value) + "%";
+function obtenerBytes(valor){
+	var bytes = valor;
+	for (j=0; bytes >= 1024 && j<=5; j++){
+		bytes = bytes/1024;
+	}
+	return Number(bytes.toFixed(2)) + " " + obtenerMedidaAbreviada(j);
+}
+
+function obtenerBytesPorMedida(bytes, indexMedida){
+	var bytesFormateados = bytes;
+	for(l=0; l<indexMedida; l++){
+		bytesFormateados = bytesFormateados/1024;
+	}
+	return Number(bytesFormateados.toFixed(2));
+}
+
+function obtenerMedidaAbreviada(valor){
+	switch (valor) {
+		case 0:
+	        return "bytes"; 
+	    case 1:
+	        return "KB"; 
+	    case 2:
+	        return "MB"; 
+	    case 3:
+	        return "GB"; 
+	    case 3:
+	        return "TB";
+	}
+}
+
+function obtenerMedida(valor){
+	switch (valor) {
+		case 0:
+	        return "bytes"; 
+	    case 1:
+	        return "Kilobytes"; 
+	    case 2:
+	        return "Megabytes"; 
+	    case 3:
+	        return "Gigabytes"; 
+	    case 3:
+	        return "Terabytes";
+	}
 }
 
 
@@ -281,44 +309,51 @@ function obtenerFormatoFecha(intervalo){
 }
 
 function calcularPropiedadesEjeY(valorMaximoYBajada, valorMaximoYSubida){
-	maximoYBajada = calcularMaximo(valorMaximoYBajada, "bajada");
+	maximoYBajada = calcularLimiteEjeY(valorMaximoYBajada, "bajada");
 	intervaloYBajada = calcularIntervalo(maximoYBajada);
 
-	maximoYSubida = calcularMaximo(valorMaximoYSubida, "subida");
+	maximoYSubida = calcularLimiteEjeY(valorMaximoYSubida, "subida");
 	intervaloYSubida = calcularIntervalo(maximoYSubida);
 }
 
-function calcularMaximo(valorMaximo, tipo){
+function calcularLimiteEjeY(valor, tipo){
 
-	formatoLabelY = "bytes";
-	var maximo;
-	if (valorMaximo>20000) {
-		var kbytes = Math.round(Number(valorMaximo)/1024);
-		formatoLabelY = "Kilobytes";
+	var bytes = valor;
+	var valorLimiteEjeY = 20000;
+	var indexMedida=0;
 
-		var megabytes = Math.round(kbytes/1024);
-		if(megabytes>10){
-			kbytes = megabytes;
-			formatoLabelY = "Megabytes";
+	if(valor>20000){
+		for (indexMedida=0; bytes >= 10240 && indexMedida <= 5; indexMedida++){
+			bytes = bytes/1024;
 		}
+		bytes = Math.round(bytes);
+		
+		var primerDigito = bytes.toString().substr(0,1);
+		var cantDigitos = bytes.toString().length;
+		var multiplicador = Math.pow(10, cantDigitos-1);
+		valorLimiteEjeY = (Number(primerDigito)+1) * multiplicador;
+	} 
 
-		var primerDigito = kbytes.toString().substr(0,1);
-		var cantDigitos = kbytes.toString().length;
-		var potencia = Math.pow(10, cantDigitos-1);
-		maximo = potencia * (Number(primerDigito)+1);
-	} else {
-		maximo = 20000;
-	}
 	if(tipo=="bajada"){
-		formatoLabelYBajada = formatoLabelY;
+		formatoLabelYBajada = indexMedida;
 	} else {
-		formatoLabelYSubida = formatoLabelY;
+		formatoLabelYSubida = indexMedida;
 	}
-	return maximo;
+	return valorLimiteEjeY;
 }
 
 function calcularIntervalo(valorMaximo){
 	return valorMaximo / 10;
+}
+
+function obtenerPar(multiplicador, digito){
+	if(multiplicador=10){
+		if(digito<=5) 
+			return 5;
+		else 
+			return 10;
+	} 
+	return digito+1;
 }
 
 function borrarGraficos(){
