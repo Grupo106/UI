@@ -52,7 +52,7 @@ class Inicio extends CI_Controller {
 
     public function index(){
     	$this->load->view("estructura/header.php");
-    	$this->load->view("estructura/menu.php");
+    	$this->load->view("estructura/menu.php", array('section' => 'inicio'));
         $this->load->view("inicio");
     }
 

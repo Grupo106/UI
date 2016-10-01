@@ -20,16 +20,18 @@ class Usuario extends CI_Controller {
 
     public function consulta() {
         $data['usuarios'] = $this->usuario_model->obtener_usuarios();  
+        $data['section'] = 'usuarios';
         $this->load->view('usuario-consulta', $data);
     }
 
     public function nuevo() {
-        $this->load->view('usuario-nuevo');
+        $this->load->view('usuario-nuevo', array('section' => 'usuarios'));
     }
 
     public function modificar() {
         $id = $this->input->get('id');
         $data = $this->usuario_model->obtener_usuarios_porId($id);
+        $data->section = 'usuarios';
         $this->load->view('usuario-modificacion', $data);
     }
 

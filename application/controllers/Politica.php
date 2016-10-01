@@ -5,6 +5,7 @@ class Politica extends CI_Controller{
 		$this->load->helper('url');
         $this->load->model('politicaM');
         $this->load->model('rangoHorarioM');
+        $this->load->library('session');
 	}
 
 //	public function consulta(){    
@@ -20,7 +21,8 @@ class Politica extends CI_Controller{
         $listapoliticas = $this->politicaM->obtener_politicas();
 
         $data = array(
-            'politicas' => $listapoliticas
+            'politicas' => $listapoliticas,
+            'section' => 'politicas'
         );      
         
         // Cargar vista
@@ -39,13 +41,14 @@ class Politica extends CI_Controller{
 //    }
 
     public function nueva() {
-        $this->load->view('nueva-politica');
+        $this->load->view('nueva-politica', array('section'=>'politicas'));
     }
 
     public function editar() {
         $id_politica = $this->input->get('id_politica');
 
         $data['politica'] = $this->politicaM->obtener_politicas_por_id($id_politica);
+        $data['section'] = 'politicas';
         //$data['rango_horario'] = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
 
         //$data['es_limitacion']   = is_numeric($data['politica']['velocidad_bajada']) OR is_numeric($data['politica']['velocidad_subida']);

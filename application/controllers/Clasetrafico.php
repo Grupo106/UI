@@ -23,13 +23,15 @@ class Clasetrafico extends CI_Controller {
     public function consulta() {
         
         $clases = $this->claseModel->obtenerTodos();
-        $data = array('listado' => $clases);
+        $data = array('listado' => $clases,
+                      'section' => 'clases_trafico');
         $this->load->view('clase-consulta', $data);
     }
 
 
     public function nueva() {
         $data['protocolos'] = $this->getListaProtocolos();
+        $data['section'] = 'clases_trafico';
         $this->load->view('clase-nueva', $data);
     }
 
@@ -41,6 +43,7 @@ class Clasetrafico extends CI_Controller {
         $data['cidrI'] = $this->cidrModel->obtener($id, 'i');
         $data['puertoI'] = $this->puertoModel->obtener($id, 'i');
         $data['protocolos'] = $this->getListaProtocolos();
+        $data['section'] = 'clases_trafico';
         $this->load->view('clase-nueva', $data);
     }
 

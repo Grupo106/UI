@@ -10541,6 +10541,30 @@ label {
 	cursor: pointer;
 }
 
+.marginBeforeImage {
+	margin-bottom: 50px;
+}
+
+.marginAfterImage {
+	margin-bottom: 110px;
+}
+
+.heightMenu {
+	height: 110px;
+}
+
+.textAyuda {
+	display: inline-block;
+	font-size: 14px;
+	font-weight: 700;
+	font-family: 'Raleway', sans-serif;
+	text-transform: initial;
+	letter-spacing: 1px;
+	color: #555;
+	margin-bottom: 50px;
+	cursor: pointer;
+}
+
 label.label-muted {
 	color: #999;
 	font-weight: normal;
