@@ -81,7 +81,7 @@ function propiedadesGrafTorta(puntos){
 			percentFormatString: "#0",
 			toolTipContent: "<strong>{text}</strong>",
 			indexLabel: "{name}: #percent%",
-			//percentFormatString: "#0.##",
+			percentFormatString: "#0.#",
 			dataPoints: puntos 
 		}],
 	};
@@ -241,7 +241,7 @@ function obtenerBytes(valor){
 	for (j=0; bytes >= 1024 && j<=5; j++){
 		bytes = bytes/1024;
 	}
-	return Number(bytes.toFixed(2)) + " " + obtenerMedidaAbreviada(j);
+	return Number(bytes.toFixed(1)) + " " + obtenerMedidaAbreviada(j);
 }
 
 function obtenerBytesPorMedida(bytes, indexMedida){
@@ -249,7 +249,7 @@ function obtenerBytesPorMedida(bytes, indexMedida){
 	for(l=0; l<indexMedida; l++){
 		bytesFormateados = bytesFormateados/1024;
 	}
-	return Number(bytesFormateados.toFixed(2));
+	return Number(bytesFormateados.toFixed(1));
 }
 
 function obtenerMedidaAbreviada(valor){
@@ -257,13 +257,13 @@ function obtenerMedidaAbreviada(valor){
 		case 0:
 	        return "bytes"; 
 	    case 1:
-	        return "KB"; 
+	        return "Kb"; 
 	    case 2:
-	        return "MB"; 
+	        return "Mb"; 
 	    case 3:
-	        return "GB"; 
+	        return "Gb"; 
 	    case 3:
-	        return "TB";
+	        return "Tb";
 	}
 }
 
