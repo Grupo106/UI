@@ -13054,7 +13054,7 @@ body:not(.no-transition) #wrapper,
 	padding:0!important
 }
 
-.editar {
+.margen-izq {
 	margin-left:20px;
 }
 
@@ -13071,25 +13071,22 @@ input.error {
 }
 
 
-
-#tablaDetalle tr{
+.tablaDetalle tr{
 	font-size: 13px;
 	font-family: 'Lato', sans-serif;
 	padding: 3px;
 }
 
-#tablaDetalle tbody .t1 {
+.tablaDetalle tbody {
 	text-align: left;
 	padding: 3px 7px;
 }
 
-#tablaDetalle tbody .t2 {
-	font-weight: bold;
-	padding: 3px 7px;
+
+#popoverContenido {
+	display: none;
 }
 
-
-#popoverContenido {display: none;}
 .popover-content{
     padding: 2px; 
 }

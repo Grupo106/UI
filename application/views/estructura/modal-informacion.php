@@ -2,6 +2,7 @@
 	<div class="modal-dialog modal-sm">
 		<div class="modal-body">
 			<div class="modal-content">
+				<input type="hidden" id="banderaError" value="false"></input>
 				<div class="modal-header">
 					<button type="button" id="btnCerrar" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel">Información</h4>

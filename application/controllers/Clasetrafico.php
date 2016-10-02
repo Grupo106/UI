@@ -38,13 +38,18 @@ class Clasetrafico extends CI_Controller {
     public function editar() {
         $id = $this->input->get('id');
         $data['registro'] = $this->claseModel->obtener($id);
+        $data = $this->obtenerPuertosyCidr($id, $data);
+        $data['protocolos'] = $this->getListaProtocolos();
+        $data['section'] = 'clases_trafico';
+        $this->load->view('clase-nueva', $data);
+    }
+
+    public function obtenerPuertosyCidr($id, $data){
         $data['cidrO'] = $this->cidrModel->obtener($id, 'o');
         $data['puertoO'] = $this->puertoModel->obtener($id, 'o');
         $data['cidrI'] = $this->cidrModel->obtener($id, 'i');
         $data['puertoI'] = $this->puertoModel->obtener($id, 'i');
-        $data['protocolos'] = $this->getListaProtocolos();
-        $data['section'] = 'clases_trafico';
-        $this->load->view('clase-nueva', $data);
+        return $data;
     }
 
     public function guardar() {
@@ -159,6 +164,39 @@ class Clasetrafico extends CI_Controller {
               '17' => 'UDP',
             );
         return $options;
+    }
+
+    public function obtenerDetalle(){
+        $id = $this->input->post('id');
+        $data = $this->obtenerPuertosyCidr($id, $data);
+
+        $response = array(
+            'internet' => $this->generarArrayDetalle($data['cidrO'], $data['puertoO']),
+            'lan' => $this->generarArrayDetalle($data['cidrI'], $data['puertoI'])
+        );
+        echo json_encode($response);
+    }
+
+    public function generarArrayDetalle($arrayCidr, $arrayPuerto){
+
+        $protocolos = $this->getListaProtocolos();
+        $arrayResultado = array();
+
+        $i = 0;
+        foreach ($arrayCidr as $cidr) {
+            $arrayResultado[$i]['direccion'] = $cidr['direccion']." / ".$cidr['prefijo'];
+            $i++;
+        }
+
+        $i = 0;
+        foreach ($arrayPuerto as $puerto) {
+            $arrayResultado[$i]['puerto'] = $puerto['numero'];
+            if($puerto['protocolo']!="0"){
+                $arrayResultado[$i]['puerto'] .= " / ".$protocolos[$puerto['protocolo']];
+            }
+            $i++;
+        }
+        return $arrayResultado;
     }
 }
 ?>

@@ -13,12 +13,12 @@
 
 	<div class="col_one_third">
 		<label>Nombre</label>
-		<input name="nombre" type="text" class="sm-form-control" value="<?=$registro->nombre?>"/>
+		<input name="nombre" type="text" class="sm-form-control" maxlength="32" value="<?=$registro->nombre?>"/>
 	</div>
 
 	<div class="col_two_third col_last">
 		<label>Descripción</label>
-		<input name="descripcion" type="text" class="sm-form-control" value="<?=$registro->descripcion?>"/>
+		<input name="descripcion" type="text" class="sm-form-control" maxlength="160" value="<?=$registro->descripcion?>"/>
 	</div>
 	<div class="clear"></div>
 	<br/>
@@ -255,7 +255,12 @@
 
 		//ACEPTAR Y CERRAR MODAL INFORMACION, CANCELAR GUARDADO
 		$('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
-			window.location.href = "<?php echo site_url('clasetrafico/consulta');?>";
+			//En caso de error en la pantalla de nueva clase, queda en esa misma pantalla
+			if($('#banderaError').val()!="true"){
+				window.location.href = "<?php echo site_url('clasetrafico/consulta');?>";
+			} else {
+				$('#modalInformacion').modal('hide');
+			}
 		});
 
 		//GUARDAR
@@ -267,18 +272,20 @@
 		            url : $('#form').attr("action"),
 		            type : $('#form').attr("method"),
 		            data : $('#form').serialize(),
-		            success: function(respuesta){
-		            	if(respuesta==1){
-				            $('#mensaje').text("La clase fue guardada exitosamente.");
-				        } else {
-				            $('#mensaje').text("Error al guardar la clase de tráfico.");
-				        }
-		            	$('#modalInformacion').modal('show');
-		            }
+		            success: function(){  mostrarMensaje("La clase fue guardada exitosamente."); },
+		            error: function(){  
+		            		$('#banderaError').val("true");
+		            		mostrarMensaje("Error al guardar la clase de tráfico."); 
+		        		},
 	        	});
 	        } 
 
 	    });
+
+	    function mostrarMensaje(mensaje){
+			$('#mensaje').text(mensaje);
+			$('#modalInformacion').modal('show');
+		}
 
 	});
 </script>

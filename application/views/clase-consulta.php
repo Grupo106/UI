@@ -29,7 +29,8 @@
 	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-						<img class="editar" src="<?=base_url('public/images/edit.png')?>">
+						<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
+						<img class="detalle margen-izq" src="<?=base_url('public/images/detalle.png')?>">
 					</td>
 	            </tr>
 	        <?php endforeach;?>
@@ -43,6 +44,7 @@
 
 <?php include('estructura/modal-eliminar.php'); ?>
 <?php include('estructura/modal-informacion.php'); ?>
+<?php include('estructura/modal-detalle-clase.php'); ?>
 
 <!-- JavaScripts
 ============================================= -->
@@ -77,8 +79,7 @@
 	            type: "POST",
 	            success: function(respuesta){
 	            	if(respuesta!=1){
-			            $('#mensaje').text("Error al cambiar el estado de la clase de tráfico.");
-			            $('#modalInformacion').modal('show');
+			            mostrarMensajeError("Error al cambiar el estado de la clase de tráfico.");
 			    		jQuery(input).bootstrapSwitch('state', !estado, true);
 			        } 
 	            }
@@ -103,6 +104,23 @@
 			$('#modalEliminar').modal('show');
 		});
 
+
+		//VER DETALLE
+		$('#tablaClases').on('click', '.detalle', function (){
+
+			var id = $(this).closest('tr').find('input:hidden').val();
+			var nombre = $(this).closest('tr').find('td[id="nombre"]').text();
+			
+			$.ajax({
+	            url : siteurl+'/clasetrafico/obtenerDetalle',
+	            data : { id : id},
+	            type: "POST",
+	            success: function(data){  generarTablaDetalle(nombre, data); },
+	            error: function(){ mostrarMensajeError("Error al obtener el detalle de la clase."); },
+	        })
+		});
+
+
 		//ACEPTAR ELIMINAR
 		$('#btnAceptarEliminar').click(function(){
 			$('#modalEliminar').modal('hide');
@@ -114,8 +132,7 @@
 	            type: "POST",
 	            success: function(respuesta){
 	            	if(respuesta!=1){
-			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
-			            $('#modalInformacion').modal('show');
+			            mostrarMensajeError("Error al eliminar la clase de tráfico.");
 			        } else {
 			        	table.row('.selected').remove().draw(false);
 			        }
@@ -132,6 +149,35 @@
 		$('#btnAceptarInformacion').click(function(){
 	        $('#modalInformacion').modal('hide');
 		});
+
+		function mostrarMensajeError(mensaje){
+			$('#mensaje').text(mensaje);
+			$('#modalInformacion').modal('show');
+		}
+
+
+		function generarTablaDetalle(nombre, data){
+
+			$(".tablaDetalle tbody tr").remove();
+			var detalle = JSON.parse(data);
+
+			generarTabla('tablaInternet', detalle['internet']);
+			generarTabla('tablaLan', detalle['lan']);
+
+			$('#tituloModal').text(nombre);
+			$('#modalDetalle').modal('show');
+		}
+
+		function generarTabla(nombreTabla, data){
+
+			for (i = 0; i < data.length; i++) { 
+				$("#"+nombreTabla+" tbody")
+				    .append($('<tr>')
+				        .append($('<td class="t1">').text( data[i]['direccion'] ))
+				        .append($('<td class="t2">').text( data[i]['puerto'] ))
+					);
+			}
+		}
 
 	});
 </script>

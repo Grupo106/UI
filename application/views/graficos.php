@@ -60,7 +60,7 @@
 <!-- Pop up de Detalle Porcentajes
 ============================================= -->
 <div id="popoverContenido">
-  	<table id="tablaDetalle" class="table table-bordered table-striped">
+  	<table id="tablaDetalle" class="tablaDetalle table table-bordered table-striped">
   		<thead><tr>
 			<th width="90%">Clase de tráfico</th>
 			<th width="10%">Consumo</th>
