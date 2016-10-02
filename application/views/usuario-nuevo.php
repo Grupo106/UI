@@ -74,7 +74,7 @@
 	            	if(respuesta==1){
 			            $('#mensaje').text("El usuario fue guardado exitosamente.");
 			        } else if(respuesta == 2){
-			        	$('#mensaje').text("Ya existe ese nombre de usuario.");
+			        	$('#mensaje').text("El nombre de usuario ya está registrado. Por favor, ingrese uno diferente.");
 			        	$('#modalInformacion').addClass('stayPage');
 			        } else {
 			            $('#mensaje').text("Error al guardar el usuario.");

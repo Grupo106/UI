@@ -35,7 +35,7 @@
 				<td>
 					 <?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-					<img class="editar" src="<?=base_url('public/images/edit.png')?>">
+					<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
 					<?php }
 					else { echo "No tiene permisos de administrador";} ?>
 				</td>
@@ -73,13 +73,16 @@
 		});
 		
 		//EDITAR
-		$('.editar').click(function(){
+		$('#tablaClases').on('click', '.editar', function (){
 			var id = $(this).closest('tr').find('input:hidden').val();
 			window.location.href = "<?php echo site_url('usuario/modificar');?>?id="+id;
 		});
 
 		//ELIMINAR
-		$('.eliminar').click(function(){
+		$('#tablaClases').on('click', '.eliminar', function (){
+			//Quito la clase "selected" de la fila anterior seleccionada
+			$("tr.selected").removeClass('selected');
+			//Coloco el selected a la nueva fila
 			$(this).closest('tr').addClass('selected');
 			var nombre = $(this).closest('tr').find('td[id="nombre"]').text();
 
@@ -89,6 +92,7 @@
 
 		//ACEPTAR ELIMINAR
 		$('#btnAceptarEliminar').click(function(){
+			$('#modalEliminar').modal('hide');
 			var id = $("tr.selected").find('input:hidden').val();
 
 	        $.ajax({
@@ -96,11 +100,8 @@
 	            data : { id : id},
 	            type: "POST",
 	            success: function(respuesta){
-	            	$('#modalEliminar').modal('hide');
 	            	if(respuesta!=1){
-	            		$("tr.selected").removeClass('selected');
-			            $('#mensaje').text("Error al eliminar la clase de tráfico.");
-			            $('#modalInformacion').modal('show');
+			            mostrarMensajeError("Error al eliminar el usuario.");
 			        } else {
 			        	table.row('.selected').remove().draw(false);
 			        }
@@ -119,6 +120,10 @@
 	        $('#modalInformacion').modal('hide');
 		});
 
+		function mostrarMensajeError(mensaje){
+			$('#mensaje').text(mensaje);
+			$('#modalInformacion').modal('show');
+		}
 
 	});
 </script>
