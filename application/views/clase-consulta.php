@@ -158,25 +158,66 @@
 
 		function generarTablaDetalle(nombre, data){
 
-			$(".tablaDetalle tbody tr").remove();
+			limpiarTablaAnterior();
 			var detalle = JSON.parse(data);
 
-			generarTabla('tablaInternet', detalle['internet']);
-			generarTabla('tablaLan', detalle['lan']);
+			generarTabla('tablaInternet', detalle['internet'], detalle['sizeCidrO'], detalle['sizePuertoO']);
+			generarTabla('tablaLan', detalle['lan'], detalle['sizeCidrI'], detalle['sizePuertoI']);
 
 			$('#tituloModal').text(nombre);
 			$('#modalDetalle').modal('show');
 		}
 
-		function generarTabla(nombreTabla, data){
+		function generarTabla(nombreTabla, data, sizeCidr, sizePuerto){
 
-			for (i = 0; i < data.length; i++) { 
-				$("#"+nombreTabla+" tbody")
-				    .append($('<tr>')
-				        .append($('<td class="t1">').text( data[i]['direccion'] ))
-				        .append($('<td class="t2">').text( data[i]['puerto'] ))
-					);
+			if(data.length>0){
+				$("#"+nombreTabla).removeClass('hidden');
+
+				var opcion = 0;
+				if(sizePuerto>0 && sizeCidr>0){
+					opcion = 2;
+				} else if (sizeCidr>0){
+					opcion = 0;
+				} else {
+					opcion = 1;
+				}
+				generarTitulos(opcion, nombreTabla);
+
+				for (i = 0; i < data.length; i++) { 
+					$("#"+nombreTabla+" tbody").append('<tr>');
+
+					if(opcion!=1){
+						$("#"+nombreTabla+" tbody tr:last").append($('<td>').text( data[i]['direccion'] ));
+					} 
+					if (opcion!=0){
+						$("#"+nombreTabla+" tbody tr:last").append($('<td>').text( data[i]['puerto'] ));
+					}
+				}				
 			}
+
+		}
+
+		function limpiarTablaAnterior(){
+			$(".tablaDetalle tbody tr").remove();
+			$(".tablaDetalle").find('.subtitulo').remove();
+			$(".tablaDetalle").find('.titulo').removeAttr('colspan');
+			$(".tablaDetalle").addClass('hidden');
+		}
+
+		function generarTitulos(valor, nombreTabla){
+
+			$("#"+nombreTabla+" thead").append('<tr class="subtitulo">');
+
+			if(valor!=1){
+				$("#"+nombreTabla).find('.subtitulo').append($('<th width="50%">').text("Dirección / Prefijo"));
+			} 
+			if(valor!=0){
+				$("#"+nombreTabla).find('.subtitulo').append($('<th width="50%">').text("Puerto / Protocolo"));
+			}
+			if(valor==2){
+				$("#"+nombreTabla).find('.titulo').attr('colspan', "2");
+			}
+			
 		}
 
 	});

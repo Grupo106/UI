@@ -225,7 +225,7 @@ function generarTablaDatos(arrayDatos){
 	for (i = 0; i < arrayOrdenado.length; i++) { 
 		$("#tablaDetalle tbody")
 		    .append($('<tr>')
-		        .append($('<td class="t1">').text( arrayOrdenado[i]['name'] ))
+		        .append($('<td>').text( arrayOrdenado[i]['name'] ))
 		        .append($('<td class="t2">').text( obtenerBytes(arrayOrdenado[i]['y'])))
 			);
 	}

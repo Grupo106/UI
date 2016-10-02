@@ -8,27 +8,21 @@
 				</div>
 
 				<div class="modal-body">
-				  	<table id="tablaInternet" class="tablaDetalle table table-bordered table-striped">
+				  	<table id="tablaInternet" class="hidden tablaDetalle table table-bordered table-striped">
 				  		<thead>
 				  		<tr class="info">
-							<th colspan="2" class="center">INTERNET</th>
+							<th class=" titulo center">INTERNET</th>
 						</tr>
-				  		<tr>
-							<th width="50%">Dirección / Prefijo</th>
-							<th width="50%">Puerto / Protocolo</th>
-						</tr></thead>
+						</thead>
 				  		<tbody></tbody>
 				  	</table>
 
-				  	<table id="tablaLan" class="tablaDetalle table table-bordered table-striped">
+				  	<table id="tablaLan" class="hidden tablaDetalle table table-bordered table-striped">
 				  		<thead>
 				  		<tr class="info">
-							<th colspan="2" class="center">LAN</th>
+							<th class="titulo center">LAN</th>
 						</tr>
-				  		<tr>
-							<th width="50%">Dirección / Prefijo</th>
-							<th width="50%">Puerto / Protocolo</th>
-						</tr></thead>
+						</thead>
 				  		<tbody></tbody>
 				  	</table>
 				</div>

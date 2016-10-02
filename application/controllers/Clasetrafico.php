@@ -172,7 +172,11 @@ class Clasetrafico extends CI_Controller {
 
         $response = array(
             'internet' => $this->generarArrayDetalle($data['cidrO'], $data['puertoO']),
-            'lan' => $this->generarArrayDetalle($data['cidrI'], $data['puertoI'])
+            'lan' => $this->generarArrayDetalle($data['cidrI'], $data['puertoI']),
+            'sizeCidrO' => sizeof($data['cidrO']),
+            'sizePuertoO' => sizeof($data['puertoO']),
+            'sizeCidrI' => sizeof($data['cidrI']),
+            'sizePuertoI' => sizeof($data['puertoI']),
         );
         echo json_encode($response);
     }

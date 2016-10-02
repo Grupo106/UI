@@ -13082,6 +13082,9 @@ input.error {
 	padding: 3px 7px;
 }
 
+.tablaDetalle tbody .t2{
+	font-weight: bold;
+}
 
 #popoverContenido {
 	display: none;
