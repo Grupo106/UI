@@ -1,6 +1,7 @@
 <?php
 error_reporting(E_ALL^E_NOTICE^E_WARNING);
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("LoginRequired.php");
 
 class Inicio extends CI_Controller {
 

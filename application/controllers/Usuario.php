@@ -1,22 +1,14 @@
 <?php
 error_reporting(E_ALL^E_NOTICE^E_WARNING);
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("LoginRequired.php");
 
-class Usuario extends CI_Controller {
+class Usuario extends LoginRequired {
 
-	public function __construct() {
-		parent::__construct();
-		$this->load->helper('url');
-    $this->load->library('session');
-    $this->load->model('usuario_model');
-
-
-		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
-
-			//$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
- 			$this->load->view("login");	
- 		}
-	}
+    public function __construct() {
+        parent::__construct();
+        $this->load->model('usuario_model');
+    }
 
     public function consulta() {
         $data['usuarios'] = $this->usuario_model->obtener_usuarios();  
@@ -39,29 +31,29 @@ class Usuario extends CI_Controller {
         $id = $this->input->post('id');
         if($this->input->post('password')){
 
-        $pass=$this->input->post('password');
-        $password = $this->usuario_model->generateHash($pass);
-        $data = array('password' => $password, 
-                      'nombre' => $this->input->post('nombre'),
-                      'apellido' => $this->input->post('apellido'),
-                      'mail' => $this->input->post('mail'),
-                      'rol' =>  $_POST['rol']);
+            $pass=$this->input->post('password');
+            $password = $this->usuario_model->generateHash($pass);
+            $data = array('password' => $password, 
+                    'nombre' => $this->input->post('nombre'),
+                    'apellido' => $this->input->post('apellido'),
+                    'mail' => $this->input->post('mail'),
+                    'rol' =>  $_POST['rol']);
         }
         else if($this->input->post('password2')){
 
-        $pass=$this->input->post('password2');
-        $password = $this->usuario_model->generateHash($pass);
-        $data = array('password' => $password, 
-                      'nombre' => $this->input->post('nombre'),
-                      'apellido' => $this->input->post('apellido'),
-                      'mail' => $this->input->post('mail'),
-                      'rol' =>  $_POST['rol']);
+            $pass=$this->input->post('password2');
+            $password = $this->usuario_model->generateHash($pass);
+            $data = array('password' => $password, 
+                    'nombre' => $this->input->post('nombre'),
+                    'apellido' => $this->input->post('apellido'),
+                    'mail' => $this->input->post('mail'),
+                    'rol' =>  $_POST['rol']);
         }
         else {
             $data = array('nombre' => $this->input->post('nombre'),
-                      'apellido' => $this->input->post('apellido'),
-                      'mail' => $this->input->post('mail'),
-                      'rol' =>  $_POST['rol']);
+                    'apellido' => $this->input->post('apellido'),
+                    'mail' => $this->input->post('mail'),
+                    'rol' =>  $_POST['rol']);
         }
 
         if($id=="") {
@@ -70,8 +62,8 @@ class Usuario extends CI_Controller {
             if($existeUsuario) {
                 echo 2;
             } else {
-            echo $this->usuario_model->insertar($data);
-          }
+                echo $this->usuario_model->insertar($data);
+            }
         } else {
             echo $this->usuario_model->actualizar($id,$data);
         }

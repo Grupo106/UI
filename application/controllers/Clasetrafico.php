@@ -1,23 +1,15 @@
 <?php
 error_reporting(E_ALL^E_NOTICE^E_WARNING);
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("LoginRequired.php");
 
-class Clasetrafico extends CI_Controller {
+class Clasetrafico extends LoginRequired {
 
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper('url');
-        $this->load->library('session');
         $this->load->model('claseModel');
         $this->load->model('cidrModel');
         $this->load->model('puertoModel');
-
-
-        if(! $_SESSION['SISENER_SESSION']['loggedIn']){
-
-            //$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
-            $this->load->view("login");
-        }
 	}
 
     public function consulta() {

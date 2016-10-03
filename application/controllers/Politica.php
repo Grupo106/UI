@@ -1,11 +1,13 @@
 <?php
-class Politica extends CI_Controller{
+error_reporting(E_ALL^E_NOTICE^E_WARNING);
+defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("LoginRequired.php");
+
+class Politica extends LoginRequired {
 	public function __construct() {
 		parent::__construct();
-		$this->load->helper('url');
         $this->load->model('politicaM');
         $this->load->model('rangoHorarioM');
-        $this->load->library('session');
 	}
 
 //	public function consulta(){    
