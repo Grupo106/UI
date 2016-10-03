@@ -44,7 +44,7 @@ class Inicio extends CI_Controller {
 
         	//$this->load->view("login");
         	   //print_r($_SESSION['SISENER_SESSION']);
-       			redirect("/inicio/index");
+       			redirect("/monitoreo/tiempo_real");
         }
 
     }
