@@ -8,17 +8,18 @@
 </div>	
 
 <form id="form" action="<?=site_url('clasetrafico/guardar/')?>" method="POST">
-	<input type="hidden" name="id" value="<?=$registro->id_clase ?>">
-	<input type="hidden" name="activa" value="<?=$registro->activa ?>">
+	<input type="hidden" name="id" value="<?=html_escape($registro->id_clase) ?>">
+	<input type="hidden" name="activa" value="<?=html_escape($registro->activa) ?>">
 
 	<div class="col_one_third">
 		<label>Nombre</label>
-		<input name="nombre" type="text" class="sm-form-control" maxlength="32" value="<?=$registro->nombre?>"/>
+		<input name="nombre" type="text" class="sm-form-control" maxlength="32"
+        value="<?=html_escape($registro->nombre)?>"/>
 	</div>
 
 	<div class="col_two_third col_last">
 		<label>Descripción</label>
-		<input name="descripcion" type="text" class="sm-form-control" maxlength="160" value="<?=$registro->descripcion?>"/>
+		<input name="descripcion" type="text" class="sm-form-control" maxlength="160" value="<?=html_escape($registro->descripcion)?>"/>
 	</div>
 	<div class="clear"></div>
 	<br/>

@@ -16,7 +16,7 @@
 
 			<?php foreach($listado as $item): ?>
 	            <tr>
-	            	<input id="id" type="hidden" value="<?= $item['id_clase']?>">
+	            	<input id="id" type="hidden" value="<?= html_escape($item['id_clase'])?>">
 	                <td style="text-align:center;"> 
 	                	<?php if($item['activa']=='t') { ?>
 	                		<input class="bt-switch estado" type="checkbox" checked data-size="mini">
@@ -24,8 +24,8 @@
 							<input class="bt-switch estado" type="checkbox" data-size="mini">
 	                	<?php } ?>
 	                </td>
-	                <td id="nombre"> <?= $item['nombre'] ?></td>
-	                <td> <?= $item['descripcion']?> </td>
+	                <td id="nombre"> <?= html_escape($item['nombre']) ?></td>
+	                <td> <?= html_escape($item['descripcion'])?> </td>
 	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">

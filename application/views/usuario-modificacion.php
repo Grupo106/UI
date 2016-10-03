@@ -9,22 +9,23 @@
 <form id="form" action="<?=site_url('usuario/guardar/')?>" method="post">
 <div class="col_one_third">
 	<label>Nombre</label>
-	<input name="nombre" type="text" class="sm-form-control" value="<?= $nombre?>">
+	<input name="nombre" type="text" class="sm-form-control" value="<?= html_escape($nombre)?>">
 </div>
 
 <div class="col_one_third" style="margin-bottom:47px;">
 	<label>Apellido</label>
-	<input name="apellido" type="text" class="sm-form-control" value="<?= $apellido?>">
+	<input name="apellido" type="text" class="sm-form-control" value="<?= html_escape($apellido)?>">
 </div>
 
 <div class="col_one_third col_last">
 	<label>Mail</label>
-	<input name="mail" type="text" class="sm-form-control mailInvalido" value="<?= $mail?>">
+	<input name="mail" type="text" class="sm-form-control mailInvalido"
+    value="<?= html_escape($mail)?>">
 </div>
 
 <div class="col_one_third">
 	<label>Usuario</label>
-	<input name="usuario" type="text" class="sm-form-control" value="<?= $usuario?>" disabled>
+	<input name="usuario" type="text" class="sm-form-control" value="<?= html_escape($usuario)?>" disabled>
 </div>
 
 <div class="col_one_third">
@@ -46,7 +47,7 @@
 		}?>	    
 	</select> 
 </div>		
-<input type="hidden" name="id" value="<?php echo $id_usu; ?>">
+<input type="hidden" name="id" value="<?php echo html_escape($id_usu); ?>">
 
 <div class="col_full" style="text-align:center;">
 	<button type="submit" class="button button-rounded">GUARDAR</button>

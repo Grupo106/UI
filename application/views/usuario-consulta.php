@@ -22,10 +22,10 @@
 				foreach ($usuarios as $usuario) {
 
 				$id=$usuario['id_usu'];
-				$user=$usuario['usuario'];
-				$nombre=$usuario['nombre'];
-				$apellido=$usuario['apellido'];
-				$rol=$usuario['rol'];
+				$user=html_escape($usuario['usuario']);
+				$nombre=html_escape($usuario['nombre']);
+				$apellido=html_escape($usuario['apellido']);
+				$rol=html_escape($usuario['rol']);
 				$nombreApellido = $nombre . " " . $apellido;
 				
                 echo "<tr> <td> $user</td><td id='nombre'> $nombreApellido </td> <td> $rol </td>"?>
