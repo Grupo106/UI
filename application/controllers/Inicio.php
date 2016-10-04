@@ -33,7 +33,8 @@ class Inicio extends CI_Controller {
             $_SESSION['SISENER_SESSION']['loggedIn'] = true;
             redirect($next);
         } else {
-            $this->load->view("login", array('next' => $next));
+            $this->load->view("login", 
+                              array('next' => $next, 'error' => TRUE));
         }
     }
 

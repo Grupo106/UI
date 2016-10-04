@@ -7,6 +7,15 @@
             <input type="hidden" name="next" value="<?=html_escape($next)?>"/>
             <h3>Iniciar sesión</h3>
 
+            <?php if($error) { ?>
+            <div class="style-msg errormsg">
+              <div class="sb-msg">
+                <i class="icon-remove"></i><strong>Error</strong> 
+                No se pudo iniciar sesión
+              </div>
+            </div>
+            <?php } ?>
+
             <div class="col_full">
                 <input id="login-usuario" name="login-usuario" class="sm-form-control" type="text" placeholder="USUARIO" autocomplete="off"/>
             </div>
