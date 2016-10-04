@@ -15,14 +15,6 @@ class Inicio extends CI_Controller {
 		 if(!$anyuser) {
 		 	$this->load->view("asistente-inicio");
 		 }
-
-		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
-
-			//$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
- 			$this->load->view("login");
-
- 			
- 		}
 	}
 
  	public function autenticar() {
@@ -52,9 +44,14 @@ class Inicio extends CI_Controller {
 
 
     public function index(){
-    	$this->load->view("estructura/header.php");
-    	$this->load->view("estructura/menu.php", array('section' => 'inicio'));
-        $this->load->view("inicio");
+		if(! $_SESSION['SISENER_SESSION']['loggedIn']){
+ 			$this->load->view("login");
+ 		} else {
+            $this->load->view("estructura/header.php");
+            $this->load->view("estructura/menu.php",
+                              array('section' => 'inicio'));
+            $this->load->view("inicio");
+        }
     }
 
     public function desloguearse() {
