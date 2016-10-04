@@ -8,12 +8,12 @@
             <h3>Iniciar sesión</h3>
 
             <?php if($error) { ?>
-            <div class="style-msg errormsg">
-              <div class="sb-msg">
-                <i class="icon-remove"></i><strong>Error</strong> 
-                No se pudo iniciar sesión
-              </div>
-            </div>
+                <div class="style-msg errormsg">
+                  <div class="sb-msg">
+                    <i class="icon-remove"></i><strong>Error</strong> 
+                    No se pudo iniciar sesión
+                  </div>
+                </div>
             <?php } ?>
 
             <div class="col_full">

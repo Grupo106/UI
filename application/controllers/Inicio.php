@@ -29,24 +29,24 @@ class Inicio extends CI_Controller {
         $userLoggedIn = $this->usuario_model->obtener_usuario_login($user,
                                                                     $pass);
         if($userLoggedIn) {
-            $_SESSION['SISENER_SESSION'] = $userLoggedIn;
-            $_SESSION['SISENER_SESSION']['loggedIn'] = true;
+            $this->session->set_userdata($userLoggedIn);
+            $this->session->set_userdata('loggedIn', true);
             redirect($next);
         } else {
-            $this->load->view("login", 
-                              array('next' => $next, 'error' => TRUE));
+            $this->load->view("login", array('next' => $next,
+                                             'error' => TRUE));
         }
     }
 
     public function index() {
         /* Si no existe ningun usuario, carga el asistente de instalacion */
         $anyuser = $this->usuario_model->existe_usuarios();  
-        if(!$anyuser) {
+        if (!$anyuser) {
             $this->load->view("asistente-inicio");
         }
 
         /* Si no hay usuario logueado, muestra formulario de login */
-        elseif(!$_SESSION['SISENER_SESSION']['loggedIn']){
+        elseif (!$this->session->has_userdata('loggedIn')) {
             $next = $this->sanitizar_path($this->input->get('next'));
             $this->load->view("login", array('next' => $next));
         }
@@ -61,7 +61,7 @@ class Inicio extends CI_Controller {
     }
 
     public function desloguearse() {
-        $_SESSION[SISENER_SESSION]['loggedIn'] = FALSE;
+        session_destroy();
         redirect("/");
     }
 }
