@@ -124,11 +124,23 @@
 					<input type="text" name="dns2" class="sm-form-control ipAddress ipValida" placeholder="DNS 2" />
 				</div>
 				<div class="col_half">
-					<input type="text" name="anchoBajada" class="sm-form-control" placeholder="ANCHO DE BANDA DE BAJADA" />
+                  <label> Ancho de banda de bajada
+                    <div class="input-group">
+                      <input type="number" class="form-control" name="anchoBajada" value="1024" aria-describedby="basic-addon2">
+                      <span class="input-group-addon" id="basic-addon2"
+                            title="Megabits por segundo">Mbit/s</span>
+                    </div>
+                  </label>
 				</div>
 				
 				<div class="col_half col_last">
-					<input type="text" name="anchoSubida" class="sm-form-control" placeholder="ANCHO DE BANDA DE SUBIDA" />
+                  <label> Ancho de banda de subida
+                    <div class="input-group">
+                      <input type="number" class="form-control" name="anchoSubida" value="1024" aria-describedby="basic-addon3">
+                      <span class="input-group-addon" id="basic-addon3" 
+                            title="Megabits por segundo">Mbit/s</span>
+                    </div>
+                  </label>
 				</div>
 			</div>
 

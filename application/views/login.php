@@ -21,8 +21,7 @@
             </div>
 
             <div class="col_full">
-                <input id="login-password" name="login-password" class="sm-form-control" type="password" placeholder="CONTRASEÑA" 
-                       autocomplete="off"/>
+                <input id="login-password" name="login-password" class="sm-form-control" type="password" placeholder="CONTRASEÑA" autocomplete="off"/>
             </div>
 
             <div class="col_full nobottommargin">

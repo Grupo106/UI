@@ -110,9 +110,17 @@ class Asistente extends CI_Controller {
                 fwrite($myfile, $txt . PHP_EOL);
             }
 
+            /* sanitiza ancho de banda de bajada */
+            $anchoBajada = preg_match('^\d+$', $anchoBajada) ?
+                           $anchoBajada :
+                           1024;
             $txt = "bajada=" . $anchoBajada;
             fwrite($myfile, $txt . PHP_EOL);
 
+            /* sanitiza ancho de banda de subida */
+            $anchoSubida = preg_match('^\d+$', $anchoSubida) ?
+                           $anchoSubida :
+                           1024;
             $txt = "subida=" . $anchoSubida;
             fwrite($myfile, $txt . PHP_EOL);
 
