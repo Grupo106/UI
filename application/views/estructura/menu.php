@@ -34,7 +34,7 @@
 					<li  class="<?php if($section == 'politicas') echo 'current'; ?>"><a href="#"><div>Políticas</div></a>
 						<ul>
 							<li><a href="<?=site_url('politica/consulta')?>"><div><i class="icon-tasks"></i>Consulta de políticas</div></a></li>
-							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+							<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('politica/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva política</div></a></li>
 							 <?php } ?>
 						</ul>
@@ -42,7 +42,7 @@
 					<li class="<?php if($section == 'clases_trafico') echo 'current'; ?>"><a href="#"><div>Clases de tráfico</div></a>
 						<ul>
 							<li><a href="<?=site_url('clasetrafico/consulta')?>"><div><i class="icon-tasks"></i>Consulta de clases de tráfico</div></a></li>
-							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+							<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('clasetrafico/nueva')?>"><div><i class="icon-plus-sign2"></i>Nueva clase de tráfico</div></a></li>
 							 <?php } ?>
 						</ul>
@@ -50,7 +50,7 @@
 					<li class="<?php if($section == 'usuarios') echo 'current'; ?>"><a href="#"><div>Usuarios</div></a>
 						<ul>
 							<li><a href="<?=site_url('usuario/consulta')?>"><div><i class="icon-tasks"></i>Consulta de usuarios</div></a></li>
-							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+							<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('usuario/nuevo')?>"><div><i class="icon-plus-sign2"></i>Nuevo usuario</div></a></li> <?php } ?>
 							<!--<li><a href="<?=site_url('desloguearse')?>"><div><i class="icon-wrench"></i>Desloguearse</div></a></li>-->
 						</ul>
@@ -59,7 +59,7 @@
 						<ul>
 
 							<li><a href="<?=site_url('sistema/informacion')?>"><div><i class="icon-info"></i>Información</div></a></li>
-							<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+							<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 							<li><a href="<?=site_url('sistema/configuracion')?>"><div><i class="icon-wrench"></i>Configuración</div></a></li>
 							<?php } ?>
 						</ul>

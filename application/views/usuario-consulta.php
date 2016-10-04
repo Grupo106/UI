@@ -33,7 +33,7 @@
                 <input type="hidden" value="<?php echo $id; ?>">
                
 				<td>
-					 <?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+					 <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
 					<?php }
@@ -48,7 +48,7 @@
 </div>
 
 <div class="col_full">
-	<?php if(strcmp($_SESSION['SISENER_SESSION']['rolUsuario'], "Administrador") == 0) { ?>
+	<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 	<button id="btnNuevoUsuario" class="button button-rounded">NUEVO USUARIO</button>
 	<?php } ?>
 </div>		
