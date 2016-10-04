@@ -11,7 +11,8 @@ class LoginRequired extends CI_Controller {
 
         /* Si el usuario no inicio sesion, redirijo al sitio de login */
         if(!$_SESSION['SISENER_SESSION']['loggedIn']){
-            redirect("/");
+            $next = uri_string();
+            redirect('/?next=/' . $next);
         }
     }
 }
