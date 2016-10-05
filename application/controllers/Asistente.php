@@ -14,20 +14,20 @@ class Asistente extends CI_Controller {
     /**
     * Desactiva asistente si existen usuarios creados
     */
-    public function desactivarAsistente() {
+    private function _desactivarAsistente() {
         if ($this->usuario_model->existe_usuarios()) {
-            show_error('Netcop ya se encuentra instalado correctamente', 400,
+            show_error('Netcop ya se encuentra instalado.', 400,
                        'Asistente desactivado');
         }
     }
 
     public function inicio() {
-        $this->desactivarAsistente();
+        $this->_desactivarAsistente();
         $this->load->view('asistente-inicio');
     }
 
     public function informacion() {
-        $this->desactivarAsistente();
+        $this->_desactivarAsistente();
         $this->load->view('asistente-informacion');
     }
 
@@ -47,14 +47,15 @@ class Asistente extends CI_Controller {
 
     public function guardar()
     {
+        $this->_desactivarAsistente();
         parse_str($_POST['usuario'], $usuario);
         parse_str($_POST['configuracion'],  $configuracion);
 
-        $this->crearUsuario($usuario);
-        $this->guardarConfiguracion($configuracion);
+        $this->_crearUsuario($usuario);
+        $this->_guardarConfiguracion($configuracion);
     }
 
-    public function crearUsuario($usuario) {
+    private function _crearUsuario($usuario) {
 
         $pass=$usuario['password'];
         $password = $this->usuario_model->generateHash($pass);
@@ -68,7 +69,7 @@ class Asistente extends CI_Controller {
         $this->usuario_model->insertar($data);
     } 
 
-    public function guardarConfiguracion($configuracion) {
+    private function _guardarConfiguracion($configuracion) {
 
         if ($configuracion['automatica']) {
             $dir = "/tmp/";
