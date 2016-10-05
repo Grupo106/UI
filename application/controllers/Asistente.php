@@ -4,32 +4,43 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Asistente extends CI_Controller {
 
-	public function __construct() {
-		parent::__construct();
-		$this->load->helper('url');
+    public function __construct() {
+        parent::__construct();
+        $this->load->helper('url');
         $this->load->model('usuario_model');
-	}
+    }
 
+    
+    /**
+    * Desactiva asistente si existen usuarios creados
+    */
+    public function desactivarAsistente() {
+        if ($this->usuario_model->existe_usuarios()) {
+            show_error('Netcop ya se encuentra instalado correctamente', 400,
+                       'Asistente desactivado');
+        }
+    }
 
     public function inicio() {
+        $this->desactivarAsistente();
         $this->load->view('asistente-inicio');
     }
 
     public function informacion() {
+        $this->desactivarAsistente();
         $this->load->view('asistente-informacion');
     }
 
     public function finalizar() {
         $this->load->view('asistente-finalizar');
     }  
-    
+
     public function existeUsuario() {
 
         $existeUsuario = $this->usuario_model->existeNombreUsuario($this->input->post('usuario'));
         if($existeUsuario) {
             echo 0;
-        } else
-        {
+        } else {
             echo 1;
         }
     }
@@ -48,24 +59,20 @@ class Asistente extends CI_Controller {
         $pass=$usuario['password'];
         $password = $this->usuario_model->generateHash($pass);
         $data = array('usuario' => $usuario['usuario'],
-                      'password' => $password, 
-                      'nombre' => $usuario['nombre'],
-                      'apellido' => $usuario['apellido'],
-                      'mail' => $usuario['mail'],
-                      'rol' =>  "Administrador");
+                'password' => $password, 
+                'nombre' => $usuario['nombre'],
+                'apellido' => $usuario['apellido'],
+                'mail' => $usuario['mail'],
+                'rol' =>  "Administrador");
 
         $this->usuario_model->insertar($data);
     } 
 
     public function guardarConfiguracion($configuracion) {
-        
-        if($configuracion['automatica'])
-        {
+
+        if ($configuracion['automatica']) {
             $dir = "/tmp/";
             $myfile = fopen($dir . "netcop-cfg.txt", "w") or die("Unable to open file!");
-
-            $txt = "dhcp=si";
-            fwrite($myfile, $txt . PHP_EOL);
 
             $txt = "bajada=1024";
             fwrite($myfile, $txt . PHP_EOL);
@@ -75,9 +82,7 @@ class Asistente extends CI_Controller {
 
             fclose($myfile);
             echo true;
-        }
-        else
-        {
+        } else {
             $dir = "/tmp/";
             $myfile = fopen($dir . "netcop-cfg.txt", "w") or die("Unable to open file!");
 
@@ -104,8 +109,7 @@ class Asistente extends CI_Controller {
             $txt = "dns1=" . $dns1;
             fwrite($myfile, $txt . PHP_EOL);
 
-            if($dns2 != null)
-            {
+            if($dns2 != null) {
                 $txt = "dns2=" . $dns2;
                 fwrite($myfile, $txt . PHP_EOL);
             }

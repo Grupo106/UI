@@ -40,18 +40,9 @@
 		</div>
 
 		<div class="col_full">
-			<button id="finalizarInst" class="button button-rounded fright">FINALIZAR</button>
+			<a href="/" class="button button-rounded fright">FINALIZAR</a>
 		</div>
 	</div>
 </div>
 
 <?php include('estructura/footer-panel.php'); ?>
-
-<script type="text/javascript">	
-	$(document).ready(function() {
-
-		$('#finalizarInst').click(function(){
-	        window.location.href = "<?php echo site_url('inicio/index');?>";
-		});
-	});
-</script>
