@@ -72,7 +72,8 @@ class Clasetrafico extends LoginRequired {
     }
 
     public function guardarCidr($input, $id_clase, $grupo) {
-
+        $regex_ip = '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}\
+                    (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
         $index = $input->post('indexCidr'.$grupo);
 
         for ($i=0; $i <= $index ; $i++) { 
@@ -81,7 +82,7 @@ class Clasetrafico extends LoginRequired {
             $direccion = $input->post('direccion'.$grupo.'_'.$i);
             $prefijo = $input->post('prefijo'.$grupo.'_'.$i);
 
-            if($direccion != ""){
+            if($direccion != "" && preg_match($regex_ip, $direccion)){
                 $data = array();
                 $data['direccion'] = $direccion;
                 if($prefijo !=""){ $data['prefijo'] = $prefijo; }
