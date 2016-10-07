@@ -28,8 +28,10 @@
 	                <td> <?= html_escape($item['descripcion'])?> </td>
 	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
+	                <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
 						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 						<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
+						<?php } ?>
 						<img class="detalle margen-izq" src="<?=base_url('public/images/detalle.png')?>">
 					</td>
 	            </tr>
