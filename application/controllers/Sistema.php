@@ -72,29 +72,6 @@ class Sistema extends LoginRequired {
     
     }
 
-    public function informacion2() {
-
-        $mem = `free -m | awk 'NR==2{printf "%.2f", $3*100/$2 }'`;
-        $usoCpu= `top -b -n1 | grep "Cpu(s)" | awk '{print $2 + $4}'`;
-        $discRig = `df -h | awk '{printf "%s", $5}'`;
-       
-        $discRigido = explode("%",$discRig);
-        $discRig = $discRigido[1];
-
-
-        $tempCpu = 3;
-        $intRed = 5;
-
-        $data = array("usoCpu" => $usoCpu . "%",
-                      "tempCpu" => $tempCpu,
-                      "ram" => $mem . "%", 
-                      "discRig" => $discRig . "%",
-                      "intRed" => $intRed);
-
-        $data['section'] = 'sistema';
-        $this->load->view('sistema-informacion2', $data);
-
-    }
 
     public function informacion() {
 
@@ -116,12 +93,14 @@ class Sistema extends LoginRequired {
             $discRig = `df -h | awk '{printf "%s", $5}'`;
             $discRigido = explode("%",$discRig);
             $discRig = $discRigido[1];
+            $temp = `sensors | awk '/Core/{sum+=$3;cant++} END {print sum/cant}'`;
+
 
             $data[$i]['hora'] = $fecha;
             $data[$i]['cpu'] = $usoCpu;
             $data[$i]['ram'] = $mem;
             $data[$i]['disco'] = $discRig;
-            $data[$i]['temp'] = 40; //averiguar comando de temp
+            $data[$i]['temp'] = $temp;
 
            $fecha = date('Y-m-d H:i:s',strtotime('+1 seconds', strtotime($fecha)));
         }
@@ -139,12 +118,13 @@ class Sistema extends LoginRequired {
          $discRig = `df -h | awk '{printf "%s", $5}'`;
          $discRigido = explode("%",$discRig);
          $discRig = $discRigido[1];
+         $temp = `sensors | awk '/Core/{sum+=$3;cant++} END {print sum/cant}'`;
 
          $data = array('hora' =>$fecha ,
                        'cpu' => $usoCpu,
                        'ram' => $mem,
                        'disco' =>$discRig,
-                       'temp' => 35);
+                       'temp' => $temp);
          
          echo json_encode($data);
     }

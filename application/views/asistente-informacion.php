@@ -40,7 +40,7 @@
 			<h4>Completá tus datos para crear un Usuario Administrador</h4>
 			
 			<div class="col_half">
-				<input type="text" id="usuario-nombre" name="nombre" class="sm-form-control" placeholder="NOMBRE">
+				<input type="text" id="usuario-nombre" name="nombre" class="sm-form-control nombreInvalido" placeholder="NOMBRE">
 			</div>
 
 			<div class="col_half col_last">
@@ -48,7 +48,7 @@
 			</div>
 
 			<div class="col_half">
-				<input type="text" id="usuario-usuario" name="usuario" class="sm-form-control" placeholder="NOMBRE DE USUARIO"/>
+				<input type="text" id="usuario-usuario" name="usuario" class="sm-form-control usuarioInvalido" placeholder="NOMBRE DE USUARIO"/>
 			</div>
 
 			<div class="col_half col_last">
@@ -57,6 +57,10 @@
 
 			<div class="col_half">
 				<input type="password" id="usuario-password" name="password" class="sm-form-control" placeholder="CONTRASEÑA"/>
+			</div>
+
+			<div class="col_half col_last">
+				<input type="password" id="usuario-password2" name="newpassword" class="sm-form-control passwordInvalido" placeholder="REPITA CONTRASEÑA"/>
 			</div>
 			
 			<div class="col_full">

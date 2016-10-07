@@ -13,6 +13,35 @@ $(document).ready(function() {
         MailInvalido: true,
     });
 
+
+    $.validator.addMethod('ExcedeTamañoCaracteresNombre', function(value) {
+        return value.length <= 16;
+    });
+
+
+    $.validator.addClassRules('nombreInvalido', {
+        ExcedeTamañoCaracteresNombre: true,
+    });
+
+    $.validator.addMethod('ExcedeTamañoCaracteresUsuario', function(value) {
+    return value.length <= 16;
+    });
+
+
+    $.validator.addClassRules('usuarioInvalido', {
+        ExcedeTamañoCaracteresUsuario: true,
+    });
+
+    $.validator.addMethod('ContraseñasDistintas', function(value) {
+    return value == $('#password').val();
+    });
+
+
+    $.validator.addClassRules('passwordInvalido', {
+        ContraseñasDistintas: true,
+    });
+
+
        $('#form').validate({
     	   errorElement: 'span',
             rules: {

@@ -11,7 +11,7 @@
 	<input type="hidden" name="idUsuario" value="32">
 	<div class="col_one_third">
 		<label>Nombre</label>
-		<input name="nombre" type="text" class="sm-form-control">
+		<input name="nombre" type="text" class="sm-form-control nombreInvalido">
 	</div>
 
 	<div class="col_one_third" style="margin-bottom:47px;">
@@ -24,23 +24,25 @@
 		<input name="mail" type="text" class="sm-form-control mailInvalido">
 	</div>
 
-	<div class="col_one_third">
+	<div class="col_half" style="margin-bottom:47px;">
 		<label>Usuario</label>
-		<input name="usuario" type="text" class="sm-form-control">
+		<input name="usuario" type="text" class="sm-form-control usuarioInvalido">
 	</div>
-
-	<div class="col_one_third">
-		<label>Contraseña</label>
-		<input name="password" type="password" class="sm-form-control" >
-	</div>	
-
-	<div class="col_one_third col_last">
+	<div class="col_half col_last">
 		<label>Rol</label>
 		<select name="rol" class="select-1 form-control">
 			<option value="Administrador">ADMINISTRADOR</option>
 		    <option value="Monitor">MONITOR</option>			    
 		</select>
+	</div>	
+	<div class="col_half">
+		<label>Contraseña</label>
+		<input id="password" name="password" type="password" class="sm-form-control" >
 	</div>		
+	<div class="col_half col_last">
+		<label>Repita Contraseña</label>
+		<input name="newpassword" type="password" class="sm-form-control passwordInvalido" >
+	</div>	
 
 	<div class="col_full" style="text-align:center;">
 		<button type="submit" class="button button-rounded">GUARDAR</button>
