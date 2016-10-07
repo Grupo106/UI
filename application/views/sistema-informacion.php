@@ -19,7 +19,7 @@
 	<div id="grafDiscoRig" style="height: 300px;"></div>
 </div>
 
-<div class="col_half col_last">
+<div id="divTemp" class="col_half col_last">
 	<h3  class="center">Temperatura CPU</h3>
 	<div id="grafTemp" style="height: 300px;"></div>
 </div>
@@ -32,6 +32,7 @@
 		$('#tituloPantalla').text('Información del Sistema');
 
 		var siteurl = '<?=site_url()?>';
+
 
 		
 		var puntosCPU = []; 
@@ -79,6 +80,11 @@
 		function inicializarGraficos() {
 
 			var consumoTotal = <?php echo json_encode($consumoTotal); ?>;
+
+			if(isNaN(consumoTotal[0]['temp'])){
+			  $('#divTemp').hide();
+			}
+			
 			for (i = 0; i < consumoTotal.length; i++) { 
 				agregarDato(puntosCPU, consumoTotal[i]['cpu'], Date.parse(consumoTotal[i]['hora']));			
 				agregarDato(puntosRAM, consumoTotal[i]['ram'], Date.parse(consumoTotal[i]['hora']));			
