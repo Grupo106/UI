@@ -132,9 +132,12 @@ class Politica extends LoginRequired {
         );
 
         // Actualizo horarios y datos de politica
-        if($this->setear_horarios_politica($inputidPolitica, $horarios_politica) && $this->politicaM->actualizar($inputidPolitica, $politica))
+        if($this->setear_horarios_politica($inputidPolitica, $horarios_politica) &&
+           $this->politicaM->actualizar($inputidPolitica, $politica)) {
+            /* despacho las politicas nuevamente */
+            shell_exec('/usr/local/bin/despachar');
             echo true;
-        else
+        } else
             echo false;
     }
 
