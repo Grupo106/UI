@@ -68,6 +68,10 @@ class Clasetrafico extends LoginRequired {
             $this->guardarCidr($this->input, $id_clase, 'I');
             $this->guardarPuerto($this->input, $id_clase, 'I');
         }
+
+        /* despacho las politicas nuevamente */
+        shell_exec('/usr/local/bin/despachar');
+
         echo true;
     }
 
