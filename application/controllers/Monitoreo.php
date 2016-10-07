@@ -79,7 +79,7 @@ class Monitoreo extends LoginRequired {
     }
 
     public function obtenerConsumoClasificado(){
-        $segundosAnalizar = 3;
+        $segundosAnalizar = 10;
         return shell_exec('analizar '.$segundosAnalizar);
     }
 
