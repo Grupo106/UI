@@ -15,7 +15,7 @@
 				<div class="container clearfix">
 
 					<div class="col_half">
-						&copy; 2016 PowerSoft. Todos los Derechos Reservados.<br>
+						&copy; 2016 PowerSoft.<br>
 					</div>
 				</div>
 
