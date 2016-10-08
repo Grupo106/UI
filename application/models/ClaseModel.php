@@ -6,7 +6,7 @@ class ClaseModel extends CI_Model{
     }
 
     function obtenerTodos(){
-        $this->db->order_by("id_clase","desc");
+        $this->db->order_by("nombre","asc");
         $query = $this->db->get('clase_trafico');
         return $query->result_array();
     }
