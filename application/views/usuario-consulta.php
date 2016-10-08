@@ -37,7 +37,7 @@
 					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
 					<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
 					<?php }
-					else { echo "No tiene permisos de administrador";} ?>
+					 ?>
 				</td>
 						
 				</tr>
