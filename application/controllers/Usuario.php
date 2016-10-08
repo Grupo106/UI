@@ -17,14 +17,24 @@ class Usuario extends LoginRequired {
     }
 
     public function nuevo() {
-        $this->load->view('usuario-nuevo', array('section' => 'usuarios'));
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+
+            $this->load->view('usuario-nuevo', array('section' => 'usuarios'));
+
+        } else $this->load->view('errors/index.html');
+
     }
 
     public function modificar() {
-        $id = $this->input->get('id');
-        $data = $this->usuario_model->obtener_usuarios_porId($id);
-        $data->section = 'usuarios';
-        $this->load->view('usuario-modificacion', $data);
+            
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+
+            $id = $this->input->get('id');
+            $data = $this->usuario_model->obtener_usuarios_porId($id);
+            $data->section = 'usuarios';
+            $this->load->view('usuario-modificacion', $data);
+    
+        } else $this->load->view('errors/index.html');
     }
 
     public function guardar() {

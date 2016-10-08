@@ -22,18 +22,28 @@ class Clasetrafico extends LoginRequired {
 
 
     public function nueva() {
-        $data['protocolos'] = $this->getListaProtocolos();
-        $data['section'] = 'clases_trafico';
-        $this->load->view('clase-nueva', $data);
+
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+            
+            $data['protocolos'] = $this->getListaProtocolos();
+            $data['section'] = 'clases_trafico';
+            $this->load->view('clase-nueva', $data);
+        
+        } else $this->load->view('errors/index.html');
+
     }
 
     public function editar() {
-        $id = $this->input->get('id');
-        $data['registro'] = $this->claseModel->obtener($id);
-        $data = $this->obtenerPuertosyCidr($id, $data);
-        $data['protocolos'] = $this->getListaProtocolos();
-        $data['section'] = 'clases_trafico';
-        $this->load->view('clase-nueva', $data);
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) { 
+            
+            $id = $this->input->get('id');
+            $data['registro'] = $this->claseModel->obtener($id);
+            $data = $this->obtenerPuertosyCidr($id, $data);
+            $data['protocolos'] = $this->getListaProtocolos();
+            $data['section'] = 'clases_trafico';
+            $this->load->view('clase-nueva', $data);
+
+        } else $this->load->view('errors/index.html');
     }
 
     public function obtenerPuertosyCidr($id, $data){

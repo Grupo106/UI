@@ -43,21 +43,27 @@ class Politica extends LoginRequired {
 //    }
 
     public function nueva() {
-        $this->load->view('nueva-politica', array('section'=>'politicas'));
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+            
+            $this->load->view('nueva-politica', array('section'=>'politicas'));
+        
+        } else $this->load->view('errors/index.html');
     }
 
     public function editar() {
-        $id_politica = $this->input->get('id_politica');
+        if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
 
-        $data['politica'] = $this->politicaM->obtener_politicas_por_id($id_politica);
-        $data['section'] = 'politicas';
-        //$data['rango_horario'] = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
+           $id_politica = $this->input->get('id_politica');
+           $data['politica'] = $this->politicaM->obtener_politicas_por_id($id_politica);
+           $data['section'] = 'politicas';
+            //$data['rango_horario'] = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
+            //$data['es_limitacion']   = is_numeric($data['politica']['velocidad_bajada']) OR is_numeric($data['politica']['velocidad_subida']);
+            //$data['es_priorizacion'] = is_numeric($data['politica']['prioridad']);
+            //$data['es_bloqueo']      = !$data['es_limitacion'] OR !$data['es_priorizacion'];
 
-        //$data['es_limitacion']   = is_numeric($data['politica']['velocidad_bajada']) OR is_numeric($data['politica']['velocidad_subida']);
-        //$data['es_priorizacion'] = is_numeric($data['politica']['prioridad']);
-        //$data['es_bloqueo']      = !$data['es_limitacion'] OR !$data['es_priorizacion'];
+            $this->load->view('nueva-politica', $data);
 
-        $this->load->view('nueva-politica', $data);
+        } else $this->load->view('errors/index.html');
     }
 
     public function cambiar_estado() {
