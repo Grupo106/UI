@@ -42,7 +42,6 @@ $(document).ready(function() {
 		}
     }
 
-
     $('.ipAddress').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
 
 	$("div").on("keyup", ".prefijo", function(){
@@ -68,6 +67,7 @@ $(document).ready(function() {
 		$(this).parent('div').addClass('hidden');
 		var input = $(this).parent('div').find("input:first");
 		input.val('');
+		input.addClass("eliminada");
 	});
 
 	//AGREGAR
@@ -84,7 +84,7 @@ $(document).ready(function() {
 	    var original = $('#'+ idDiv + '_0');
 	    var ultimo = $('#'+ idDiv + '_'+cant)
 	    if (validarCampoCompleto(ultimo)){
-	    	var clone = original.clone(); 
+	    	var clone = original.clone();
 		    clone.insertAfter(ultimo);
 		    removerIcono(clone);
 		    renombrarIDs(clone, ++cant);
@@ -96,13 +96,12 @@ $(document).ready(function() {
 
 	function validarCampoCompleto(original) {
 		var input = original.find('input:first');
-		if (input.val()=="" || input.hasClass('error')){
+		if (!input.hasClass('eliminada') && (input.val()=="" || input.hasClass('error'))){
 			input.addClass('error');
 			return false;
 		}
 		return true;
 	}
-
 
 	function removerIcono(clone) {
 		clone.find('.agregar').remove();
@@ -141,5 +140,4 @@ $(document).ready(function() {
         element.attr('name', name);
         element.attr('id', name);
 	}
-
 });

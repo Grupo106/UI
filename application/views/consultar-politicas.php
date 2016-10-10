@@ -9,14 +9,14 @@
             <table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead class="headTable">
                     <tr>
-                        <th>Estado</th>
+                        <th>Activa</th>
                         <th>Nombre</th>
                         <th>Descripcion</th>
                         <th>Prioridad</th>
                         <th>Bajada</th>
                         <th>Subida</th>
                         <th>Fecha de creación</th>
-                        <th>Modificar</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,9 +31,10 @@
                             <td id="velocidad_subida"> <?php echo $item['velocidad_subida'];?>  </td>
                             <td id="fc_creacion">      <?php echo date('d/m/Y H:i', strtotime(str_replace('-','/', $item['fc_creacion'])));?>   </td>
                             <td>
-                                <a href="#" class="editar"><i class="fa fa-pencil"></i></a>
-                                <!-- <?php echo "<a href=\"#\" data-toggle=\"modal\" data-id=\"" . $item['id_politica'] . "\" data-target=\"#edit-modal\"<i class=\"fa fa-pencil\"></i></a>";?> -->
-                                <a class="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
+                                <a class="eliminar margen-izq"><img src="<?=base_url('public/images/delete.png')?>"></a>
+                                <a href="#" class="editar margen-izq"><img src="<?=base_url('public/images/edit.png')?>"></a>
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -42,6 +43,10 @@
         </div>
     </div>
 </div>
+
+<div class="col_full">
+    <button id="btnNuevaClase" class="button button-rounded">NUEVA POLíTICA</button>
+</div>  
 
 <?php include('estructura/modal-eliminar.php');        ?>
 <?php include('estructura/modal-informacion.php');     ?>
@@ -55,6 +60,11 @@
         var siteurl = '<?=site_url()?>';
 
         jQuery(".bt-switch").bootstrapSwitch();
+
+        // Nueva politica
+        $('#btnNuevaClase').click(function(){
+            window.location.href = "<?php echo site_url('politica/nueva');?>";
+        });
 
         $('.eliminar').click(function(){
             $("tr.selected").removeClass('selected');
@@ -111,11 +121,6 @@
                 }
             })
         });
-
-        //$('#edit-modal').on('show.bs.modal', function(e) {
-        //    var id_politica = $(this).data('id');
-        //    $(".modal-body #bookId").val( id_politica );
-        //});
     });
 </script>
 

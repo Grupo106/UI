@@ -1,10 +1,9 @@
 <?php
 error_reporting(E_ALL^E_NOTICE^E_WARNING);
 defined('BASEPATH') OR exit('No direct script access allowed');
+require_once("LoginRequired.php");
 
-include('application/libraries/ChromePhp.php');
-
-class Politica extends CI_Controller {
+class Politica extends LoginRequired {
 	public function __construct() {
 		parent::__construct();
         $this->load->helper('url');
@@ -13,12 +12,6 @@ class Politica extends CI_Controller {
         $this->load->model('objetivoM');
         $this->load->model('claseModel');
         $this->load->model('rangoHorarioM');
-
-        if(!$_SESSION['SISENER_SESSION']['loggedIn']){
-
-            //$_SESSION[SISENER_SESSION]['loggedIn'] = TRUE;
-            $this->load->view("login");
-        }
 	}
 
     public function consulta() {    
@@ -33,75 +26,87 @@ class Politica extends CI_Controller {
     }
 
     public function nueva() {
-        $data['listadoClases'] = $this->claseModel->obtenerTodos();
+    	if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+	        $data['listadoClases'] = $this->claseModel->obtenerTodos();
 
-        $this->load->view('nueva-politica', $data);
+	        $this->load->view('nueva-politica', $data);
+        } 
+        	else 
+        		$this->load->view('errors/index.html');
     }
 
     public function eliminar() {
-        $id_politica = $this->input->post('id');
+		if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
+	        $id_politica = $this->input->post('id');
 
-        // Si puedo eliminar los 3 componentes, ok
-        if(
-            $this->politicaM->eliminar($id_politica)
-            && $this->objetivoM->obtener_objetivo_por_politica($id_politica)
-            && $this->rangoHorarioM->eliminar_horario_por_politica($id_politica)
-          ) {
-            shell_exec('/usr/local/bin/despachar');
-            return true;
-        }
+	        // Si puedo eliminar los 3 componentes, ok
+	        if(
+	            $this->politicaM->eliminar($id_politica)
+	            && $this->objetivoM->obtener_objetivo_por_politica($id_politica)
+	            && $this->rangoHorarioM->eliminar_horario_por_politica($id_politica)
+	          ) {
+	            shell_exec('/usr/local/bin/despachar');
+	            return true;
+	        }
 
-        else
-            return false;
+	        else
+	            return false;
+    	} 
+    	else 
+    		$this->load->view('errors/index.html');
     }
 
     public function editar() {
-        $id_politica = $this->input->get('id_politica');
+    	if(strcmp($this->session->rolUsuario, "Administrador") == 0) { 
+	        $id_politica = $this->input->get('id_politica');
 
-        $data['politica']      = $this->politicaM->obtener_politicas_por_id($id_politica);
-        $data['listadoClases'] = $this->claseModel->obtenerTodos();
-        $rango_horario = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
+	        $data['politica']      = $this->politicaM->obtener_politicas_por_id($id_politica);
+	        $data['listadoClases'] = $this->claseModel->obtenerTodos();
+	        $rango_horario 		   = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
 
-        $objetivos = $this->objetivoM->obtener_objetivo_por_politica($id_politica);
+	        $objetivos = $this->objetivoM->obtener_objetivo_por_politica($id_politica);
 
-        // Cargo relaciones objetivo-clase
-        foreach ($objetivos as $objetivo) {
-            $set = $this->claseModel->obtener_por_id($objetivo['id_clase']);
-           
-            $clase = array(
-                    'id_clase'    => $set[0]['id_clase'],
-                    'nombre'      => $set[0]['nombre'],
-                    'descripcion' => $set[0]['descripcion'],
-                    'tipo'        => $set[0]['tipo']
-                );
+	        // Cargo relaciones objetivo-clase
+	        foreach ($objetivos as $objetivo) {
+	            $set = $this->claseModel->obtener_por_id($objetivo['id_clase']);
+	           
+	            $clase = array(
+	                    'id_clase'    => $set[0]['id_clase'],
+	                    'nombre'      => $set[0]['nombre'],
+	                    'descripcion' => $set[0]['descripcion'],
+	                    'tipo'        => $set[0]['tipo']
+	                );
 
-            $objetivo['clase'] = $clase;
+	            $objetivo['clase'] = $clase;
 
-            if($objetivo['tipo'] == 'd')
-                $relacionClasesD[] = $objetivo;
-            else
-                $relacionClasesO[] = $objetivo;
-        }
+	            if($objetivo['tipo'] == 'd')
+	                $relacionClasesD[] = $objetivo;
+	            else
+	                $relacionClasesO[] = $objetivo;
+	        }
 
-        $data['relacionClasesD'] = $relacionClasesD;
-        $data['relacionClasesO'] = $relacionClasesO;
+	        $data['relacionClasesD'] = $relacionClasesD;
+	        $data['relacionClasesO'] = $relacionClasesO;
 
-        // Compacto array de horarios
-        foreach($rango_horario as $key => $item)
-        {
-           $arr[$item['hora_inicial']][$item['hora_fin']][$item['id_rango_horario']] = $item;
-        }
-        ksort($arr, SORT_NUMERIC);
-        $data['rango_horario'] = $arr;
-        
-        // Calculo index para fila de dias
-        $index_dias = -1;
-        foreach ($arr as $fila) {
-            $index_dias+= count($fila);
-        }
-        $data['index_dias'] = $index_dias;
+	        // Compacto array de horarios
+	        foreach($rango_horario as $key => $item)
+	        {
+	           $arr[$item['hora_inicial']][$item['hora_fin']][$item['id_rango_horario']] = $item;
+	        }
+	        ksort($arr, SORT_NUMERIC);
+	        $data['rango_horario'] = $arr;
+	        
+	        // Calculo index para fila de dias
+	        $index_dias = -1;
+	        foreach ($arr as $fila) {
+	            $index_dias+= count($fila);
+	        }
+	        $data['index_dias'] = $index_dias;
 
-        $this->load->view('editar-politica', $data);
+	        $this->load->view('editar-politica', $data);
+        } 
+        else 
+        	$this->load->view('errors/index.html');
     }
 
     public function cambiar_estado() {
