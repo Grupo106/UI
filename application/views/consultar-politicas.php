@@ -31,11 +31,9 @@
                             <td id="velocidad_subida"> <?php echo $item['velocidad_subida'];?>  </td>
                             <td id="fc_creacion">      <?php echo date('d/m/Y H:i', strtotime(str_replace('-','/', $item['fc_creacion'])));?>   </td>
                             <td>
-                            <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
                                 <a href="#" class="editar"><i class="fa fa-pencil"></i></a>
                                 <!-- <?php echo "<a href=\"#\" data-toggle=\"modal\" data-id=\"" . $item['id_politica'] . "\" data-target=\"#edit-modal\"<i class=\"fa fa-pencil\"></i></a>";?> -->
                                 <a class="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                            <?php } ?>
                             </td>
                         </tr>
                     <?php endforeach;?>
@@ -75,7 +73,7 @@
                 data : { id : id},
                 type: "POST",
                 success: function(respuesta){
-                    if(respuesta!=1){
+                    if(respuesta){
                         $('#mensaje').text("Error al intentar eliminar");
                         $('#modalInformacion').modal('show');
                     } else {

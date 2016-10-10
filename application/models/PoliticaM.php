@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL^E_NOTICE^E_WARNING);
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class PoliticaM extends CI_Model{
 	
 	// Cargar base
@@ -38,6 +41,7 @@ class PoliticaM extends CI_Model{
     }
 
     function crear($data){
+        $this->db->set('fc_creacion', 'NOW()', FALSE);
         $this->db->insert('politica',$data);
 
         if($this->db->affected_rows() > 0)

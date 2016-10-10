@@ -34,6 +34,12 @@ class ClaseModel extends CI_Model{
         return $query->first_row();
     }
 
+    function obtener_por_id($id){
+        $this->db->where('id_clase', $id);
+        $query = $this->db->get('clase_trafico');
+        return $query->result_array();
+    }
+
     function eliminar($id){
         $this->db->where('id_clase', $id);
         $this->db->delete('clase_trafico');
