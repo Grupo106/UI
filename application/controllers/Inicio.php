@@ -10,6 +10,7 @@ class Inicio extends CI_Controller {
         $this->load->helper('url');
         $this->load->library('session');
         $this->load->model('usuario_model');
+        $this->load->model('log_model');
     }
     
     /**
@@ -53,10 +54,11 @@ class Inicio extends CI_Controller {
 
         /* Si hay usuario logueado, Muestra la pagina de inicio */
         else {
+            $data['log']=$this->log_model->obtenerLogInicio();
             $this->load->view("estructura/header.php");
             $this->load->view("estructura/menu.php",
                               array('section' => 'inicio'));
-            $this->load->view("inicio");
+            $this->load->view("inicio", $data);
         }
     }
 
