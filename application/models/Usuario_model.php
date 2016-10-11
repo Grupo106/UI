@@ -78,6 +78,10 @@ class Usuario_model extends CI_Model{
 
     $this->db->insert('usuarios',$data);
     if($this->db->affected_rows()>0){
+            
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Creación de usuario ".$data['usuario']." por usuario ".$this->session->userUsuario);
+             $this->db->insert('logs',$data1);
             return true;
         } 
     return false;  
@@ -88,6 +92,10 @@ class Usuario_model extends CI_Model{
         $this->db->where('id_usu', $id);
         $this->db->update('usuarios', $data);  
         if($this->db->affected_rows()>0){
+
+                     $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Actualización de usuario con ID ".$id." por usuario ".$this->session->userUsuario);
+             $this->db->insert('logs',$data1);
             return true;
         } 
         return false;
@@ -97,6 +105,9 @@ class Usuario_model extends CI_Model{
         $this->db->where('id_usu', $id);
         $this->db->delete('usuarios');
         if($this->db->affected_rows()>0){
+            $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Eliminación de usuario con ID ".$id." por usuario ".$this->session->userUsuario);
+             $this->db->insert('logs',$data1);
             return true;
         } 
         return false;
