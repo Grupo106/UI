@@ -28,7 +28,7 @@ class Politica extends LoginRequired {
     public function nueva() {
     	if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
 	        $data['listadoClases'] = $this->claseModel->obtenerTodos();
-
+	        $data['arp'] = $this->_arp();
 	        $this->load->view('nueva-politica', $data);
         } 
         	else 
@@ -102,6 +102,7 @@ class Politica extends LoginRequired {
 	            $index_dias+= count($fila);
 	        }
 	        $data['index_dias'] = $index_dias;
+	        $data['arp'] = $this->_arp();
 
 	        $this->load->view('editar-politica', $data);
         } 
@@ -322,6 +323,20 @@ class Politica extends LoginRequired {
 
     public static function validarMac($mac) {
         return (preg_match('/([a-fA-F0-9]{2}[:|\-]?){6}/', $mac) == 1);
+    }
+
+    /**
+    * Obtiene la lista de ip y mac address asociadas obtenidas a traves del
+    * protocolo ARP.
+    */
+    private function _arp() {
+        $output = shell_exec("/bin/ip neigh show | awk '/DELAY|REACHABLE|STALE/{print $5,$1}'");
+        $arp = array();
+        foreach(explode("\n", $output) as $line) {
+            $item = explode(" ", $line);
+            array_push($arp, array("mac" => $item[0], "ip" => $item[1]));
+        }
+        return $arp;
     }
 }
 ?>

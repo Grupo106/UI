@@ -89,6 +89,9 @@
                     <div class="col_one_fourth">
                         <label>MAC</label>
                         <input type="text" class="form-control macAddress" name="macD_0" value="">
+                        <?php foreach($arp as $item) {
+                            echo $item['mac'] . " " . $item['ip'] . "<br/>";
+                        }?>
                     </div>
 
                     <div class="col_three_fifth col_last">
