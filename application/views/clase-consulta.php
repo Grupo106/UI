@@ -40,9 +40,11 @@
 	</table>
 </div>
 
-<div class="col_full">
-	<button id="btnNuevaClase" class="button button-rounded">NUEVA CLASE DE TRÁFICO</button>
-</div>	
+<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
+	<div class="col_full">
+		<button id="btnNuevaClase" class="button button-rounded">NUEVA CLASE DE TRÁFICO</button>
+	</div>
+<?php } ?>
 
 <?php include('estructura/modal-eliminar.php'); ?>
 <?php include('estructura/modal-informacion.php'); ?>

@@ -228,8 +228,6 @@
 
 	<div class="clear"></div>
 
-
-
 	<div id="divError" class="alert alert-danger nobottommargin hidden">
 	  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 	  <i class="icon-remove-sign"></i><strong id="msjError">Debe completarse al menos uno de los campos en rojo.</strong>
@@ -267,6 +265,7 @@
 		//GUARDAR
 		$('#form').submit(function (event){
 			event.preventDefault();
+
 			if ($('#form').valid()) {
 
 				$.ajax({

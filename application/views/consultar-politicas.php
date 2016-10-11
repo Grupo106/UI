@@ -6,7 +6,7 @@
 <div class="tab-content">
     <div id="seccion_limitacion" class="tab-pane fade in active"> 
         <div class="table-responsive">
-            <table id="tablaClases" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <table id="tablaPoliticas" class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead class="headTable">
                     <tr>
                         <th>Activa</th>
@@ -44,9 +44,11 @@
     </div>
 </div>
 
-<div class="col_full">
-    <button id="btnNuevaClase" class="button button-rounded">NUEVA POLíTICA</button>
-</div>  
+<?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
+    <div class="col_full">
+        <button id="btnNuevaClase" class="button button-rounded">NUEVA POLíTICA</button>
+    </div>
+<?php } ?>
 
 <?php include('estructura/modal-eliminar.php');        ?>
 <?php include('estructura/modal-informacion.php');     ?>
@@ -56,10 +58,13 @@
     $(document).ready(function() {
         $('#tituloPantalla').text('Políticas de Tráfico');
 
-        var table = $('#tablaClases').DataTable();
+        var table = $('#tablaPoliticas').DataTable();
         var siteurl = '<?=site_url()?>';
 
         jQuery(".bt-switch").bootstrapSwitch();
+        $('#tablaPoliticas').on( 'draw.dt', function () {
+            jQuery('.bt-switch').bootstrapSwitch();
+        });
 
         // Nueva politica
         $('#btnNuevaClase').click(function(){

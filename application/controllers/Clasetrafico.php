@@ -8,6 +8,7 @@ class Clasetrafico extends LoginRequired {
 	public function __construct() {
 		parent::__construct();
         $this->load->model('claseModel');
+        $this->load->library('session');
         $this->load->model('cidrModel');
         $this->load->model('puertoModel');
 	}
@@ -86,12 +87,11 @@ class Clasetrafico extends LoginRequired {
     }
 
     public function guardarCidr($input, $id_clase, $grupo) {
-        $regex_ip = '^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}\
-                    (?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$';
+        $regex_ip = '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/';
+
         $index = $input->post('indexCidr'.$grupo);
 
         for ($i=0; $i <= $index ; $i++) { 
-
             $id_cidr = $input->post('idCidr'.$grupo.'_'.$i);
             $direccion = $input->post('direccion'.$grupo.'_'.$i);
             $prefijo = $input->post('prefijo'.$grupo.'_'.$i);
