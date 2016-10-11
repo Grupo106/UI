@@ -206,6 +206,13 @@ $(document).ready(function() {
             $(this).prop("selected", false);
         });
     }
+
+    $('a[data-mac]').on('click', function(e) {
+        e.preventDefault();
+        var mac = $(this).data('mac');
+        var dest = $(this).data('for');
+        $("#" + dest).val(mac);
+    })
 });
 
 // Tab de tipo de politica
