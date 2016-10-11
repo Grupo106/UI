@@ -4,20 +4,24 @@
 <table class="table table-bordered table-striped" style="clear: both">
 	<tbody>
 		<tr>
-			<td width="15%">11/07/2016 - 22:00</td>
-			<td>Creación de Usuario ADMIN123 por usuario MATT34</td>
+			<td width="15%"><?=substr($log[0]['hora_log'], 0,19) ?></td>
+			<td><?=$log[0]['descripcion'] ?></td>
 		</tr>
 		<tr>
-			<td>08/07/2016 - 15:35</td>
-			<td>Consulta de tráfico en Período 06-2016 por usuario MATT34</td>
+			<td width="15%"><?=substr($log[1]['hora_log'], 0,19)  ?></td>
+			<td><?=$log[1]['descripcion'] ?></td>
 		</tr>
 		<tr>
-			<td>02/07/2016 - 20:10</td>
-			<td>Creación de regla "FacebookBloqueo" por usuario MATT34</td>
+			<td width="15%"><?=substr($log[2]['hora_log'], 0,19)  ?></td>
+			<td><?=$log[2]['descripcion'] ?></td>
 		</tr>
 		<tr>
-			<td>21/06/2016 - 19:35</td>
-			<td>Consulta de tráfico en Período 05-2016 por usuario MATT34</td>
+			<td width="15%"><?=substr($log[3]['hora_log'], 0,19)  ?></td>
+			<td><?=$log[3]['descripcion'] ?></td>
+		</tr>
+		<tr>
+			<td width="15%"><?=substr($log[4]['hora_log'], 0,19)  ?></td>
+			<td><?=$log[4]['descripcion'] ?></td>
 		</tr>
 	</tbody>
 </table>
