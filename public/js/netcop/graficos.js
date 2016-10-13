@@ -46,7 +46,6 @@ function propiedadesGrafLinea(puntos, intervaloY, maximoY, formatoLabelY){
 		axisX: {						
 			gridColor: "#F2F2F2",
 			lineColor: "#D8D8D8",
-			labelAutoFit: false,
 			labelFontSize: 12,
 			valueFormatString: formatoLabelX, 
 			labelAutoFit: true
