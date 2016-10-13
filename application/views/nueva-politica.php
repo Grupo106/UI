@@ -108,32 +108,6 @@
                     <div class="col_icon hidden borrar">
                         <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                     </div>
-                    
-                    <div class="col_one_fourth">
-                        <label>MAC</label>
-                        <input id="macD_0" type="text" class="form-control macAddress" name="macD_0" value="">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Dirección física</th>
-                              <th>Dirección IP</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          <?php foreach($arp as $item) {
-                            if ($item['mac']) { ?>
-                              <tr>
-                                <td><a href="#" data-mac="<?=$item['mac']?>"
-                                       data-for="macD_0" title="Seleccionar">
-                                  <?=$item['mac']?>
-                                </a></td>
-                                <td><?=$item['ip']?></td>
-                              </tr>
-                            <?php }?>
-                          <?php }?>
-                          </tbody>
-                        </table>
-                    </div>
 
                     <div class="col_three_fifth col_last">
                         <label>Clase de tráfico</label>
