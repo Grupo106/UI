@@ -58,11 +58,12 @@
 				axisX: {						
 					gridColor: "#F2F2F2",
 					lineColor: "#D8D8D8",
-					labelAutoFit: false,
+					labelAutoFit: true,
+					valueFormatString: "HH:mm:ss", 
 				},
 				axisY: {						
 					title: "%",
-					interval: 0,
+					interval: 10,
 					maximum: 100,
 					gridColor: "#F2F2F2",
 					lineColor: "#D8D8D8"
@@ -84,12 +85,14 @@
 			if(isNaN(consumoTotal[0]['temp'])){
 			  $('#divTemp').hide();
 			}
-			
+
 			for (i = 0; i < consumoTotal.length; i++) { 
-				agregarDato(puntosCPU, consumoTotal[i]['cpu'], Date.parse(consumoTotal[i]['hora']));			
-				agregarDato(puntosRAM, consumoTotal[i]['ram'], Date.parse(consumoTotal[i]['hora']));			
-				agregarDato(puntosDisc, consumoTotal[i]['disco'], Date.parse(consumoTotal[i]['hora']));			
-				agregarDato(puntosTemp, consumoTotal[i]['temp'], Date.parse(consumoTotal[i]['hora']));			
+				var fecha = moment(consumoTotal[i]['hora'], "YYYY-MM-DD HH:mm:ss");
+				
+				agregarDato(puntosCPU, consumoTotal[i]['cpu'],fecha);			
+				agregarDato(puntosRAM, consumoTotal[i]['ram'], fecha);			
+				agregarDato(puntosDisc, consumoTotal[i]['disco'], fecha);			
+				agregarDato(puntosTemp, consumoTotal[i]['temp'], fecha);			
 			}	
 			grafUsoCPU.render();
 			grafMemRAM.render();
@@ -101,9 +104,9 @@
 
 		function agregarDato(datos, porcentaje, fecha){
 			datos.push({
-				x: fecha, 
+				x: fecha.toDate(), 
 				y: Number(porcentaje),
-				label: fecha.toString("HH:mm:ss")
+				label: fecha.format("HH:mm:ss"),
 			});
 			if (datos.length > maxPuntos){
 				datos.shift();				
@@ -122,11 +125,12 @@
 		function actualizarGrafico(data) {
 			
 			var consumoTotal = JSON.parse(data);
+			var fecha = moment(consumoTotal['hora'], "YYYY-MM-DD HH:mm:ss");
 
-			agregarDato(puntosCPU, consumoTotal['cpu'], Date.parse(consumoTotal['hora']));			
-			agregarDato(puntosRAM, consumoTotal['ram'], Date.parse(consumoTotal['hora']));			
-			agregarDato(puntosDisc, consumoTotal['disco'], Date.parse(consumoTotal['hora']));			
-			agregarDato(puntosTemp, consumoTotal['temp'], Date.parse(consumoTotal['hora']));			
+			agregarDato(puntosCPU, consumoTotal['cpu'], fecha);			
+			agregarDato(puntosRAM, consumoTotal['ram'], fecha);			
+			agregarDato(puntosDisc, consumoTotal['disco'], fecha);			
+			agregarDato(puntosTemp, consumoTotal['temp'], fecha);			
 			grafUsoCPU.render();
 			grafMemRAM.render();
 			grafDiscoRig.render();
