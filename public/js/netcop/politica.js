@@ -172,6 +172,12 @@ $(document).ready(function() {
             $(this).val("");
         });
 
+        // Rename de arp mac
+        nuevo.find('a[data-mac]').each(function() {
+            var for_data = $(this).data('for');
+ 
+            $(this).data("for", for_data.substring(0, for_data.lastIndexOf("_")) + "_" + cantidad_reg_n);
+        });
 
         // Clear options
         limpiarOptions(nuevo);
@@ -206,6 +212,13 @@ $(document).ready(function() {
             $(this).prop("selected", false);
         });
     }
+
+    $('a[data-mac]').on('click', function(e) {
+        e.preventDefault();
+        var mac = $(this).data('mac');
+        var dest = $(this).data('for');
+        $("#" + dest).val(mac);
+    })
 });
 
 // Tab de tipo de politica

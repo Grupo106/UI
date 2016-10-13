@@ -32,7 +32,7 @@
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border">
-                <h4>Objetivo</h4>
+                <h4>Origen</h4>
             </div>
         </div>
         <div id="objetivoO">
@@ -51,7 +51,30 @@
                     
                     <div class="col_one_fourth">
                         <label>MAC</label>
-                        <input type="text" class="form-control macAddress" name="macO_0" value="">
+                        <input id="macO_0" type="text" 
+                               class="form-control macAddress" 
+                               name="macO_0" value="">
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>Dirección física</th>
+                              <th>Dirección IP</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php foreach($arp as $item) {
+                            if ($item['mac']) { ?>
+                              <tr>
+                                <td><a href="#" data-mac="<?=$item['mac']?>"
+                                       data-for='macO_0' title="Seleccionar">
+                                  <?=$item['mac']?>
+                                </a></td>
+                                <td><?=$item['ip']?></td>
+                              </tr>
+                            <?php }?>
+                          <?php }?>
+                          </tbody>
+                        </table>
                     </div>
 
                     <div class="col_three_fifth col_last">
@@ -70,7 +93,7 @@
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border">
-                <h4>Aplicado a</h4>
+                <h4>Destino</h4>
             </div>
         </div>
         <div id="objetivoD">
@@ -84,14 +107,6 @@
                     </div>
                     <div class="col_icon hidden borrar">
                         <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                    </div>
-                    
-                    <div class="col_one_fourth">
-                        <label>MAC</label>
-                        <input type="text" class="form-control macAddress" name="macD_0" value="">
-                        <?php foreach($arp as $item) {
-                            echo $item['mac'] . " " . $item['ip'] . "<br/>";
-                        }?>
                     </div>
 
                     <div class="col_three_fifth col_last">
