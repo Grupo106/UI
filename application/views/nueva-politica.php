@@ -3,12 +3,6 @@
 
 <link rel="stylesheet" href="<?=base_url('public/font-awesome-4.6.3/css/font-awesome.min.css')?>">
 
-<div class="col_full">
-    <div class="fancy-title title-block">
-        <h3>Complete los siguientes datos:</h3>
-    </div>      
-</div>  
-
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
         <input name="id_politica" type="hidden" class="form-control" value="x">
@@ -57,30 +51,10 @@
                     
                     <div class="col_one_fourth">
                         <label>MAC</label>
-                        <input id="macO_0" type="text" 
-                               class="form-control macAddress" 
-                               name="macO_0" value="">
-                        <table class="table">
-                          <thead>
-                            <tr>
-                              <th>Dirección física</th>
-                              <th>Dirección IP</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          <?php foreach($arp as $item) {
-                            if ($item['mac']) { ?>
-                              <tr>
-                                <td><a href="#" data-mac="<?=$item['mac']?>"
-                                       data-for='macO_0' title="Seleccionar">
-                                  <?=$item['mac']?>
-                                </a></td>
-                                <td><?=$item['ip']?></td>
-                              </tr>
-                            <?php }?>
-                          <?php }?>
-                          </tbody>
-                        </table>
+                        <div class="input-group" id="mac">
+                            <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
+                            <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                        </div>
                     </div>
 
                     <div class="col_three_fifth col_last">
@@ -248,8 +222,8 @@
     </form>
 </div>
 
-<?php include('estructura/modal-eliminar.php');        ?>
 <?php include('estructura/modal-informacion.php');     ?>
+<?php include('estructura/modal-arp-politica.php');    ?>
 
 <script src="<?=base_url('public/js/components/bootstrap-clockpicker.min.js')?>"></script>
 <link href="<?=base_url('public/css/components/bootstrap-clockpicker.min.css')?>" rel="stylesheet">
@@ -258,8 +232,21 @@
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
 <script type="text/javascript">
+    // Modal ARP
+    $('#mac').on('click', '.arp', function (){
+        var for_data = $(this).parent('div').parent('div').find('input').attr('id');
 
-    $('#tituloPantalla').text('Nueva Política de Tráfico');
+        $('#modalArp').find("a[name='arpMac']").each(function() {
+            $(this).data("for", for_data);
+        });
+        $('#modalArp').modal('show');
+    });
+
+    // Cerrar Modal ARP
+    $('#btnCerrarArp, #btnCerrarArpTop').click(function(e){
+        $('#modalArp').modal('hide');
+        e.stopPropagation();
+    });
 
     // Guardar cambios
     $('#form').submit(function (event){
