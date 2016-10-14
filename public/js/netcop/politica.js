@@ -1,7 +1,7 @@
 var $ = jQuery.noConflict();
 
 $(document).ready(function() {
-    $('#tituloPantalla').text('Políticas de Tráfico');
+    
     jQuery(".bt-switch").bootstrapSwitch();
 
     // Selector hora

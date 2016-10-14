@@ -3,6 +3,12 @@
 
 <link rel="stylesheet" href="<?=base_url('public/font-awesome-4.6.3/css/font-awesome.min.css')?>">
 
+<div class="col_full">
+    <div class="fancy-title title-block">
+        <h3>Complete los siguientes datos:</h3>
+    </div>      
+</div>  
+
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
         <input name="id_politica" type="hidden" class="form-control" value="x">
@@ -252,6 +258,9 @@
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
 <script type="text/javascript">
+
+    $('#tituloPantalla').text('Nueva Política de Tráfico');
+
     // Guardar cambios
     $('#form').submit(function (event){
         event.preventDefault();
