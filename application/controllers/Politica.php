@@ -45,7 +45,7 @@ class Politica extends LoginRequired {
 	            && $this->objetivoM->obtener_objetivo_por_politica($id_politica)
 	            && $this->rangoHorarioM->eliminar_horario_por_politica($id_politica)
 	          ) {
-	            shell_exec('/usr/local/bin/despachar');
+                shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
 	            return true;
 	        }
 
@@ -114,6 +114,7 @@ class Politica extends LoginRequired {
         $id_politica = $this->input->post('id_politica');
 
         echo $this->politicaM->alternar_estado($id_politica);
+        shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
     }
 
     public function guardar() {
@@ -236,7 +237,7 @@ class Politica extends LoginRequired {
                 $this->agregar_horarios_politica($horarios_politica_nue)
                 && $this->registrar_objetivos($array_clases)
               ) {
-                shell_exec('/usr/local/bin/despachar');
+                shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 echo true;
             }
             else
@@ -252,7 +253,7 @@ class Politica extends LoginRequired {
                 && $this->politicaM->actualizar($inputidPolitica, $politica)
                 && $this->registrar_objetivos($array_clases)
               ) {
-                shell_exec('/usr/local/bin/despachar');
+                shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 echo true;
             }
             else

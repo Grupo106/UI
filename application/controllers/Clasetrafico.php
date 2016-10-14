@@ -81,7 +81,7 @@ class Clasetrafico extends LoginRequired {
         }
 
         /* despacho las politicas nuevamente */
-        shell_exec('/usr/local/bin/despachar');
+        shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
 
         echo true;
     }
