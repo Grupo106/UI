@@ -338,5 +338,13 @@ class Politica extends LoginRequired {
         }
         return $arp;
     }
+
+    /**
+    * Obtiene el nombre del host a partir de la ip.
+    */
+    public function obtener_nombre($ip) {
+        $this->output->set_header("Content-Type: text/plain")
+                     ->set_output(gethostbyaddr($ip));
+    }
 }
 ?>
