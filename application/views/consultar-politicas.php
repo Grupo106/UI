@@ -32,8 +32,8 @@
                             <td id="fc_creacion">      <?php echo date('d/m/Y H:i', strtotime(str_replace('-','/', $item['fc_creacion'])));?>   </td>
                             <td>
                                 <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
-                                <a class="eliminar margen-izq"><img src="<?=base_url('public/images/delete.png')?>"></a>
-                                <a href="#" class="editar margen-izq"><img src="<?=base_url('public/images/edit.png')?>"></a>
+                                <a class="eliminar"><img src="<?=base_url('public/images/delete.png')?>" title="Eliminar"></a>
+                                <a href="#" class="editar margen-izq"><img src="<?=base_url('public/images/edit.png')?>" title="Editar"></a>
                                 <?php } ?>
                             </td>
                         </tr>

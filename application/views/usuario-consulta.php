@@ -34,8 +34,8 @@
                
 				<td>
 					 <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
-					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-					<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
+					<img class="eliminar" src="<?=base_url('public/images/delete.png')?>" title="Eliminar">
+					<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>" title="Editar">
 					<?php }
 					 ?>
 				</td>

@@ -29,10 +29,10 @@
 	                <td> <?php if($item['tipo']==1) echo USUARIO; else echo SISTEMA; ?> </td>
 	                <td>
 	                <?php if(strcmp($this->session->rolUsuario, "Administrador") == 0) { ?>
-						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>">
-						<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>">
+						<img class="eliminar" src="<?=base_url('public/images/delete.png')?>" title="Eliminar">
+						<img class="editar margen-izq" src="<?=base_url('public/images/edit.png')?>" title="Editar">
 						<?php } ?>
-						<img class="detalle margen-izq" src="<?=base_url('public/images/detalle.png')?>">
+						<img class="detalle margen-izq" src="<?=base_url('public/images/detalle.png')?>" title="Ver Detalle">
 					</td>
 	            </tr>
 	        <?php endforeach;?>
