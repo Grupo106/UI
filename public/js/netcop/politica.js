@@ -41,6 +41,9 @@ $(document).ready(function() {
     // Formateo MAC
     $('.macAddress').on("keyup", formatoMAC);
 
+    // Formateo IP
+    $('.ipAddress').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
+
     // Agregar horario
     $('.agregarh').click(function(){            
         var divParentID = $(this).parent('div').parent('div').attr('id').split("_",1);
@@ -232,4 +235,21 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             document.getElementById("tipo").value = "limitacion";
         else
             document.getElementById("tipo").value = "priorizacion";
+});
+
+// Ocultar o mostrar horarios
+$('#title-dias').parent().on('click', function (){
+    var switcher = $(this).find("i[class^='switch-dias']");
+
+    if($('#dias').attr('class') == 'collapse')
+    {
+        switcher.removeClass('fa-angle-down');
+        switcher.addClass('fa-angle-up');
+    }
+
+    else if($('#dias').attr('class') == 'collapse in')
+    {
+        switcher.removeClass('fa-angle-up');
+        switcher.addClass('fa-angle-down');
+    }
 });

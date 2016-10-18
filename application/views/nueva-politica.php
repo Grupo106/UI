@@ -32,79 +32,6 @@
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border">
-                <h4>Origen</h4>
-            </div>
-        </div>
-        <div id="objetivoO">
-            <input type="hidden" name="objetivoO_cant" value="0">
-            <input type="hidden" name="objetivoO_activos" value="1">
-            
-            <div id="objetivoO_0">
-                <input type="hidden" name="id_objetivoO_0" value="">
-                <div class="col_one">
-                    <div class="col_icon agregar">
-                        <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
-                    </div>
-                    <div class="col_icon hidden borrar">
-                        <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                    </div>
-                    
-                    <div class="col_one_fourth">
-                        <label>MAC</label>
-                        <div class="input-group" id="mac">
-                            <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
-                            <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
-                        </div>
-                    </div>
-
-                    <div class="col_three_fifth col_last">
-                        <label>Clase de tráfico</label>
-                        <select name="id_claseTraficoO_0" class="select-1 form-control">
-                            <option data-hidden="true"></option>
-                            <?php foreach($listadoClases as $clases){ ?>              
-                                <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-            <div class="clear"></div>
-            </div>
-        </div>
-
-        <div class="col_full">
-            <div class="fancy-title title-bottom-border">
-                <h4>Destino</h4>
-            </div>
-        </div>
-        <div id="objetivoD">
-            <input type="hidden" name="objetivoD_cant" value="0">
-            <input type="hidden" name="objetivoD_activos" value="1">
-            <div id="objetivoD_0">
-                <input type="hidden" name="id_objetivoD_0" value="">
-                <div class="col_one">
-                    <div class="col_icon agregar">
-                        <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
-                    </div>
-                    <div class="col_icon hidden borrar">
-                        <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                    </div>
-
-                    <div class="col_three_fifth col_last">
-                        <label>Clase de tráfico</label>
-                        <select name="id_claseTraficoD_0" class="select-1 form-control">
-                            <option data-hidden="true"></option>
-                            <?php foreach($listadoClases as $clases){ ?>              
-                                <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                </div>
-            <div class="clear"></div>
-            </div>
-        </div>
-
-        <div class="col_full">
-            <div class="fancy-title title-bottom-border">
                 <h4>Tipo</h4>
             </div>
         </div>
@@ -153,13 +80,94 @@
         </div>
 
 
-        <div class="col_full">
+        <div class="col_half">
             <div class="fancy-title title-bottom-border">
-                <h4>Días de aplicación</h4>
+                <h4>Origen</h4>
+            </div>
+            <div id="objetivoO">
+                <input type="hidden" name="objetivoO_cant" value="0">
+                <input type="hidden" name="objetivoO_activos" value="1">
+                
+                <div id="objetivoO_0">
+                    <input type="hidden" name="id_objetivoO_0" value="">
+                    <div class="col_full">
+                        <div class="col_icon agregar">
+                            <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
+                        </div>
+                        <div class="col_icon hidden borrar">
+                            <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                        </div>
+                        
+                        <div class="col_two_fifth">
+                            <label>MAC</label>
+                            <div class="input-group" id="mac">
+                                <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
+                                <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="col_two_fifth col_last">
+                            <label>Clase de tráfico</label>
+                            <select name="id_claseTraficoO_0" class="select-1 form-control">
+                                <option data-hidden="true"></option>
+                                <?php foreach($listadoClases as $clases){ ?>              
+                                    <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                <div class="clear"></div>
+                </div>
             </div>
         </div>
 
-        <div id="dias">
+        <div class="col_half col_last">
+            <div class="fancy-title title-bottom-border">
+                <h4>Destino</h4>
+            </div>
+            <div id="objetivoD">
+                <input type="hidden" name="objetivoD_cant" value="0">
+                <input type="hidden" name="objetivoD_activos" value="1">
+                <div id="objetivoD_0">
+                    <input type="hidden" name="id_objetivoD_0" value="">
+                    <div class="col_full">
+                        <div class="col_icon agregar">
+                            <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
+                        </div>
+                        <div class="col_icon hidden borrar">
+                            <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                        </div>
+
+                        <div class="col_two_fifth">
+                            <label>IP</label>
+                            <div class="input-group" id="ip">
+                                <input id="ipD_0" type="text" class="form-control ipAddress" name="ipD_0" value="">
+                                <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                            </div>
+                        </div>
+
+                        <div class="col_two_fifth col_last">
+                            <label>Clase de tráfico</label>
+                            <select name="id_claseTraficoD_0" class="select-1 form-control">
+                                <option data-hidden="true"></option>
+                                <?php foreach($listadoClases as $clases){ ?>              
+                                    <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col_full">
+            <div class="fancy-title title-bottom-border" id="title-dias">
+                <h4>Días de aplicación <i href="#dias" class="switch-dias fa fa-angle-down" aria-hidden="true" data-toggle="collapse"></i></h4>
+            </div>
+        </div>
+
+        <div id="dias" class="collapse">
         <input type="hidden" name="dias_cant" value="0">
             <div id="dias_0">
                 <div class="col_half">
@@ -215,10 +223,15 @@
             <div class="clear"></div>
         </div>
 
-    <div class="col_full" style="text-align:center;">
-        <button type="submit" class="button button-rounded">GUARDAR</button>
-        <button type="button" id="btnCancelar" class="button button-rounded button-red" data-dismiss="modal">CANCELAR</button>
-    </div>
+        <div id="divError" class="alert alert-danger nobottommargin hidden">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <i class="icon-remove-sign"></i><strong id="msjError">Debe completarse al menos uno de los campos en rojo.</strong>
+        </div>
+
+        <div class="col_full" style="text-align:center;">
+            <button type="submit" class="button button-rounded">GUARDAR</button>
+            <button type="button" id="btnCancelar" class="button button-rounded button-red" data-dismiss="modal">CANCELAR</button>
+        </div>
     </form>
 </div>
 
@@ -232,6 +245,68 @@
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
 <script type="text/javascript">
+
+    $.validator.addMethod('validarOrigen', function(value) {
+        if ($("input[name='macO_0']").val()=="" && $("select[name='id_claseTraficoO_0']").val()==""){
+            mostrarDivError(true, 'Ingrese una MAC o una clase de tráfico');
+            return false;
+        }
+        mostrarDivError(false, '');
+        return true;
+     });
+
+    $.validator.addMethod('validarDestino', function(value) {
+        if ($("input[name='ipD_0']").val()=="" && $("select[name='id_claseTraficoD_0']").val()==""){
+            mostrarDivError(true, 'Ingrese una IP o una clase de tráfico');
+            return false;
+        }
+        mostrarDivError(false, '');
+        return true;
+     });
+
+    $('#form').validate({
+        errorElement: 'span',
+        rules: {
+            inputNombre: "required",
+            inputDescripcion: "required",
+
+            macO_0: "validarOrigen",
+            id_claseTraficoO_0: "validarOrigen",
+            ipD_0: "validarDestino",
+            id_claseTraficoD_0: "validarDestino"
+        },
+        messages: {
+            "inputNombre": {
+                required: "Ingrese el nombre"
+            },
+             "inputDescripcion": {
+                required: "Ingrese la descripción"
+            },
+            "macO_0":{
+                validarOrigen: ""
+            },
+            "id_claseTraficoO_0": {
+                validarOrigen: ""
+            },
+            "ipD_0": {
+                validarDestino: ""
+            },
+            "id_claseTraficoD_0":{
+                validarDestino: ""
+            }
+        }
+    });
+
+    function mostrarDivError(valor, mensaje){
+        $('#msjError').html(mensaje);
+
+        if(valor && $('#divError').hasClass("hidden")){
+            $('#divError').removeClass("hidden");
+        } else if (!valor && !$('#divError').hasClass("hidden")){
+            $('#divError').addClass("hidden");
+        }
+    }
+
     // Modal ARP
     $('#mac').on('click', '.arp', function (){
         var for_data = $(this).parent('div').parent('div').find('input').attr('id');
@@ -242,33 +317,47 @@
         $('#modalArp').modal('show');
     });
 
+    // Modal ARP IP
+    $('#ip').on('click', '.arp', function (){
+        var for_data = $(this).parent('div').parent('div').find('input').attr('id');
+
+        $('#modalArpIP').find("a[name='arpIp']").each(function() {
+            console.log(for_data + " >> " + $(this).data("for"));
+            $(this).data("for", for_data);
+        });
+        $('#modalArpIP').modal('show');
+    });
+
     // Cerrar Modal ARP
     $('#btnCerrarArp, #btnCerrarArpTop').click(function(e){
         $('#modalArp').modal('hide');
+        $('#modalArpIP').modal('hide');
         e.stopPropagation();
+    });
+
+    // Modales de informacion
+    $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
+        window.location.href = "<?php echo site_url('politica/consulta');?>";
     });
 
     // Guardar cambios
     $('#form').submit(function (event){
         event.preventDefault();
-        
-        $.ajax({
-            url : $('#form').attr("action"),
-            type : $('#form').attr("method"),
-            data : $('#form').serialize(),
-            success: function(response){
-                if(response)
-                    $('#mensaje').text("Los cambios fueron guardados exitosamente");
-                 else
-                    $('#mensaje').text(response);
-                
-                $('#modalInformacion').modal('show');
-            }
-        });
-    });
-
-    $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
-        window.location.href = "<?php echo site_url('politica/consulta');?>";
+        if ($('#form').valid()) {
+            $.ajax({
+                url : $('#form').attr("action"),
+                type : $('#form').attr("method"),
+                data : $('#form').serialize(),
+                success: function(response){
+                    if(response)
+                        $('#mensaje').text("Los cambios fueron guardados exitosamente");
+                     else
+                        $('#mensaje').text(response);
+                    
+                    $('#modalInformacion').modal('show');
+                }
+            });
+        } 
     });
 </script>
 
