@@ -7,6 +7,7 @@
 	</div>		
 </div>	
 
+
 <form id="form" action="<?=site_url('clasetrafico/guardar/')?>" method="POST">
 	<input type="hidden" name="id" value="<?=html_escape($registro->id_clase) ?>">
 	<input type="hidden" name="activa" value="<?=html_escape($registro->activa) ?>">
@@ -18,7 +19,7 @@
 	</div>
 
 	<div class="col_two_third col_last">
-		<label>Descripción</label>
+		<label>Descripción</label> 
 		<input name="descripcion" type="text" class="sm-form-control" maxlength="160" value="<?=html_escape($registro->descripcion)?>"/>
 	</div>
 	<div class="clear"></div>
@@ -42,11 +43,11 @@
 				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
             <div class="col_two_fifth">
-				<label>Dirección IP</label>
+				<label class="lbDireccion">Dirección IP</label>
 				<input name="direccionO_0" type="text" class="form-control ipAddress ipValida" value="<?= array_values($cidrO)[0]['direccion']?>">
 			</div>
 			<div class="col_one_fourth col_last">
-				<label>Prefijo</label>
+				<label class="lbPrefijo">Prefijo</label>
 				<input name="prefijoO_0" type="number" class="form-control prefijo" value="<?= array_values($cidrO)[0]['prefijo']?>"
 					min="0" max="32">
 			</div>
@@ -84,12 +85,12 @@
 				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
 			<div class="col_one_third">
-				<label>Puerto</label>
+				<label class="lbPuerto">Puerto</label>
 				<input name="puertoO_0" type="number" class="form-control puerto" 
 					min="1" max="65535" value="<?= array_values($puertoO)[0]['numero']?>">
 			</div>
 			<div class="col_one_fourth col_last">
-				<label>Protocolo</label>
+				<label class="lbProtocolo">Protocolo</label>
 				<select name="protocoloO_0" class="select-1 form-control">
 					<?php foreach($protocolos as $key => $value){ ?>			  
 				    	<option value="<?= $key ?>" <?= array_values($puertoO)[0]['protocolo'] == $key ? ' selected="selected"' : '';?> >
@@ -128,7 +129,12 @@
 
 	<div class="col_full">
 		<div class="fancy-title title-bottom-border">
-			<h4>LAN <i href="#lanDiv" class="fa fa-angle-down" aria-hidden="true" data-toggle="collapse"></i></h4>
+			<h4 class="lbLan">LAN  
+				<span class="tooltipp tooltipp-effect-3">
+					<span class="tooltipp-item"><i class="color-negro fa fa-info-circle" aria-hidden="true"></i></span>
+					<span class="tooltipp-content clearfix"><span class="tooltipp-text"></span></span>
+				</span>
+				<i href="#lanDiv" style="margin-left:10px" class="switch-lan fa fa-angle-down" aria-hidden="true" data-toggle="collapse"></i></h4>
 		</div>
 	</div>
 
@@ -145,11 +151,11 @@
 				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
             <div class="col_two_fifth">
-				<label>Dirección IP</label>
+				<label class="lbDireccion">Dirección IP</label>
 				<input name="direccionI_0" type="text" class="form-control ipAddress ipValida" value="<?= array_values($cidrI)[0]['direccion']?>">
 			</div>
 			<div class="col_one_fourth col_last">
-				<label>Prefijo</label>
+				<label class="lbPrefijo">Prefijo</label>
 				<input name="prefijoI_0" type="number" class="form-control prefijo" value="<?= array_values($cidrI)[0]['prefijo']?>"
 					min="0" max="32">
 			</div>
@@ -187,12 +193,12 @@
 				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
 			<div class="col_one_third">
-				<label>Puerto</label>
+				<label class="lbPuerto">Puerto</label>
 				<input name="puertoI_0" type="number" class="form-control puerto" 
 					min="1" max="65535" value="<?= array_values($puertoI)[0]['numero']?>">
 			</div>
 			<div class="col_one_fourth col_last">
-				<label>Protocolo</label>
+				<label class="lbprotocolo">Protocolo</label>
 				<select name="protocoloI_0" class="select-1 form-control">
 					<?php foreach($protocolos as $key => $value){ ?>			  
 				    	<option value="<?= $key ?>" <?= array_values($puertoI)[0]['protocolo'] == $key ? ' selected="selected"' : '';?> >
@@ -242,6 +248,7 @@
 	</div>	
 </form>	
 
+
 <?php include('estructura/modal-informacion.php'); ?>
 
 <!-- JavaScripts
@@ -253,6 +260,8 @@
 		$('#tituloPantalla').text('Nueva Clase de Tráfico');
 
 		var siteurl = '<?=site_url()?>';
+
+		agregarAyudas();
 
 		//ACEPTAR Y CERRAR MODAL INFORMACION, CANCELAR GUARDADO
 		$('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
@@ -287,6 +296,15 @@
 	    function mostrarMensaje(mensaje){
 			$('#mensaje').text(mensaje);
 			$('#modalInformacion').modal('show');
+		}
+
+		function agregarAyudas(){
+			agregarTooltip($(".lbDireccion"), "Identificador de la Red.");
+			agregarTooltip($(".lbPrefijo"), "Cantidad de bits que contiene la máscara de subred.");
+			agregarTooltip($(".lbPuerto"), "Identificador del Puerto");
+			agregarTooltip($(".lbProtocolo"), "Protocolo que utiliza el puerto.");
+			agregarTooltipTitulo($(".lbInternet"), "Listado de direcciones y puertos pertenecientes a Internet.");
+			$(".lbLan").find(".tooltipp-text").text("Listado de direcciones y puertos pertenecientes a la Red Local.")
 		}
 
 	});

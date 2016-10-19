@@ -27,6 +27,9 @@
 	<link rel="stylesheet" href="<?=base_url('public/css/components/bs-switches.css')?>" type="text/css" />
 	<link rel="stylesheet" href="<?=base_url('public/font-awesome-4.6.3/css/font-awesome.css')?>" type="text/css" />
 	<link rel="icon" type="image/x-icon" href=<?php echo base_url()."/favicon.ico"?> />
+
+	<link rel="stylesheet" href="<?=base_url('public/css/tooltip-classic.css')?>" type="text/css"/>
+
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	
 
@@ -64,3 +67,4 @@
 	<script type="text/javascript" src="<?=base_url('public/js/jquery.canvasjs.min.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/date.js')?>"></script>
 	<script type="text/javascript" src="<?=base_url('public/js/moment.min.js')?>"></script>
+	<script type="text/javascript" src="<?=base_url('public/js/netcop/ayuda.js')?>"></script>
