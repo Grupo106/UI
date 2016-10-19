@@ -14,27 +14,15 @@
         <input name="id_politica" type="hidden" class="form-control" value="x">
         <input name="activa" type="hidden" class="form-control" value="<?php if($item['activa']=='') echo 't'; else echo $item['activa'];?>">
 
-        <div class="row">
-            <div class="col-sm-15 col-lg-10">
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Nombre</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" name="inputNombre" value="">
-                    </div>
-                </div>
-            </div>
+        <div class="col_half">
+            <label>Nombre</label>
+            <input name="inputNombre" type="text" class="sm-form-control" maxlength="63"/>
         </div>
-
-        <div class="row">
-            <div class="col-sm-15 col-lg-10">
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Descripcion</label>
-                    <div class="col-md-8">
-                        <input type="text" class="form-control" name="inputDescripcion" value="">
-                    </div>
-                </div>
-            </div>
+        <div class="col_half col_last">
+            <label>Descripción</label>
+            <textarea name="inputDescripcion" rows="2" class="sm-form-control" maxlength="255"></textarea>
         </div>
+        <div class="clear"></div>
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border">
