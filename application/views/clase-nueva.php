@@ -36,10 +36,10 @@
 
 		<div id="CidrO_0">
 			<div class="col_icon agregar">
-				<img src="<?=base_url('public/images/plus-icon.png')?>">
+				<i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
 			</div>
 			<div class="col_icon hidden borrar">
-				<img src="<?=base_url('public/images/delete.png')?>">
+				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
             <div class="col_two_fifth">
 				<label>Dirección IP</label>
@@ -57,7 +57,7 @@
 		<?php foreach($cidrO as $i => $item): if($i > 0) { ?>
 			<div id="CidrO_<?=$i?>">
 				<div class="col_icon borrar">
-					<img src="<?=base_url('public/images/delete.png')?>">
+					<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 				</div>
 	            <div class="col_two_fifth">
 					<input name="direccionO_<?=$i?>" type="text" class="form-control ipAddress ipValida" value="<?= $item['direccion']?>">
@@ -78,10 +78,10 @@
 
 		<div id="PuertoO_0">
 			<div class="col_icon agregar">
-				<img src="<?=base_url('public/images/plus-icon.png')?>">
+				<i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
 			</div>
 			<div class="col_icon hidden borrar">
-				<img src="<?=base_url('public/images/delete.png')?>">
+				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
 			<div class="col_one_third">
 				<label>Puerto</label>
@@ -104,7 +104,7 @@
 		<?php foreach($puertoO as $i => $item): if($i > 0) { ?>
 			<div id="PuertoO_<?=$i?>">
 				<div class="col_icon borrar">
-					<img src="<?=base_url('public/images/delete.png')?>">
+					<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 				</div>
 	            <div class="col_one_third">
 					<input name="puertoO_<?=$i?>" type="number" class="form-control puerto" 
@@ -128,20 +128,21 @@
 
 	<div class="col_full">
 		<div class="fancy-title title-bottom-border">
-			<h4>LAN</h4>
+			<h4>LAN <i href="#lanDiv" class="fa fa-angle-down" aria-hidden="true" data-toggle="collapse"></i></h4>
 		</div>
 	</div>
 
+<div id="lanDiv" class="collapse">
 	<!-- Bloque de Cidr Inside-->
-	<div class="col_half">
+	<div class="col_half" >
 		<input type="hidden" name="indexCidrI" value="<?php if(sizeof($cidrI)==0) echo 0; else echo sizeof($cidrI)-1; ?>">
 
 		<div id="CidrI_0">
 			<div class="col_icon agregar">
-				<img src="<?=base_url('public/images/plus-icon.png')?>">
+				<i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
 			</div>
 			<div class="col_icon hidden borrar">
-				<img src="<?=base_url('public/images/delete.png')?>">
+				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
             <div class="col_two_fifth">
 				<label>Dirección IP</label>
@@ -159,7 +160,7 @@
 		<?php foreach($cidrI as $i => $item): if($i > 0) { ?>
 			<div id="CidrI_<?=$i?>">
 				<div class="col_icon borrar">
-					<img src="<?=base_url('public/images/delete.png')?>">
+					<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 				</div>
 	            <div class="col_two_fifth">
 					<input name="direccionI_<?=$i?>" type="text" class="form-control ipAddress ipValida" value="<?= $item['direccion']?>">
@@ -180,10 +181,10 @@
 
 		<div id="PuertoI_0">
 			<div class="col_icon agregar">
-				<img src="<?=base_url('public/images/plus-icon.png')?>">
+				<i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
 			</div>
 			<div class="col_icon hidden borrar">
-				<img src="<?=base_url('public/images/delete.png')?>">
+				<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 			</div>
 			<div class="col_one_third">
 				<label>Puerto</label>
@@ -206,7 +207,7 @@
 		<?php foreach($puertoI as $i => $item): if($i > 0) { ?>
 			<div id="PuertoI_<?=$i?>">
 				<div class="col_icon borrar">
-					<img src="<?=base_url('public/images/delete.png')?>">
+					<i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
 				</div>
 	            <div class="col_one_third">
 					<input name="puertoI_<?=$i?>" type="number" class="form-control puerto" 
@@ -225,6 +226,7 @@
 			</div>
 		<?php } endforeach;?>
 	</div>
+</div>
 
 	<div class="clear"></div>
 
