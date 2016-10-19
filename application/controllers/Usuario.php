@@ -8,6 +8,7 @@ class Usuario extends LoginRequired {
     public function __construct() {
         parent::__construct();
         $this->load->model('usuario_model');
+        $this->load->model('log_model');
     }
 
     public function consulta() {
@@ -33,7 +34,7 @@ class Usuario extends LoginRequired {
             $data = $this->usuario_model->obtener_usuarios_porId($id);
             $data->section = 'usuarios';
             $this->load->view('usuario-modificacion', $data);
-    
+
         } else $this->load->view('errors/index.html');
     }
 
@@ -65,7 +66,7 @@ class Usuario extends LoginRequired {
                     'mail' => $this->input->post('mail'),
                     'rol' =>  $_POST['rol']);
         }
-
+                
         if($id=="") {
             $data['usuario'] = $this->input->post('usuario');
             $existeUsuario = $this->usuario_model->existeNombreUsuario($data['usuario']);
@@ -73,16 +74,48 @@ class Usuario extends LoginRequired {
                 echo 2;
             } else {
                 echo $this->usuario_model->insertar($data);
+                $this->guardarEnLog('1', $data);
             }
         } else {
             echo $this->usuario_model->actualizar($id,$data);
+            $this->guardarEnLog('2', $id);
         }
+
+
     }     
 
 
     public function eliminar() {
         $id = $this->input->post('id');
+        $this->guardarEnLog('3', $id);
         echo $this->usuario_model->eliminar($id);
-    }          
+
+    }    
+
+    public function guardarEnLog($accion, $dato) {
+        
+        if($accion==1) {            
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Creacion de usuario ".$dato['usuario']." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+        else if($accion==2) {
+             $data = $this->usuario_model->obtener_usuarios_porId($dato);
+             
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Actualizacion de usuario ".$data->usuario." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+        else if($accion==3) {
+             $data = $this->usuario_model->obtener_usuarios_porId($dato);
+             
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Se dio de baja al usuario ".$data->usuario." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+    }         
 }
 ?>
