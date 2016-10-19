@@ -50,7 +50,7 @@
 		var maxPuntos = 50; //numero de puntos visibles al mismo tiempo para los graficos de linea
 
 		inicializarGraficos();
-		setInterval(function(){obtenerConsumos()}, 3000); //intervalo de actualizacion = 1 segundo
+		setInterval(function(){obtenerConsumos()}, 3000); 
 
 
 		function propiedadesGrafLinea(puntos, grafColor){
@@ -71,7 +71,8 @@
 				data: [{
 					type: "splineArea",
 					dataPoints: puntos,
-					color: grafColor
+					color: grafColor,
+					markerSize: 0
 				}]
 			};
 			return options;
