@@ -27,7 +27,7 @@
 
 	<div class="col_full">
 		<div class="fancy-title title-bottom-border">
-			<h4>Internet</h4>
+			<h4 class="lbInternet">Internet</h4>
 		</div>
 	</div>
 

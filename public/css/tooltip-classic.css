@@ -19,7 +19,7 @@
 	width: 300px;
 	height: 20px;
 	bottom: 100%;
-	left: 50%;
+	left: 0%;
 	pointer-events: none;
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
@@ -35,7 +35,7 @@
 	position: absolute;
 	z-index: 9999;
 	width: 300px;
-	left: 400%;
+	left: 500%;
 	margin: 0 0 20px -180px;
 	bottom: 100%;
 	text-align: left;

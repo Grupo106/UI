@@ -15,47 +15,50 @@
     </div>  
 
     <div class="col_one_third no-dhcp">
-        <label>IP de Administración</label>
+        <label class="lbIPAdmin">IP de Administración</label>
         <input id="ip" name="ip" type="text" class="sm-form-control ipAddress ipValida" value="<?= $ip ?>">
     </div>
 
-    <div class="col_one_third no-dhcp" style="margin-bottom:47px;">
-        <label>Máscara de subred</label>
+    <div class="col_one_third no-dhcp">
+        <label class="lbSubred">Máscara de subred</label>
         <input name="mascara" class="sm-form-control ipAddress ipValida" value="<?= $mascara ?>">
     </div>
 
     <div class="col_one_third col_last no-dhcp">
-        <label>Puerta de enlace</label>
+        <label class="lbEnlace">Puerta de enlace</label>
         <input name="gateway" class="sm-form-control ipAddress ipValida" value="<?= $gateway ?>">
     </div>
 
-    <div class="col_half no-dhcp"  style="margin-bottom:47px;">
-        <label>DNS 1</label>
+    <div class="col_one_third no-dhcp">
+        <label class="lbDns1">DNS 1</label>
         <input name="dns1" class="sm-form-control ipAddress ipValida" value="<?= $dns1 ?>">
     </div>
 
-    <div class="col_half col_last no-dhcp">
-        <label>DNS 2</label>
+    <div class="col_one_third col_last no-dhcp">
+        <label class="lbDns2">DNS 2</label>
         <input name="dns2" class="sm-form-control ipAddress ipValida" value="<?= $dns2 ?>">
     </div>  
+    <div class="clear"></div>
 
-    <div class="col_half">
-        <label>Ancho de banda de Bajada</label>
+    <div class="col_one_third">
+        <label class="lbAnchoBajada">Ancho de banda de Bajada</label>
         <div class="input-group">
-            <input type="text" name="bajada" class="sm-form-control" 
+            <input type="number" name="bajada" class="anchoBanda sm-form-control"
                    value="<?= $bajada ?>" id="bajada">
             <div class="input-group-addon">Mbits</div>
         </div>
     </div>
 
-    <div class="col_half col_last">
-        <label>Ancho de banda de Subida</label>
+    <div class="col_one_third col_last">
+        <label class="lbAnchoSubida">Ancho de banda de Subida</label>
         <div class="input-group">
-            <input type="text" name="subida" class="sm-form-control" 
+            <input type="number" name="subida" class="anchoBanda sm-form-control"
                    value="<?= $subida ?>" id="subida">
             <div class="input-group-addon">Mbits</div>
         </div>
     </div>  
+    <div class="clear"></div>
+    <br>
 
     <div class="col_full" style="text-align:center;">
         <button type="submit" class="button button-rounded">GUARDAR</button>
@@ -108,6 +111,29 @@
         }
         $('#dhcp').on('change', disable_on_dhcp);
         disable_on_dhcp();
+
+        $("div").on("keyup", ".anchoBanda", function(){
+            if(this.value.length > 4) {
+                this.value = this.value.slice(0,4);
+            }
+            if(this.value < 1 || this.value > 1000) {
+                this.value = this.value.slice(0,-1);
+            }
+        });
+
+        agregarAyudas();
+        
+        function agregarAyudas(){
+            agregarTooltip($(".lbIPAdmin"), "Identificador para acceder a la Administración de Netcop.");
+            agregarTooltip($(".lbSubred"), "Máscara de bits que determina la parte de host y la parte de red de la IP de Administración.");
+            agregarTooltip($(".lbEnlace"), "Puerta de Enlace");
+            agregarTooltip($(".lbDns1"), "Dns 1.");
+            agregarTooltip($(".lbDns2"), "Dns 2.");
+            agregarTooltip($(".lbAnchoBajada"), "Ancho de Banda de Bajada de la conexión a Internet, expresado en Mbits por segundo.");
+            agregarTooltip($(".lbAnchoSubida"), "Ancho de Banda de Subida de la conexión a Internet, expresado en Mbits por segundo.");
+
+        }
+
     });
 </script>
 
