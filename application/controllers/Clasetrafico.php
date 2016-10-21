@@ -11,6 +11,7 @@ class Clasetrafico extends LoginRequired {
         $this->load->library('session');
         $this->load->model('cidrModel');
         $this->load->model('puertoModel');
+        $this->load->model('log_model');
 	}
 
     public function consulta() {
@@ -69,8 +70,10 @@ class Clasetrafico extends LoginRequired {
         $id_clase = $this->input->post('id');
         if($id_clase==""){
             $id_clase = $this->claseModel->insertar($data);
+            $this->guardarEnLog('1', $data);
         } else {
             $this->claseModel->actualizar($id_clase, $data);
+            $this->guardarEnLog('2', $id_clase);
         }
         
         if ($id_clase!=false){
@@ -144,7 +147,7 @@ class Clasetrafico extends LoginRequired {
 
     public function eliminar() {
         $id = $this->input->post('id');
-
+        
         $puertos = $this->puertoModel->obtenerIDPuertosPorClase($id);
         foreach ($puertos as $row) {
            $this->puertoModel->eliminar($row->id_puerto);
@@ -153,7 +156,9 @@ class Clasetrafico extends LoginRequired {
         foreach ($cidr as $row) {
            $this->cidrModel->eliminar($row->id_cidr);
         }
+        //$this->guardarEnLog('3', $id);
         echo $this->claseModel->eliminar($id);
+
     }
 
     public function activar() {
@@ -209,5 +214,32 @@ class Clasetrafico extends LoginRequired {
         }
         return $arrayResultado;
     }
+
+
+ public function guardarEnLog($accion, $dato) {
+        
+        if($accion==1) {            
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Creación de clase de tráfico ".$dato['nombre']." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+        else if($accion==2) {
+             $data = $this->claseModel->obtener_por_id($dato);
+             
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Actualización de clase de tráfico ".$data->nombre." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+        else if($accion==3) {
+             $data = $this->usuario_model->obtener_usuarios_porId($dato);
+             
+             $data1 = array('usuario' => $this->session->userUsuario, 
+                    'descripcion' => "Se eliminó la clase de tráfico ".$data->nombre." por usuario ".$this->session->userUsuario);
+             $this->log_model->insertarLog($data1);
+
+        }
+    }         
 }
 ?>
