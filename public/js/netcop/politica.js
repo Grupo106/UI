@@ -224,18 +224,40 @@ $(document).ready(function() {
     })
 });
 
-// Tab de tipo de politica
+// Tabs de tipo y modo de politica
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    var target = $(e.target).attr("href")
+    var target = $(e.target).attr("href");
 
     if(target == '#menuBloqueo')
         document.getElementById("tipo").value = "bloqueo";
-    else
-        if(target == '#menuLimitacion')
-            document.getElementById("tipo").value = "limitacion";
-        else
-            document.getElementById("tipo").value = "priorizacion";
+
+    if(target == '#menuLimitacion')
+        document.getElementById("tipo").value = "limitacion";
+
+    if(target == '#menuPriorizacion')
+        document.getElementById("tipo").value = "priorizacion";
 });
+
+$('.dropdown-menu a').click(function() {
+    var target = $(this).text();
+
+    // Oculto o muestro clases / muestro campos MAC
+    if(target == 'Seleccionar MAC o nombre'){
+        $('.modoMac').show();
+        $('.modoClase').hide();
+        $('.divMac_MacO').show();
+        $('.divMac_NombreO').show();
+        $('.divClaseO').hide();
+    }
+    
+    if(target == 'Seleccionar Clase de tráfico'){
+        $('.modoMac').hide();
+        $('.modoClase').show();
+        $('.divMac_MacO').hide();
+        $('.divMac_NombreO').hide();
+        $('.divClaseO').show();
+    }
+})
 
 // Ocultar o mostrar horarios
 $('#title-dias').parent().on('click', function (){
