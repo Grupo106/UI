@@ -75,90 +75,88 @@
             <div class="fancy-title title-bottom-border">
                 <h4>Clase de tráfico</h4>
             </div>
-                <div class="col_icon limpiar">
-                    <i class="fa fa-bomb fa-2x" aria-hidden="true"></i>
-                </div>
 
-                <div class="col_icon info">
-                    <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
-                </div>
+            <div class="col_one_third">
+                <label>Clase de tráfico</label>
+                <select name="id_claseTraficoA" class="select-1 form-control">
+                    <option data-hidden="true"></option>
+                    <?php foreach($listadoClases as $clases){ ?>              
+                        <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            
+            <div class="col_one_third">
+                <label>Descripción</label>
+                <input id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value="">
+            </div>
 
-                <div class="col_one_fourth">
-                    <label>Clase de tráfico</label>
-                    <select name="id_claseTraficoA" class="select-1 form-control">
-                        <option data-hidden="true"></option>
-                        <?php foreach($listadoClases as $clases){ ?>              
-                            <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                        <?php } ?>
-                    </select>
+            <div class="col_one_fourth col_last">
+                <label>Acciones</label>
+                <div class="clear"></div>
+                <div class="btn-group info">
+                    <button class="btn btn-primary btn-sm">Más info</button>
+                    <button class="btn btn-primary btn-sm">Resetear</button>
                 </div>
-                
-                <div class="col_two_fifth col_last">
-                    <label>Descripción</label>
-                    <input id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value="">
-                </div>
+            </div>
+
             <div class="clear"></div>
         </div>
 
 
         <div class="col_half">
             <div class="fancy-title title-bottom-border">
-                <h4>
-                    <div class="dropdown">
-                        <a data-toggle="dropdown" href="#" style="color:black; text-decoration:none">Origen <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a href="#modoMac">Seleccionar MAC o nombre</a></li>
-                            <li><a href="#modoClase">Seleccionar Clase de tráfico</a></li>
-                        </ul>
-                    </div>
-                </h4>
+                <h4>Origen</h4>
             </div>
 
-            <div id="objetivoO">
-                <input type="hidden" name="objetivoO_cant" value="0">
-                <input type="hidden" name="objetivoO_activos" value="1">
-                
-                <div id="objetivoO_0">
-                    <input type="hidden" name="id_objetivoO_0" value="">
-                    <div class="col_full">
-                        <div class="col_icon agregar">
-                            <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
-                        </div>
-                        <div class="col_icon hidden borrar">
-                            <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                        </div>
-                        
-                        <div class="modoMac" id="modoMac">
-                            <div class="col_two_fifth">
-                                <label>MAC</label>
-                                <div class="input-group divMac_MacO" id="mac">
-                                    <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
-                                    <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+            <div class="col_one_fifth">
+                <label>Tipo</label>
+                <input type="hidden" name="modoOrigen" value="">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
+                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoClase">Clase</a></li>
+                </ul>
+            </div>
+
+            <div class="col_four_fifth col_last divOrigen" style="display: none;">
+                <div id="objetivoO">
+                    <input type="hidden" name="objetivoO_cant" value="0">
+                    <input type="hidden" name="objetivoO_activos" value="1">
+                    
+                    <div id="objetivoO_0">
+                        <input type="hidden" name="id_objetivoO_0" value="">
+                        <div class="col_full" style="padding-top: 1px">
+                            <div class="col_icon agregar">
+                                <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
+                            </div>
+                            <div class="col_icon hidden borrar">
+                                <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                            </div>
+                            
+                            <div class="modoMac" id="modoMac">
+                                <div class="col_three_fourth">
+                                    <label>MAC</label>
+                                    <div class="input-group divMac_MacO" id="mac">
+                                        <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
+                                        <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="col_two_fifth">
-                                <label>Nombre</label>
-                                <div class="input-group divMac_NombreO" id="mac">
-                                    <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
-                                    <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                            <div class="modoClase" id="modoClase">
+                                <div class="col_three_fourth col_last divClaseO">
+                                    <label>Clase de tráfico</label>
+                                    <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
+                                        <option data-hidden="true"></option>
+                                        <?php foreach($listadoClases as $clases){ ?>              
+                                            <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="modoClase" id="modoClase" style="display: none;">
-                            <div class="col_three_fourth col_last divClaseO">
-                                <label>Clase de tráfico</label>
-                                <select name="id_claseTraficoO_0" class="select-1 form-control">
-                                    <option data-hidden="true"></option>
-                                    <?php foreach($listadoClases as $clases){ ?>              
-                                        <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                                    <?php } ?>
-                                </select>
-                            </div>
-                        </div>
+                    <div class="clear"></div>
                     </div>
-                <div class="clear"></div>
                 </div>
             </div>
         </div>
@@ -173,7 +171,7 @@
 
                 <div id="objetivoD_0">
                     <input type="hidden" name="id_objetivoD_0" value="">
-                    <div class="col_full">
+                    <div class="col_full" style="padding-top: 1px">
                         <div class="col_icon agregar">
                             <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
                         </div>
@@ -299,9 +297,9 @@
             mostrarDivError(true, 'Ingrese una IP o una clase de tráfico');
             return false;
         }
+
         mostrarDivError(false, '');
-        //return true;
-        return false;
+        return true;
      });
 
     $('#form').validate({
@@ -357,21 +355,9 @@
         $('#modalArp').modal('show');
     });
 
-    // Modal ARP IP
-    $('#ip').on('click', '.arp', function (){
-        var for_data = $(this).parent('div').parent('div').find('input').attr('id');
-
-        $('#modalArpIP').find("a[name='arpIp']").each(function() {
-            console.log(for_data + " >> " + $(this).data("for"));
-            $(this).data("for", for_data);
-        });
-        $('#modalArpIP').modal('show');
-    });
-
     // Cerrar Modal ARP
     $('#btnCerrarArp, #btnCerrarArpTop').click(function(e){
         $('#modalArp').modal('hide');
-        $('#modalArpIP').modal('hide');
         e.stopPropagation();
     });
 
@@ -383,6 +369,9 @@
     // Guardar cambios
     $('#form').submit(function (event){
         event.preventDefault();
+
+        console.log($('#form').serialize());
+
         if ($('#form').valid()) {
             $.ajax({
                 url : $('#form').attr("action"),
