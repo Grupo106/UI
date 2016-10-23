@@ -115,6 +115,7 @@ function actualizarGraficoTotal(consumoTotal) {
 	}
 
 	$('.loading').hide();
+  calcularPropiedadesEjeY();
 	grafTotalBajada.render();
 	grafTotalSubida.render();
 }
