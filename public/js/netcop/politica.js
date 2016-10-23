@@ -295,3 +295,18 @@ $('#title-dias').parent().on('click', function (){
         switcher.addClass('fa-angle-down');
     }
 });
+
+
+// Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
+$("[name='id_claseTraficoA']").change(function (){
+    var seleccion = $(this).find("option:selected").val();
+
+    if (seleccion == "") {
+        $("div[id='bloqueOrigen']").show();
+        $("div[id='bloqueDestino']").show();
+    }
+    else {
+        $("div[id='bloqueOrigen']").hide();
+        $("div[id='bloqueDestino']").hide();
+    }
+});

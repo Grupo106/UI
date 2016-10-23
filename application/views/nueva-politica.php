@@ -63,7 +63,12 @@
                 <div id="menuPriorizacion" class="tab-pane fade">
                     <div class="col_half col_last">
                         <label>Prioridad</label>
-                        <input type="text" class="form-control" name="inputPrioridad" value="">
+                        <select name="inputPrioridad" class="select-1 form-control">
+                            <option data-hidden="true"></option>           
+                                <option value="7">Baja</option>
+                                <option value="5">Media</option>
+                                <option value="1">Alta</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -104,7 +109,7 @@
         </div>
 
 
-        <div class="col_half">
+        <div class="col_half" id="bloqueOrigen">
             <div class="fancy-title title-bottom-border">
                 <h4>Origen</h4>
             </div>
@@ -161,7 +166,7 @@
             </div>
         </div>
 
-        <div class="col_half col_last">
+        <div class="col_half col_last" id="bloqueDestino">
             <div class="fancy-title title-bottom-border">
                 <h4>Destino</h4>
             </div>

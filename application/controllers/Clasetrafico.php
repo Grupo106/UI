@@ -216,7 +216,7 @@ class Clasetrafico extends LoginRequired {
     }
 
 
- public function guardarEnLog($accion, $dato) {
+    public function guardarEnLog($accion, $dato) {
         
         if($accion==1) {            
              $data1 = array('usuario' => $this->session->userUsuario, 
