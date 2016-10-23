@@ -164,15 +164,22 @@ $(document).ready(function() {
         nuevo.find("input, select").each(function() {
             var id = $(this).attr("id");
             var name = $(this).attr("name");
+            var modoOrigen = $("[name='modoOrigen']").val();
 
-            if (typeof id != 'undefined')
-                $(this).attr("id", id.substring(0, id.lastIndexOf("_")) + "_" + cantidad_reg_n);
-            if (typeof name != 'undefined')
-                $(this).attr("name", name.substring(0, name.lastIndexOf("_")) + "_" + cantidad_reg_n);
-            
-            // Remover etiquetas y setear valores
-            $(this).parent('div').find('label').remove();
-            $(this).val("");
+            // Si clase no corresponde a nodo, borro el elemento. De lo contrario lo reformo
+            if (modoOrigen == "modoMac" && $(this).hasClass("selClase") || modoOrigen == "modoClase" && $(this).hasClass("macAddress")) {
+                $(this).remove();
+            }
+            else {
+                if (typeof id != 'undefined')
+                    $(this).attr("id", id.substring(0, id.lastIndexOf("_")) + "_" + cantidad_reg_n);
+                if (typeof name != 'undefined')
+                    $(this).attr("name", name.substring(0, name.lastIndexOf("_")) + "_" + cantidad_reg_n);
+                
+                // Remover etiquetas y setear valores
+                $(this).parent('div').find('label').remove();
+                $(this).val("");
+            }
         });
 
         // Rename de arp mac
@@ -224,17 +231,52 @@ $(document).ready(function() {
     })
 });
 
-// Tab de tipo de politica
+// Tabs de tipo y modo de politica
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-    var target = $(e.target).attr("href")
+    var target = $(e.target).attr("href");
 
     if(target == '#menuBloqueo')
         document.getElementById("tipo").value = "bloqueo";
-    else
-        if(target == '#menuLimitacion')
-            document.getElementById("tipo").value = "limitacion";
-        else
-            document.getElementById("tipo").value = "priorizacion";
+
+    if(target == '#menuLimitacion')
+        document.getElementById("tipo").value = "limitacion";
+
+    if(target == '#menuPriorizacion')
+        document.getElementById("tipo").value = "priorizacion";
+
+    if(target == '#modoMac'){
+        $('.divOrigen').show();
+        $('.modoMac').show();
+        $('.modoClase').hide();
+        $('.divMac_MacO').show();
+        $('.divClaseO').hide();
+
+        // Oculto divs que no tengan clases de interes al modo
+        $('div[id^="objetivoO_"]').each(function() {
+            if ($(this).find(".macAddress").length == 0) {
+                $(this).hide();
+            }
+        });
+
+        $("[name='modoOrigen']").val("modoMac");
+    }
+    
+    if(target == '#modoClase'){
+        $('.divOrigen').show();
+        $('.modoMac').hide();
+        $('.modoClase').show();
+        $('.divMac_MacO').hide();
+        $('.divClaseO').show();
+        
+        // Oculto divs que no tengan clases de interes al modo
+        $('div[id^="objetivoO_"]').each(function() {
+            if ($(this).find(".selClase").length == 0) {
+                $(this).hide();
+            }
+        });
+
+        $("[name='modoOrigen']").val("modoClase");
+    }
 });
 
 // Ocultar o mostrar horarios
@@ -251,5 +293,20 @@ $('#title-dias').parent().on('click', function (){
     {
         switcher.removeClass('fa-angle-up');
         switcher.addClass('fa-angle-down');
+    }
+});
+
+
+// Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
+$("[name='id_claseTraficoA']").change(function (){
+    var seleccion = $(this).find("option:selected").val();
+
+    if (seleccion == "") {
+        $("div[id='bloqueOrigen']").show();
+        $("div[id='bloqueDestino']").show();
+    }
+    else {
+        $("div[id='bloqueOrigen']").hide();
+        $("div[id='bloqueDestino']").hide();
     }
 });

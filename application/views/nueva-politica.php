@@ -24,49 +24,51 @@
         </div>
         <div class="clear"></div>
 
+
         <div class="col_full">
+            <input type="hidden" class="form-control" id="tipo" name="tipo" value="">
             <div class="fancy-title title-bottom-border">
                 <h4>Tipo</h4>
             </div>
-        </div>
+            
+            <div class="col_one_third">
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="tab" href="#menuBloqueo">Bloqueo</a></li>
+                    <li class=""><a data-toggle="tab" href="#menuLimitacion">Limitación</a></li>
+                    <li class=""><a data-toggle="tab" href="#menuPriorizacion">Priorización</a></li>
+                </ul>
+            </div>
 
-        <div class="col_one_third">
-            <input type="hidden" class="form-control" id="tipo" name="tipo" value="">
-            <ul class="nav nav-pills">
-                <li class="active"><a data-toggle="tab" href="#menuBloqueo">Bloqueo</a></li>
-                <li class=""><a data-toggle="tab" href="#menuLimitacion">Limitación</a></li>
-                <li class=""><a data-toggle="tab" href="#menuPriorizacion">Priorización</a></li>
-            </ul>
-        </div>
+            <div class="col_two_third col_last tab-content">
+                <div id="menuBloqueo" class="tab-pane fade in active">
+                </div>
 
-        <div class="col_two_half col_last">
-            <div class="container-fluid">
-                <div class="tab-content">
-                    <div id="menuBloqueo" class="tab-pane fade in active">
-                    </div>
-
-                    <div id="menuLimitacion" class="tab-pane fade">
-                        <div class="col_one_fifth">
-                            <label>Bajada</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="inputBajada" value="">
-                                <span class="input-group-addon">kbps</span>
-                            </div>
-                        </div>
-                        <div class="col_one_fifth col_last">
-                            <label>Subida</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="inputSubida" value="">
-                                <span class="input-group-addon">kbps</span>
-                            </div>
+                <div id="menuLimitacion" class="tab-pane fade">
+                    <div class="col_two_fifth">
+                        <label>Bajada</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="inputBajada" value="">
+                            <span class="input-group-addon">kbps</span>
                         </div>
                     </div>
-
-                    <div id="menuPriorizacion" class="tab-pane fade">
-                        <div class="col_two_fifth col_last">
-                            <label>Prioridad</label>
-                            <input type="text" class="form-control" name="inputPrioridad" value="">
+                    <div class="col_two_fifth">
+                        <label>Subida</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="inputSubida" value="">
+                            <span class="input-group-addon">kbps</span>
                         </div>
+                    </div>
+                </div>
+
+                <div id="menuPriorizacion" class="tab-pane fade">
+                    <div class="col_half col_last">
+                        <label>Prioridad</label>
+                        <select name="inputPrioridad" class="select-1 form-control">
+                            <option data-hidden="true"></option>           
+                                <option value="7">Baja</option>
+                                <option value="5">Media</option>
+                                <option value="1">Alta</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -74,57 +76,107 @@
         </div>
 
 
-        <div class="col_half">
+        <div class="col_full">
+            <div class="fancy-title title-bottom-border">
+                <h4>Clase de tráfico</h4>
+            </div>
+
+            <div class="col_one_third">
+                <label>Clase de tráfico</label>
+                <select name="id_claseTraficoA" class="select-1 form-control">
+                    <option data-hidden="true"></option>
+                    <?php foreach($listadoClases as $clases){ ?>              
+                        <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                    <?php } ?>
+                </select>
+            </div>
+            
+            <div class="col_one_third">
+                <label>Descripción</label>
+                <input id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value="">
+            </div>
+
+            <div class="col_one_fourth col_last">
+                <label>Acciones</label>
+                <div class="clear"></div>
+                <div class="btn-group info">
+                    <button class="btn btn-primary btn-sm">Más info</button>
+                    <button class="btn btn-primary btn-sm">Resetear</button>
+                </div>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+
+        <div class="col_half" id="bloqueOrigen">
             <div class="fancy-title title-bottom-border">
                 <h4>Origen</h4>
             </div>
-            <div id="objetivoO">
-                <input type="hidden" name="objetivoO_cant" value="0">
-                <input type="hidden" name="objetivoO_activos" value="1">
-                
-                <div id="objetivoO_0">
-                    <input type="hidden" name="id_objetivoO_0" value="">
-                    <div class="col_full">
-                        <div class="col_icon agregar">
-                            <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
-                        </div>
-                        <div class="col_icon hidden borrar">
-                            <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                        </div>
-                        
-                        <div class="col_two_fifth">
-                            <label>MAC</label>
-                            <div class="input-group" id="mac">
-                                <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
-                                <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+
+            <div class="col_one_fifth">
+                <label>Tipo</label>
+                <input type="hidden" name="modoOrigen" value="">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
+                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoClase">Clase</a></li>
+                </ul>
+            </div>
+
+            <div class="col_four_fifth col_last divOrigen" style="display: none;">
+                <div id="objetivoO">
+                    <input type="hidden" name="objetivoO_cant" value="0">
+                    <input type="hidden" name="objetivoO_activos" value="1">
+                    
+                    <div id="objetivoO_0">
+                        <input type="hidden" name="id_objetivoO_0" value="">
+                        <div class="col_full" style="padding-top: 1px">
+                            <div class="col_icon agregar">
+                                <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
+                            </div>
+                            <div class="col_icon hidden borrar">
+                                <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                            </div>
+                            
+                            <div class="modoMac" id="modoMac">
+                                <div class="col_three_fourth">
+                                    <label>MAC</label>
+                                    <div class="input-group divMac_MacO" id="mac">
+                                        <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
+                                        <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modoClase" id="modoClase">
+                                <div class="col_three_fourth col_last divClaseO">
+                                    <label>Clase de tráfico</label>
+                                    <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
+                                        <option data-hidden="true"></option>
+                                        <?php foreach($listadoClases as $clases){ ?>              
+                                            <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="col_two_fifth col_last">
-                            <label>Clase de tráfico</label>
-                            <select name="id_claseTraficoO_0" class="select-1 form-control">
-                                <option data-hidden="true"></option>
-                                <?php foreach($listadoClases as $clases){ ?>              
-                                    <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
+                    <div class="clear"></div>
                     </div>
-                <div class="clear"></div>
                 </div>
             </div>
         </div>
 
-        <div class="col_half col_last">
+        <div class="col_half col_last" id="bloqueDestino">
             <div class="fancy-title title-bottom-border">
                 <h4>Destino</h4>
             </div>
             <div id="objetivoD">
                 <input type="hidden" name="objetivoD_cant" value="0">
                 <input type="hidden" name="objetivoD_activos" value="1">
+
                 <div id="objetivoD_0">
                     <input type="hidden" name="id_objetivoD_0" value="">
-                    <div class="col_full">
+                    <div class="col_full" style="padding-top: 1px">
                         <div class="col_icon agregar">
                             <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
                         </div>
@@ -132,15 +184,7 @@
                             <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                         </div>
 
-                        <div class="col_two_fifth">
-                            <label>IP</label>
-                            <div class="input-group" id="ip">
-                                <input id="ipD_0" type="text" class="form-control ipAddress" name="ipD_0" value="">
-                                <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="col_two_fifth col_last">
+                        <div class="col_three_fourth col_last">
                             <label>Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
@@ -150,7 +194,7 @@
                             </select>
                         </div>
                     </div>
-                <div class="clear"></div>
+                    <div class="clear"></div>
                 </div>
             </div>
         </div>
@@ -222,6 +266,8 @@
           <i class="icon-remove-sign"></i><strong id="msjError">Debe completarse al menos uno de los campos en rojo.</strong>
         </div>
 
+        <div class="clear"></div>
+
         <div class="col_full" style="text-align:center;">
             <button type="submit" class="button button-rounded">GUARDAR</button>
             <button type="button" id="btnCancelar" class="button button-rounded button-red" data-dismiss="modal">CANCELAR</button>
@@ -256,6 +302,7 @@
             mostrarDivError(true, 'Ingrese una IP o una clase de tráfico');
             return false;
         }
+
         mostrarDivError(false, '');
         return true;
      });
@@ -263,12 +310,12 @@
     $('#form').validate({
         errorElement: 'span',
         rules: {
+
+            macO_0: "validarDestino",
+            id_claseTraficoO_0: "validarDestino",
+            ipD_0: "validarDestino",
             inputNombre: "required",
             inputDescripcion: "required",
-
-            macO_0: "validarOrigen",
-            id_claseTraficoO_0: "validarOrigen",
-            ipD_0: "validarDestino",
             id_claseTraficoD_0: "validarDestino"
         },
         messages: {
@@ -279,10 +326,10 @@
                 required: "Ingrese la descripción"
             },
             "macO_0":{
-                validarOrigen: ""
+                validarDestino: ""
             },
             "id_claseTraficoO_0": {
-                validarOrigen: ""
+                validarDestino: ""
             },
             "ipD_0": {
                 validarDestino: ""
@@ -313,21 +360,9 @@
         $('#modalArp').modal('show');
     });
 
-    // Modal ARP IP
-    $('#ip').on('click', '.arp', function (){
-        var for_data = $(this).parent('div').parent('div').find('input').attr('id');
-
-        $('#modalArpIP').find("a[name='arpIp']").each(function() {
-            console.log(for_data + " >> " + $(this).data("for"));
-            $(this).data("for", for_data);
-        });
-        $('#modalArpIP').modal('show');
-    });
-
     // Cerrar Modal ARP
     $('#btnCerrarArp, #btnCerrarArpTop').click(function(e){
         $('#modalArp').modal('hide');
-        $('#modalArpIP').modal('hide');
         e.stopPropagation();
     });
 
@@ -339,6 +374,9 @@
     // Guardar cambios
     $('#form').submit(function (event){
         event.preventDefault();
+
+        console.log($('#form').serialize());
+
         if ($('#form').valid()) {
             $.ajax({
                 url : $('#form').attr("action"),

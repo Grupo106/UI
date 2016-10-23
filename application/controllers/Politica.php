@@ -12,6 +12,7 @@ class Politica extends LoginRequired {
         $this->load->model('objetivoM');
         $this->load->model('claseModel');
         $this->load->model('rangoHorarioM');
+        $this->load->model('log_model');
 	}
 
     public function consulta() {    
@@ -38,19 +39,22 @@ class Politica extends LoginRequired {
     public function eliminar() {
 		if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
 	        $id_politica = $this->input->post('id');
+            $nombrePolitica = $this->politicaM->obtener_nombre_por_id($id_politica);
 
 	        // Si puedo eliminar los 3 componentes, ok
 	        if(
 	            $this->politicaM->eliminar($id_politica)
-	            && $this->objetivoM->obtener_objetivo_por_politica($id_politica)
+	            && $this->objetivoM->eliminar_por_politica($id_politica)
 	            && $this->rangoHorarioM->eliminar_horario_por_politica($id_politica)
 	          ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
-	            return true;
-	        }
+	            $this->guardarEnLog(3, $nombrePolitica);
+                
+                return true;
+            }
 
-	        else
-	            return false;
+            else
+                return false;
     	} 
     	else 
     		$this->load->view('errors/index.html');
@@ -112,8 +116,10 @@ class Politica extends LoginRequired {
 
     public function cambiar_estado() {
         $id_politica = $this->input->post('id_politica');
+        $nombrePolitica = $this->politicaM->obtener_nombre_por_id($id_politica);
 
         echo $this->politicaM->alternar_estado($id_politica);
+        $this->guardarEnLog(2, $inputNombre);
         shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
     }
 
@@ -238,6 +244,7 @@ class Politica extends LoginRequired {
                 && $this->registrar_objetivos($array_clases)
               ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
+                $this->guardarEnLog(1, $inputNombre);
                 echo true;
             }
             else
@@ -254,6 +261,7 @@ class Politica extends LoginRequired {
                 && $this->registrar_objetivos($array_clases)
               ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
+                $this->guardarEnLog(2, $inputNombre);
                 echo true;
             }
             else
@@ -347,5 +355,35 @@ class Politica extends LoginRequired {
         $this->output->set_header("Content-Type: text/plain")
                      ->set_output(gethostbyaddr($ip));
     }
+
+    public function guardarEnLog($accion, $nombrePolitica) {
+        $username = $this->session->userUsuario;
+
+        if($accion==1) {            
+            $data = array(
+                'usuario'     => $username,
+                'descripcion' => "Creación de política de tráfico " . $nombrePolitica . " por usuario ". $username
+                );
+
+            $this->log_model->insertarLog($data);
+        }
+
+        else if($accion==2) {
+            $data = array(
+                'usuario'     => $username, 
+                'descripcion' => "Actualización de política de tráfico " . $nombrePolitica . " por usuario " . $username
+                );
+
+            $this->log_model->insertarLog($data);
+        }
+
+        else if($accion==3) {
+            $data = array(
+                'usuario'     => $username, 
+                'descripcion' => "Se eliminó la política de tráfico " . $nombrePolitica . " por usuario " . $username);
+
+            $this->log_model->insertarLog($data);
+        }
+    }   
 }
 ?>

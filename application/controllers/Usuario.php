@@ -96,7 +96,7 @@ class Usuario extends LoginRequired {
         
         if($accion==1) {            
              $data1 = array('usuario' => $this->session->userUsuario, 
-                    'descripcion' => "Creacion de usuario ".$dato['usuario']." por usuario ".$this->session->userUsuario);
+                    'descripcion' => "Creación de usuario ".$dato['usuario']." por usuario ".$this->session->userUsuario);
              $this->log_model->insertarLog($data1);
 
         }
@@ -104,7 +104,7 @@ class Usuario extends LoginRequired {
              $data = $this->usuario_model->obtener_usuarios_porId($dato);
              
              $data1 = array('usuario' => $this->session->userUsuario, 
-                    'descripcion' => "Actualizacion de usuario ".$data->usuario." por usuario ".$this->session->userUsuario);
+                    'descripcion' => "Actualización de usuario ".$data->usuario." por usuario ".$this->session->userUsuario);
              $this->log_model->insertarLog($data1);
 
         }
