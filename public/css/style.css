@@ -13110,3 +13110,15 @@ input.error {
 .graficoLinea {
 	height: 320px;
 }
+
+i.fa-info-circle { 
+	margin-left:5px;
+}
+
+i.fa-info-circle:hover { 
+	color: #1ABC9C; 
+}
+
+.color-negro {
+	color: #515151;
+}

@@ -22,6 +22,14 @@ class PoliticaM extends CI_Model{
         return $query->result_array();
     }
 
+    function obtener_nombre_por_id($id_politica){
+        $this->db->select('nombre');
+        $this->db->where('id_politica', $id_politica);
+        $query = $this->db->get('politica');
+        
+        return $query->row('nombre');
+    }
+
     function obtener_politicas_bloqueo(){
         $query = $this->db->get('v_politica_bloqueo');
         

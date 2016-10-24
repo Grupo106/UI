@@ -2,6 +2,18 @@
 			
 			</div>
 
+		<div class="hidden">
+			<span class="spAyuda tooltipp tooltipp-effect-3">
+				<span class="tooltipp-item">
+					<i class="fa fa-info-circle" aria-hidden="true"></i>
+				</span>
+				<span class="tooltipp-content clearfix">
+					<span class="tooltipp-text">
+					</span>
+				</span>
+			</span>
+		</div>	
+
 		</section><!-- #content end -->
 
 		<!-- Footer

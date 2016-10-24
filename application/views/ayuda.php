@@ -23,16 +23,16 @@
 	</div>
 
 	<div class="col_one_third col_last">
-		<a href="#politicas">
-		<img  src="<?=base_url('public/images/ayuda/icono-politicas.png')?>">
-		<label>Políticas</label>
+		<a href="#trafico">
+		<img  src="<?=base_url('public/images/ayuda/icono-clasetrafico.png')?>">
+		<label>Clases de tráfico</label>
 		</a>
 	</div>
 
 	<div class="col_one_third">
-		<a href="#trafico">
-		<img  src="<?=base_url('public/images/ayuda/icono-clasetrafico.png')?>">
-		<label>Clases de tráfico</label>
+		<a href="#politicas">
+		<img  src="<?=base_url('public/images/ayuda/icono-politicas.png')?>">
+		<label>Políticas</label>
 		</a>
 	</div>
 
@@ -115,22 +115,6 @@
 		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/monitoreo-periodo-subida.png')?>"></div>
 	</div>
 </div>
-<div  id="politicas" class="heightMenu"></div>
-<div  class="col_full" style="margin-bottom:0px;">
-	<div class="fancy-title title-block">
-		<h3 style="font-size:33px;">Politicas</h3>
-	</div>
-	<div class="col_full">
-		<div class="fancy-title title-center title-border-color">
-			<h3>Nueva Política de Tráfico</h3>
-		</div>		
-	</div>
-	<div class="col_full">
-		<div class="fancy-title title-center title-border-color">
-			<h3>Consulta Políticas de Tráfico</h3>
-		</div>		
-	</div>
-</div>
 <div  id="trafico" class="heightMenu"></div>
 <div  class="col_full" style="margin-bottom:0px;">
 	<div class="fancy-title title-block">
@@ -159,7 +143,7 @@
 		</div>		
 	</div>
 	<div>
-		<p class="textAyuda marginBeforeImage">Aquí podremos observar la información de las distintas clases de tráfico creadas y las posibles accionar a realizar con cada uno de ellos. </p>
+		<p class="textAyuda marginBeforeImage">Aquí podremos observar la información de las distintas clases de tráfico creadas y las posibles acciones a realizar con cada una de ellas. </p>
 		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/consulta-trafico.png')?>"></div>
 	</div>
 	<div>
@@ -177,11 +161,81 @@
 	</div>
 	<div>
 		<p class="textAyuda marginBeforeImage">Podemos eliminar o editar información de la clase de tráfico clickeando en los íconos correspondientes como muestra la siguiente imágen.</p>
-		<div style="text-align:center;"><img class="marginAfterImage"  src="<?=base_url('public/images/ayuda/acciones.png')?>"></div>
+		<div style="text-align:center;"><img class="marginAfterImage"  src="<?=base_url('public/images/ayuda/acciones-detalle.png')?>"></div>	
+		<p class="textAyuda marginBeforeImage">Además se puede ver mas información de la clase, como la dirección ip y el prefijo, clickeando en el ícono de detalle.</p>
+		<div style="text-align:center;"><img class="marginAfterImage"  src="<?=base_url('public/images/ayuda/detalle-popup.png')?>"></div>
 	</div>
 	<div>
-		<p class="textAyuda marginBeforeImage">También podemos acceder a la pantalla de creación de una nueva clase de tráfico clickeando en el boton "Nueva Clase de Tráfico".</p>
+		<p class="textAyuda marginBeforeImage">También podemos acceder a la pantalla de creación de una nueva clase de tráfico clickeando en el boton "Nueva Clase de Tráfico". Esta acción se podrá realizar en el caso que el usuario logueado en el sistema tenga rol de Administrador, en caso de tener rol Monitor no visualizará ésta opcion.</p>
 		<div style="text-align:center;"><img src="<?=base_url('public/images/ayuda/boton-nueva-clase.png')?>"></div>
+	</div>
+</div>
+<div  id="politicas" class="heightMenu"></div>
+<div  class="col_full" style="margin-bottom:0px;">
+	<div class="fancy-title title-block">
+		<h3 style="font-size:33px;">Politicas</h3>
+	</div>
+	<div class="col_full">
+		<div class="fancy-title title-center title-border-color">
+			<h3>Nueva Política de Tráfico</h3>
+		</div>		
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Para la creación de una nueva política, es necesario completar el NOMBRE, la DESCRIPCIÓN, el tipo de política (bloqueo, limitación o priorización), el ORIGEN, el DESTINO y los días y horarios que queremos que éste nueva política se aplique. A continuación vamos a explicar con mas detalle cada una de las secciones nombradas. </p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/nueva-regla.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">En esta sección, debemos completar el origen y el destino al cual queremos que se aplique la política que estamos creando. El origen puede ser un equipo de nuestra red o una clase de tráfico o la combinación de ambas. El destino puede ser una dirección IP o una clase de tráfico o la combinación de ambas. Vale aclarar que al posibilitar que se complete la dirección IP que queremos aplicar nuestra política, no es necesario la creación de una clase de tráfico previamente. Clickeando en el ícono + de color verde, se puede agregar más de un origen y más de un destino.</p>
+		<div style="text-align:center;"><img  class="marginAfterImage" src="<?=base_url('public/images/ayuda/origen-destino-politicas.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Si clickeamos en el boton dentro del campo MAC, podemos observar que se despliega las direcciones MAC de los equipos conectados a la red.  </p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/mac-popup.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Si clickeamos en el boton dentro del campo IP, podemos observar que se despliega las direcciones IP de los equipos conectados a la red.</p>
+		<div style="text-align:center;"><img  class="marginAfterImage" src="<?=base_url('public/images/ayuda/ip-popup.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage"> Tenemos 3 tipos de política que podemos aplicar a la hora de la creación. Podemos BLOQUEAR el acceso de manera total a los orígenes y destinos completados anteriormente, LIMITAR el acceso a los origenes y destinos completados anteriormente, especificando el ancho tope de subida y bajada; o podemos priorizar la política que estamos creando, especificando si tiene prioridad ALTA, MEDIA o BAJA, esto nos permite priozar el tráfico de determinados sitios o equipos de nuestra red por sobre otros. </p>
+		<div style="text-align:center;"><img src="<?=base_url('public/images/ayuda/tipo-limitacion.png')?>"></div>
+	</div>
+	<div>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/tipo-priorizacion.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Aquí podemos elegir los días y la franja horaria que queremos que se aplique la política que estamos creando. Clickeando en el ícono + de color verde, podemos agregar mas días y franjas horarias. Esto nos sirve por si queremos que la política impacte en distintas franjas horarias en días diferentes. </p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/dias-aplicacion-politicas.png')?>"></div>
+	</div>
+	<div class="col_full">
+		<div class="fancy-title title-center title-border-color">
+			<h3>Consulta Políticas de Tráfico</h3>
+		</div>		
+	</div>
+		<div>
+		<p class="textAyuda marginBeforeImage"> Aquí podremos observar la información de las distintas políticas creadas y las posibles acciones a realizar con cada uno de ellas.</p>
+		<div style="text-align:center;"><img  class="marginAfterImage" src="<?=base_url('public/images/ayuda/consulta-politicas.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage"> Al inicio de la grilla se puede verificar si la política creada está activa o no.
+		Se puede activar o desactivar una política moviendo el switch que se muestra en la siguiente imágen. </p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/clase-activa.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Esta acción nos permite elegir cuantos items por página queremos ver en la grilla de consulta de políticas. Pueden ser 10, 25, 50 o 100 items por página.</p>
+		<div style="text-align:center;"><img  class="marginAfterImage" src="<?=base_url('public/images/ayuda/mostrar-items.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Si deseamos encontrar una política específica de todas las existentes podemos filtrar la búsqueda escribiendo información de la política como se detalla en la siguiente imágen.</p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/buscar-items-politicas.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">Podemos eliminar o editar información de la política clickeando en los íconos correspondientes como muestra la siguiente imágen.</p>
+		<div style="text-align:center;"><img  class="marginAfterImage" src="<?=base_url('public/images/ayuda/acciones.png')?>"></div>
+	</div>
+	<div>
+		<p class="textAyuda marginBeforeImage">También podemos acceder a la pantalla de creación de una nueva política clickeando en el boton "Nueva Política". Esta acción se podrá realizar en el caso que el usuario logueado en el sistema tenga rol de Administrador, en caso de tener rol Monitor no visualizará ésta opcion.</p>
+		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/boton-nueva-politica.png')?>"></div>
 	</div>
 </div>
 <div  id="usuarios" class="heightMenu"></div>
@@ -204,7 +258,7 @@
 		</div>		
 	</div>
 	<div>
-		<p class="textAyuda marginBeforeImage">Aquí podremos observar la información de los distintos usuarios creados y las posibles accionar a realizar con cada uno de ellos.</p>
+		<p class="textAyuda marginBeforeImage">Aquí podremos observar la información de los distintos usuarios creados y las posibles acciones a realizar con cada uno de ellos.</p>
 		<div style="text-align:center;"><img class="marginAfterImage" src="<?=base_url('public/images/ayuda/consulta-usuario.png')?>"></div>
 	</div>
 	<div>
@@ -220,7 +274,7 @@
 		<div style="text-align:center;"><img class="marginAfterImage"  src="<?=base_url('public/images/ayuda/acciones.png')?>"></div>
 	</div>
 	<div>
-		<p class="textAyuda marginBeforeImage">También podemos acceder a la pantalla de creación de un nuevo usuario clickeando en el boton "Nuevo Usuario". Estas acciones se podrán realizar en el caso que el usuario logueado en el sistema tenga rol de Administrador, en caso de tener rol Monitor no visualizará éstas opciones. </p>
+		<p class="textAyuda marginBeforeImage">También podemos acceder a la pantalla de creación de un nuevo usuario clickeando en el boton "Nuevo Usuario". Esta acción se podrá realizar en el caso que el usuario logueado en el sistema tenga rol de Administrador, en caso de tener rol Monitor no visualizará ésta opcion. </p>
 		<div style="text-align:center;"><img src="<?=base_url('public/images/ayuda/boton-nuevo-usuario.png')?>"></div>
 	</div>
 </div>

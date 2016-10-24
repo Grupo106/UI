@@ -4,20 +4,20 @@ var siteurl;
 
 var formatoFechaBD = "YYYY-MM-DD HH:mm:ss";
 var formatoFechaPicker = "DD/MM/YYYY HH:mm";
-			
+
 var colores = [ "#51B1FF","#A9F5A9","#FACC2E","#58FA82","#819FF7","#D0FA58","#AC58FA","#BCA9F5","#2E64FE",
 "#A9E2F3","#D358F7","#00FFFF","#BCF5A9","#F4FA58","#FAAC58","#A4A4A4","#FA5858","#A4A4A4","#FE9A2E","#F781F3"];
 
-var puntosTotalBajada = []; 
+var puntosTotalBajada = [];
 var grafTotalBajada;
 
-var puntosTotalSubida = []; 
+var puntosTotalSubida = [];
 var grafTotalSubida;
 
-var datosClasificadoBajada = []; 
+var datosClasificadoBajada = [];
 var grafClasificadoBajada;
 
-var datosClasificadoSubida = []; 
+var datosClasificadoSubida = [];
 var grafClasificadoSubida;
 
 var maxPuntos = 0;
@@ -41,28 +41,26 @@ function inicializarPropiedadesGraficos(valorMaximoYBajada, valorMaximoYSubida, 
 
 
 function propiedadesGrafLinea(puntos, intervaloY, maximoY, formatoLabelY){
-	var options = {	
+	var options = {
 		animationEnabled: true,
-		axisX: {						
+		axisX: {
 			gridColor: "#F2F2F2",
 			lineColor: "#D8D8D8",
 			labelFontSize: 12,
-			valueFormatString: formatoLabelX, 
+			valueFormatString: formatoLabelX,
 			labelAutoFit: true
 		},
-		axisY: {						
+		axisY: {
 			title: obtenerMedida(formatoLabelY),
-			interval: intervaloY,
-			maximum: maximoY,
 			gridColor: "#F2F2F2",
 			lineColor: "#D8D8D8",
 			labelFontSize: 12,
 			intervalType: "number",
 			//valueFormatString:  "#.###"
-		},	
+		},
 		data: [{
 			type: "splineArea",
-			dataPoints: puntos 
+			dataPoints: puntos
 		}],
 	};
 	return options;
@@ -73,7 +71,7 @@ function propiedadesGrafTorta(puntos){
 	var options = {
         animationEnabled: true,
         explodeOnClick: true,
-		data: [{       
+		data: [{
 			indexLabelFontStyle: "bold",
 			type: "pie",
 			startAngle: 1,
@@ -81,7 +79,7 @@ function propiedadesGrafTorta(puntos){
 			toolTipContent: "<strong>{text}</strong>",
 			indexLabel: "{name}: #percent%",
 			percentFormatString: "#0.#",
-			dataPoints: puntos 
+			dataPoints: puntos
 		}],
 	};
 	return options;
@@ -105,34 +103,35 @@ function obtenerConsumoPorPeriodo(fechaDesde, fechaHasta) {
 function actualizarGraficos(data){
 	var consumo = JSON.parse(data);
 	inicializarPropiedadesGraficos(consumo['maximoBajada'], consumo['maximoSubida'], consumo['intervaloBusqueda']);
-	
+
     actualizarGraficoTotal(consumo['consumoTotal']);
-	actualizarGraficoClasificado(JSON.parse(consumo['consumoClasificado']));	
+	actualizarGraficoClasificado(JSON.parse(consumo['consumoClasificado']));
 }
 
 function actualizarGraficoTotal(consumoTotal) {
-	for (i = 0; i < consumoTotal.length; i++) { 
+	for (i = 0; i < consumoTotal.length; i++) {
 		agregarDatoGraficoTotal('bajada', puntosTotalBajada, consumoTotal[i], formatoLabelYBajada);
 		agregarDatoGraficoTotal('subida', puntosTotalSubida, consumoTotal[i], formatoLabelYSubida);
 	}
 
 	$('.loading').hide();
-	grafTotalBajada.render();	
-	grafTotalSubida.render();	
+  calcularPropiedadesEjeY();
+	grafTotalBajada.render();
+	grafTotalSubida.render();
 }
 
 
 function agregarDatoGraficoTotal(tipo, datosGrafico, consumoItem, formatoLabelY){
 	var fecha = moment(consumoItem['hora'], formatoFechaBD);
 	var bytes = obtenerBytesPorMedida(Number(consumoItem[tipo]), formatoLabelY);
-	
+
 	datosGrafico.push({
-		x: fecha.toDate(), 
+		x: fecha.toDate(),
 		y: bytes,
 		label: fecha.format(formatoLabelX),
 	});
 	if (datosGrafico.length > maxPuntos){
-		datosGrafico.shift();				
+		datosGrafico.shift();
 	}
 }
 
@@ -142,7 +141,7 @@ function actualizarGraficoClasificado(consumoClasificado) {
 	resetearDatos();
 
 	if(consumoClasificado!=null && consumoClasificado!=""){
-		for (i = 0; i < consumoClasificado.length; i++) { 
+		for (i = 0; i < consumoClasificado.length; i++) {
 			agregarDatoClasificado('bajada', datosClasificadoBajada, consumoClasificado[i]);
 			agregarDatoClasificado('subida', datosClasificadoSubida, consumoClasificado[i]);
 			colorIndex++;
@@ -197,10 +196,10 @@ function quitarPonerMensaje(tipo, valor){
 	}
 }
 
-//Pop up de Detalle de Porcentajes	
+//Pop up de Detalle de Porcentajes
 $(".detallePopover").popover({
 	content: function() { return $('#popoverContenido').html(); },
-	html: true, 
+	html: true,
 	placement: "bottom",
 });
 
@@ -217,11 +216,11 @@ $("#btnDetalleSubida").click(function() {
 
 //Genera el contenido del popover "Detalle"
 function generarTablaDatos(arrayDatos){
-	
+
 	var arrayOrdenado = arrayDatos.slice(0).sort(compararDatos);
 
 	$("#tablaDetalle tbody tr").remove();
-	for (i = 0; i < arrayOrdenado.length; i++) { 
+	for (i = 0; i < arrayOrdenado.length; i++) {
 		$("#tablaDetalle tbody")
 		    .append($('<tr>')
 		        .append($('<td>').text( arrayOrdenado[i]['name'] ))
@@ -254,13 +253,13 @@ function obtenerBytesPorMedida(bytes, indexMedida){
 function obtenerMedidaAbreviada(valor){
 	switch (valor) {
 		case 0:
-	        return "bytes"; 
+	        return "bytes";
 	    case 1:
-	        return "Kb"; 
+	        return "Kb";
 	    case 2:
-	        return "Mb"; 
+	        return "Mb";
 	    case 3:
-	        return "Gb"; 
+	        return "Gb";
 	    case 3:
 	        return "Tb";
 	}
@@ -269,13 +268,13 @@ function obtenerMedidaAbreviada(valor){
 function obtenerMedida(valor){
 	switch (valor) {
 		case 0:
-	        return "bytes"; 
+	        return "bytes";
 	    case 1:
-	        return "Kilobytes"; 
+	        return "Kilobytes";
 	    case 2:
-	        return "Megabytes"; 
+	        return "Megabytes";
 	    case 3:
-	        return "Gigabytes"; 
+	        return "Gigabytes";
 	    case 3:
 	        return "Terabytes";
 	}
@@ -326,12 +325,12 @@ function calcularLimiteEjeY(valor, tipo){
 			bytes = bytes/1024;
 		}
 		bytes = Math.round(bytes);
-		
+
 		var primerDigito = bytes.toString().substr(0,1);
 		var cantDigitos = bytes.toString().length;
 		var multiplicador = Math.pow(10, cantDigitos-1);
 		valorLimiteEjeY = (Number(primerDigito)+1) * multiplicador;
-	} 
+	}
 
 	if(tipo=="bajada"){
 		formatoLabelYBajada = indexMedida;
@@ -347,11 +346,11 @@ function calcularIntervalo(valorMaximo){
 
 function obtenerPar(multiplicador, digito){
 	if(multiplicador=10){
-		if(digito<=5) 
+		if(digito<=5)
 			return 5;
-		else 
+		else
 			return 10;
-	} 
+	}
 	return digito+1;
 }
 
@@ -364,8 +363,8 @@ function borrarGraficos(){
 //Funcion para salir del popover cuando se hace click fuera del mismo
 $(document).on('click', function (e) {
     $('[data-original-title]').each(function () {
-        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
-            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false
         }
     });
 });

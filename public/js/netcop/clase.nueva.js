@@ -140,4 +140,18 @@ $(document).ready(function() {
         element.attr('name', name);
         element.attr('id', name);
 	}
+
+
+	// Ocultar o mostrar lan
+	$('.switch-lan').on('click', function (){
+		
+	    if($('#lanDiv').attr('class') == 'collapse'){
+	        $(this).removeClass('fa-angle-down');
+	        $(this).addClass('fa-angle-up');
+	    } else if($('#lanDiv').attr('class') == 'collapse in'){
+	        $(this).removeClass('fa-angle-up');
+	        $(this).addClass('fa-angle-down');
+	    }
+	});
+
 });

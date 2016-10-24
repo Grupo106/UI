@@ -3,26 +3,12 @@
 
 <table class="table table-bordered table-striped" style="clear: both">
 	<tbody>
+	<?php foreach($log as $item){ ?>
 		<tr>
-			<td width="15%"><?=substr($log[0]['hora_log'], 0,19) ?></td>
-			<td><?=$log[0]['descripcion'] ?></td>
+			<td width="15%"><?=substr($item['hora_log'], 10, 6) . "  " . substr($item['hora_log'], 8, 2) . "/" . substr($item['hora_log'], 5, 2) . "/" . substr($item['hora_log'], 0, 4)?></td>
+			<td><?=$item['descripcion'] ?></td>
 		</tr>
-		<tr>
-			<td width="15%"><?=substr($log[1]['hora_log'], 0,19)  ?></td>
-			<td><?=$log[1]['descripcion'] ?></td>
-		</tr>
-		<tr>
-			<td width="15%"><?=substr($log[2]['hora_log'], 0,19)  ?></td>
-			<td><?=$log[2]['descripcion'] ?></td>
-		</tr>
-		<tr>
-			<td width="15%"><?=substr($log[3]['hora_log'], 0,19)  ?></td>
-			<td><?=$log[3]['descripcion'] ?></td>
-		</tr>
-		<tr>
-			<td width="15%"><?=substr($log[4]['hora_log'], 0,19)  ?></td>
-			<td><?=$log[4]['descripcion'] ?></td>
-		</tr>
+	<?php if ($count++ > 6) break;} ?>
 	</tbody>
 </table>
 
