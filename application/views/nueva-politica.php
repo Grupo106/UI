@@ -66,7 +66,7 @@
                         <select name="inputPrioridad" class="select-1 form-control">
                             <option data-hidden="true"></option>           
                                 <option value="7">Baja</option>
-                                <option value="5">Media</option>
+                                <option value="3">Normal</option>
                                 <option value="1">Alta</option>
                         </select>
                     </div>
