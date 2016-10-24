@@ -10,8 +10,8 @@
             <?php if($error) { ?>
                 <div class="style-msg errormsg">
                   <div class="sb-msg">
-                    <i class="icon-remove"></i><strong>Error</strong> 
-                    No se pudo iniciar sesión
+                    <i class="icon-remove"></i><strong>Error</strong>
+                    Usuario o contraseña incorrecta.
                   </div>
                 </div>
             <?php } ?>
