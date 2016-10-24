@@ -375,23 +375,19 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-        console.log($('#form').serialize());
-
-        if ($('#form').valid()) {
-            $.ajax({
-                url : $('#form').attr("action"),
-                type : $('#form').attr("method"),
-                data : $('#form').serialize(),
-                success: function(response){
-                    if(response)
-                        $('#mensaje').text("Los cambios fueron guardados exitosamente");
-                     else
-                        $('#mensaje').text(response);
-                    
-                    $('#modalInformacion').modal('show');
-                }
-            });
-        } 
+        $.ajax({
+            url : $('#form').attr("action"),
+            type : $('#form').attr("method"),
+            data : $('#form').serialize(),
+            success: function(response){
+                if(response)
+                    $('#mensaje').text("Los cambios fueron guardados exitosamente");
+                 else
+                    $('#mensaje').text(response);
+                
+                $('#modalInformacion').modal('show');
+            }
+        });
     });
 </script>
 

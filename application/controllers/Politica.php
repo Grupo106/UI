@@ -205,35 +205,60 @@ class Politica extends LoginRequired {
         // Obtengo ids de horarios validos para eliminar todos los otros en la db
         $horarios_finales = array_keys($horarios_politica);
 
-        // Construyo array de clases Origen
-        $array_clases = array();
-        $i=0;
-        while(isset($_POST['id_objetivoO_' . $i])) {
-            $clase = array(
-                    'id_clase'          => (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i)),
+
+        // Si se setea clase de tráfico internet y lan, omito agregado de origen y destino
+        if (isset($_POST['id_claseTraficoA'])) {
+            $array_clases = array();
+            
+            $claseE = array(
+                    'id_clase'          => $this->input->post('id_claseTraficoA' . $i),
                     'tipo'              => 'e',
-                    'direccion_fisica'  => ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null),
+                    'direccion_fisica'  => null,
                     'id_politica'       => $inputidPolitica
                 );
 
-            $id_objetivo = $this->input->post('id_objetivoO_' . $i);
-            $array_clases[($id_objetivo == "") ? ('E' . $i) : $id_objetivo] = $clase;
-            $i++;           
+            $claseD = array(
+                    'id_clase'          => $this->input->post('id_claseTraficoA' . $i),
+                    'tipo'              => 'd',
+                    'direccion_fisica'  => null,
+                    'id_politica'       => $inputidPolitica
+                );
+
+            $array_clases['E'] = $claseE;
+            $array_clases['D'] = $claseD;
         }
 
-        // Construyo array de clases Destino
-        $i=0;
-        while(isset($_POST['id_objetivoD_' . $i])) {
-            $clase = array(
-                    'id_clase'          => (($this->input->post('id_claseTraficoD_' . $i) == "") ? null : $this->input->post('id_claseTraficoD_' . $i)),
-                    'tipo'              => 'd',
-                    'direccion_fisica'  => ($this->validarMac($this->input->post('macD_' . $i)) ? $this->input->post('macD_' . $i) : null),
-                    'id_politica'       => $inputidPolitica
-                );
+        else {
+            // Construyo array de clases Origen
+            $array_clases = array();
+            $i=0;
+            while(isset($_POST['id_objetivoO_' . $i])) {
+                $clase = array(
+                        'id_clase'          => (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i)),
+                        'tipo'              => 'e',
+                        'direccion_fisica'  => ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null),
+                        'id_politica'       => $inputidPolitica
+                    );
 
-            $id_objetivo = $this->input->post('id_objetivoD_' . $i);
-            $array_clases[($id_objetivo == "") ? ('D' . $i) : $id_objetivo] = $clase;
-            $i++;
+                $id_objetivo = $this->input->post('id_objetivoO_' . $i);
+                $array_clases[($id_objetivo == "") ? ('E' . $i) : $id_objetivo] = $clase;
+                $i++;           
+            }
+
+            // Construyo array de clases Destino
+            $i=0;
+            while(isset($_POST['id_objetivoD_' . $i])) {
+                $clase = array(
+                        'id_clase'          => (($this->input->post('id_claseTraficoD_' . $i) == "") ? null : $this->input->post('id_claseTraficoD_' . $i)),
+                        'tipo'              => 'd',
+                        'direccion_fisica'  => ($this->validarMac($this->input->post('macD_' . $i)) ? $this->input->post('macD_' . $i) : null),
+                        'id_politica'       => $inputidPolitica
+                    );
+
+                $id_objetivo = $this->input->post('id_objetivoD_' . $i);
+                $array_clases[($id_objetivo == "") ? ('D' . $i) : $id_objetivo] = $clase;
+                $i++;
+            }
         }
 
         // Actualizo horarios y datos de politica
