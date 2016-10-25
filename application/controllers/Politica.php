@@ -28,7 +28,9 @@ class Politica extends LoginRequired {
 
     public function nueva() {
     	if(strcmp($this->session->rolUsuario, "Administrador") == 0) {
-	        $data['listadoClases'] = $this->claseModel->obtenerTodos();
+	        $data['listadoClasesO'] = $this->claseModel->obtenerPorGrupo('i');
+            $data['listadoClasesD'] = $this->claseModel->obtenerPorGrupo('o');
+            $data['listadoClasesOD'] = $this->claseModel->obtenerConOrigenYDestino();
 	        $data['arp'] = $this->_arp();
 	        $this->load->view('nueva-politica', $data);
         } 
@@ -64,9 +66,11 @@ class Politica extends LoginRequired {
     	if(strcmp($this->session->rolUsuario, "Administrador") == 0) { 
 	        $id_politica = $this->input->get('id_politica');
 
-	        $data['politica']      = $this->politicaM->obtener_politicas_por_id($id_politica);
-	        $data['listadoClases'] = $this->claseModel->obtenerTodos();
-	        $rango_horario 		   = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
+	        $data['politica']        = $this->politicaM->obtener_politicas_por_id($id_politica);
+	        $data['listadoClasesO']  = $this->claseModel->obtenerPorGrupo('i');
+            $data['listadoClasesD']  = $this->claseModel->obtenerPorGrupo('o');
+            $data['listadoClasesOD'] = $this->claseModel->obtenerConOrigenYDestino();
+	        $rango_horario 		     = $this->rangoHorarioM->obtener_horario_por_politica($id_politica);
 
 	        $objetivos = $this->objetivoM->obtener_objetivo_por_politica($id_politica);
 
@@ -266,7 +270,7 @@ class Politica extends LoginRequired {
         if($fl_politica_nueva) {
             if(
                 $this->agregar_horarios_politica($horarios_politica_nue)
-                && $this->registrar_objetivos($array_clases)
+                && $this->registrar_objetivos($array_clases, isset($_POST['id_claseTraficoA']))
               ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 $this->guardarEnLog(1, $inputNombre);
@@ -283,7 +287,7 @@ class Politica extends LoginRequired {
                 && $this->limpiar_horarios_politica($inputidPolitica, $horarios_finales)
                 && $this->agregar_horarios_politica($horarios_politica_nue)
                 && $this->politicaM->actualizar($inputidPolitica, $politica)
-                && $this->registrar_objetivos($array_clases)
+                && $this->registrar_objetivos($array_clases, false)
               ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 $this->guardarEnLog(2, $inputNombre);
@@ -319,8 +323,12 @@ class Politica extends LoginRequired {
         return true;
     }
 
-    public function registrar_objetivos($array) {
+    public function registrar_objetivos($array, $fl_clase_ed) {
         foreach($array as $id_objetivo => $data){
+            // Si es clase ED (con origen y destino)
+            if ($fl_clase_ed)
+                $this->objetivoM->eliminar_por_politica($data['id_politica']);
+
             // Verifico si tengo que crear o actualizo
             if(strpos($id_objetivo, 'E') === 0 || strpos($id_objetivo, 'D') === 0) {
                 if (!$this->objetivoM->crear($data))

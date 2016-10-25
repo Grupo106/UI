@@ -32,6 +32,12 @@ class Inicio extends CI_Controller {
         if($userLoggedIn) {
             $this->session->set_userdata($userLoggedIn);
             $this->session->set_userdata('loggedIn', true);
+
+             $data = array(
+                'usuario'     => $user, 
+                'descripcion' => "Inicio de sesión del usuario " . $user );
+
+            $this->log_model->insertarLog($data);
             redirect($next);
         } else {
             $this->load->view("login", array('next' => $next,
@@ -63,6 +69,12 @@ class Inicio extends CI_Controller {
     }
 
     public function desloguearse() {
+        $username = $this->session->userUsuario;
+         $data = array(
+                'usuario'     => $username, 
+                'descripcion' => "Desconexión del usuario " . $username  );
+         $this->log_model->insertarLog($data);
+
         session_destroy();
         redirect("/");
     }

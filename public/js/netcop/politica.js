@@ -296,7 +296,6 @@ $('#title-dias').parent().on('click', function (){
     }
 });
 
-
 // Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
 $("[name='id_claseTraficoA']").change(function (){
     var seleccion = $(this).find("option:selected").val();
