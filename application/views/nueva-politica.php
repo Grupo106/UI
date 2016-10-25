@@ -85,7 +85,7 @@
                 <label>Clase de tráfico</label>
                 <select name="id_claseTraficoA" class="select-1 form-control">
                     <option data-hidden="true"></option>
-                    <?php foreach($listadoClases as $clases){ ?>              
+                    <?php foreach($listadoClasesOD as $clases){ ?>              
                         <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                     <?php } ?>
                 </select>
@@ -99,9 +99,9 @@
             <div class="col_one_fourth col_last">
                 <label>Acciones</label>
                 <div class="clear"></div>
-                <div class="btn-group info">
-                    <button class="btn btn-primary btn-sm">Más info</button>
-                    <button class="btn btn-primary btn-sm">Resetear</button>
+                <div class="btn-group">
+                    <button class="btn btn-primary btn-sm disabled">Más info</button>
+                    <button class="btn btn-primary btn-sm disabled">Resetear</button>
                 </div>
             </div>
 
@@ -153,7 +153,7 @@
                                     <label>Clase de tráfico</label>
                                     <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
                                         <option data-hidden="true"></option>
-                                        <?php foreach($listadoClases as $clases){ ?>              
+                                        <?php foreach($listadoClasesO as $clases){ ?>              
                                             <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                                         <?php } ?>
                                     </select>
@@ -188,7 +188,7 @@
                             <label>Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
-                                <?php foreach($listadoClases as $clases){ ?>              
+                                <?php foreach($listadoClasesD as $clases){ ?>              
                                     <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                                 <?php } ?>
                             </select>
@@ -285,7 +285,6 @@
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
 <script type="text/javascript">
-    
     $('#tituloPantalla').text('Nueva Política de Tráfico');
 
     $.validator.addMethod('validarOrigen', function(value) {
@@ -350,6 +349,11 @@
         }
     }
 
+    // Modales de informacion
+    $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
+        window.location.href = "<?php echo site_url('politica/consulta');?>";
+    });
+
     // Modal ARP
     $('#mac').on('click', '.arp', function (){
         var for_data = $(this).parent('div').parent('div').find('input').attr('id');
@@ -364,11 +368,6 @@
     $('#btnCerrarArp, #btnCerrarArpTop').click(function(e){
         $('#modalArp').modal('hide');
         e.stopPropagation();
-    });
-
-    // Modales de informacion
-    $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
-        window.location.href = "<?php echo site_url('politica/consulta');?>";
     });
 
     // Guardar cambios
