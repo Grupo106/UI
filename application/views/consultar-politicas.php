@@ -58,6 +58,11 @@
     $(document).ready(function() {
         $('#tituloPantalla').text('Políticas de Tráfico');
 
+        var rolUsuario = "<?php echo $this->session->rolUsuario ?>";
+        if(rolUsuario != "Administrador"){
+            $('.bt-switch').prop('disabled',true);
+        }
+
         var table = $('#tablaPoliticas').DataTable();
         var siteurl = '<?=site_url()?>';
 

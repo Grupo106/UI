@@ -21,7 +21,7 @@
 	                	<?php if($item['activa']=='t') { ?>
 	                		<input class="bt-switch estado" type="checkbox" checked data-size="mini">
 	                	<?php } else { ?>
-							<input class="bt-switch estado" type="checkbox" data-size="mini">
+							<input class="bt-switch estado" type="checkbox"  data-size="mini">
 	                	<?php } ?>
 	                </td>
 	                <td id="nombre"> <?= html_escape($item['nombre']) ?></td>
@@ -58,6 +58,11 @@
 
 		$('#tituloPantalla').text('Clases de Tráfico');
 		
+		var rolUsuario = "<?php echo $this->session->rolUsuario ?>";
+		if(rolUsuario != "Administrador"){
+			$('.bt-switch').prop('disabled',true);
+		}
+		
 		var siteurl = '<?=site_url()?>';
 
 		var table = $('#tablaClases').DataTable( { "aaSorting":[] } );
@@ -66,6 +71,7 @@
 		$('#tablaClases').on( 'draw.dt', function () {
 			jQuery('.bt-switch').bootstrapSwitch();
 		});
+
 
 		//NUEVA CLASE
 		$('#btnNuevaClase').click(function(){
