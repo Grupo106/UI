@@ -73,7 +73,7 @@ class Clasetrafico extends LoginRequired {
             $this->guardarEnLog('1', $data);
         } else {
             $this->claseModel->actualizar($id_clase, $data);
-            $this->guardarEnLog('2', $id_clase);
+            $this->guardarEnLog('2', $data);
         }
         
         if ($id_clase!=false){
@@ -225,10 +225,10 @@ class Clasetrafico extends LoginRequired {
 
         }
         else if($accion==2) {
-             $data = $this->claseModel->obtener_por_id($dato);
+             //$data = $this->claseModel->obtener_por_id($dato);
              
              $data1 = array('usuario' => $this->session->userUsuario, 
-                    'descripcion' => "Actualización de clase de tráfico ".$data->nombre." por usuario ".$this->session->userUsuario);
+                    'descripcion' => "Actualización de clase de tráfico ".$dato['nombre']." por usuario ".$this->session->userUsuario);
              $this->log_model->insertarLog($data1);
 
         }
