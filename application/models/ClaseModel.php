@@ -16,33 +16,43 @@ class ClaseModel extends CI_Model{
         $grupoContrario = 'o';
         if($grupo=='o') $grupoContrario = 'i';
 
-        $query1 = $this->getQueryPorGrupo($grupo);
-        $query2 = $this->getQueryPorGrupo($grupoContrario);
+        $query1 = $this->getQueryPorGrupo($grupo,'');
+        $query2 = $this->getQueryPorGrupo($grupoContrario,'');
 
         $query = $this->db->query($query1." EXCEPT ".$query2." ORDER BY nombre ASC");      
         return $query->result_array();
     }
 
+    function esClaseOrigenyDestino($idClase){
+        $query1 = $this->getQueryPorGrupo('o', $idClase);
+        $query2 = $this->getQueryPorGrupo('i', $idClase);
+
+        $query = $this->db->query($query1." INTERSECT ".$query2);      
+        return $query->num_rows() > 0;
+    }
+
     function obtenerConOrigenYDestino(){
         
-        $query1 = $this->getQueryPorGrupo('o');
-        $query2 = $this->getQueryPorGrupo('i');
+        $query1 = $this->getQueryPorGrupo('o','');
+        $query2 = $this->getQueryPorGrupo('i','');
 
         $query = $this->db->query($query1." INTERSECT ".$query2." ORDER BY nombre ASC");      
         return $query->result_array();
     }
 
-    function getQueryPorGrupo($grupo){
+    function getQueryPorGrupo($grupo, $idClase){
         $this->db->select('clase_trafico.*');
         $this->db->from('clase_trafico'); 
         $this->db->join('clase_cidr', 'clase_cidr.id_clase=clase_trafico.id_clase');
         $this->db->where('clase_cidr.grupo',$grupo);
+        if($idClase!=''){ $this->db->where('clase_trafico.id_clase',$idClase);}
         $query1 = $this->db->get_compiled_select();
 
         $this->db->select('clase_trafico.*');
         $this->db->from('clase_trafico'); 
         $this->db->join('clase_puerto', 'clase_puerto.id_clase=clase_trafico.id_clase');
         $this->db->where('clase_puerto.grupo',$grupo);
+        if($idClase!=''){ $this->db->where('clase_trafico.id_clase',$idClase);}
         $query2 = $this->db->get_compiled_select();
         return "( ".$query1." UNION ".$query2." )";
     } 
@@ -91,5 +101,6 @@ class ClaseModel extends CI_Model{
         } 
         return false;
     }
+
 }
 ?>
