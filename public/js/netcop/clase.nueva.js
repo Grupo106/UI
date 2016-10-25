@@ -111,6 +111,7 @@ $(document).ready(function() {
 	function removerErrores(clone) {
 		clone.find('span.error').remove();
 		clone.find('input:first').removeAttr('aria-describedby');
+		clone.find('.tooltipp').remove();
 	}	
 
 	function renombrarIDs(clone, cant) {
