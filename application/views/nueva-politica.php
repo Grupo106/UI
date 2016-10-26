@@ -287,68 +287,6 @@
 <script type="text/javascript">
     $('#tituloPantalla').text('Nueva Política de Tráfico');
 
-    $.validator.addMethod('validarOrigen', function(value) {
-        if ($("input[name='macO_0']").val()=="" && $("select[name='id_claseTraficoO_0']").val()==""){
-            mostrarDivError(true, 'Ingrese una MAC o una clase de tráfico');
-            return false;
-        }
-        mostrarDivError(false, '');
-        return true;
-     });
-
-    $.validator.addMethod('validarDestino', function(value) {
-        if ($("input[name='ipD_0']").val()=="" && $("select[name='id_claseTraficoD_0']").val()==""){
-            mostrarDivError(true, 'Ingrese una IP o una clase de tráfico');
-            return false;
-        }
-
-        mostrarDivError(false, '');
-        return true;
-     });
-
-    $('#form').validate({
-        errorElement: 'span',
-        rules: {
-
-            macO_0: "validarDestino",
-            id_claseTraficoO_0: "validarDestino",
-            ipD_0: "validarDestino",
-            inputNombre: "required",
-            inputDescripcion: "required",
-            id_claseTraficoD_0: "validarDestino"
-        },
-        messages: {
-            "inputNombre": {
-                required: "Ingrese el nombre"
-            },
-             "inputDescripcion": {
-                required: "Ingrese la descripción"
-            },
-            "macO_0":{
-                validarDestino: ""
-            },
-            "id_claseTraficoO_0": {
-                validarDestino: ""
-            },
-            "ipD_0": {
-                validarDestino: ""
-            },
-            "id_claseTraficoD_0":{
-                validarDestino: ""
-            }
-        }
-    });
-
-    function mostrarDivError(valor, mensaje){
-        $('#msjError').html(mensaje);
-
-        if(valor && $('#divError').hasClass("hidden")){
-            $('#divError').removeClass("hidden");
-        } else if (!valor && !$('#divError').hasClass("hidden")){
-            $('#divError').addClass("hidden");
-        }
-    }
-
     // Modales de informacion
     $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
         window.location.href = "<?php echo site_url('politica/consulta');?>";
@@ -373,6 +311,8 @@
     // Guardar cambios
     $('#form').submit(function (event){
         event.preventDefault();
+
+        console.log($('#form').serialize());
 
         $.ajax({
             url : $('#form').attr("action"),
