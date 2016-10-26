@@ -308,4 +308,16 @@ $("[name='id_claseTraficoA']").change(function (){
         $("div[id='bloqueOrigen']").hide();
         $("div[id='bloqueDestino']").hide();
     }
+
+    // Si es en editar, busco objetivos anteriores y los hago negativos para eliminar
+    var objetivoO_ant = $("input[name='id_objetivoA_O']");
+    var objetivoD_ant = $("input[name='id_objetivoA_D']");
+
+    console.log(objetivoO_ant);
+    console.log(objetivoD_ant);
+
+    if (objetivoO_ant.val() != '' || objetivoD_ant.val() != '') {
+        objetivoO_ant.val(objetivoO_ant.val()*(-1));
+        objetivoD_ant.val(objetivoD_ant.val()*(-1));
+    }
 });
