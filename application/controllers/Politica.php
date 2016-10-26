@@ -100,7 +100,6 @@ class Politica extends LoginRequired {
 
             // Verifico si esta asignada una unica clase origen y destino
             if ($this->esObjetivoOrigenDestino($relacionClasesD, $relacionClasesO)) {
-                
                 $relacionClasesOD[] = $relacionClasesD[0];
                 $relacionClasesOD[] = $relacionClasesO[0];
                 $data['relacionClasesOD'] = $relacionClasesOD;
@@ -259,6 +258,7 @@ class Politica extends LoginRequired {
         else {
             // Construyo array de clases Origen
             $array_clases = array();
+
             $i=0;
             while(isset($_POST['id_objetivoO_' . $i])) {
                 $clase = array(
@@ -359,14 +359,16 @@ class Politica extends LoginRequired {
                 return false;
         }
 
+        ChromePhp::log('actualizar_horarios_politica ok');
         return true;
     }
 
     public function limpiar_horarios_politica($idPolitica, $horarios_finales) {
-        if (!$this->rangoHorarioM->eliminar_otros($idPolitica, $horarios_finales))
-            return false;
-        else
-            return true;
+        if (sizeof($horarios_finales) > 0)
+            $this->rangoHorarioM->eliminar_otros($idPolitica, $horarios_finales);
+        
+        ChromePhp::log('limpiar_horarios_politica ok');
+        return true;
     }
 
     public function agregar_horarios_politica($horarios_politica_nue) {
@@ -375,6 +377,7 @@ class Politica extends LoginRequired {
                 return false;
         }
 
+        ChromePhp::log('agregar_horarios_politica ok');
         return true;
     }
 
@@ -406,6 +409,7 @@ class Politica extends LoginRequired {
                 $this->objetivoM->eliminar_por_id(str_replace('-', '', $id_objetivo));
         }
 
+        ChromePhp::log('registrar_objetivos ok');
         return true;
     }
 
@@ -428,16 +432,12 @@ class Politica extends LoginRequired {
     public function esObjetivoOrigenDestino($arrayClasesD, $arrayClasesO) {
         //   Devuelve true si la cantidad de clases de cada array es 1,
         // las clases son iguales y son origenYdestino
-        ChromePhp::log(sizeof($arrayClasesO) == "1");
-        ChromePhp::log(sizeof($arrayClasesD) == "1");
-
-        ChromePhp::log($arrayClasesO[0]['id_clase'] == $arrayClasesD[0]['id_clase']);
-        ChromePhp::log($this->claseModel->esClaseOrigenyDestino($arrayClasesO[0]['id_clase']));
-
         return 
             sizeof($arrayClasesO) == "1" && sizeof($arrayClasesD) == "1"
             && 
             $arrayClasesO[0]['id_clase'] == $arrayClasesD[0]['id_clase']
+            &&
+            $arrayClasesO[0]['id_clase'] != null && $arrayClasesD[0]['id_clase'] != null
             &&
             $this->claseModel->esClaseOrigenyDestino($arrayClasesO[0]['id_clase'])
             ;

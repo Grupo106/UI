@@ -9,6 +9,7 @@
 <?php endforeach;?>
 
 <?php ChromePhp::log($relacionClasesOD);?>
+<?php ChromePhp::log($rango_horario);?>
 
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
@@ -100,10 +101,10 @@
             
             <div class="col_one_third">
                 <label>Descripción</label>
-                <input id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value="">
+                <textarea id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value=""></textarea>
             </div>
 
-            <div class="col_one_fourth col_last">
+            <div class="col_one_fifth col_last">
                 <label>Acciones</label>
                 <div class="clear"></div>
                 <div class="btn-group">
@@ -292,7 +293,7 @@
             </div>
         </div>
 
-        <div id="dias" class="collapse <?php if (!isset($relacionClasesOD)) echo " in";?>">
+        <div id="dias" class="collapse">
         <input type="hidden" name="dias_cant" value="<?php if(!isset($rango_horario)) echo 0; else echo $index_dias; ?>">
         <?php $i=0; $j=0; foreach($rango_horario as $hr_ini => $horario_inicio) { ?>
             <?php foreach($horario_inicio as $hr_fin => $horario_fin) { ?>
@@ -348,7 +349,6 @@
                             </label>
                         <?php };?>
                         </div>
-                        <div class="clear"></div>
                     </div>
 
                     <div class="col_half col_last">
@@ -365,10 +365,9 @@
                             </div>
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                         </div>
-                        <div class="clear"></div>
                     </div>
                 </div>
-                <div class="clear"></div>
+                
             <?php $j++; }?>
         <?php $k++; }?>
     </div>
