@@ -383,6 +383,9 @@ class Politica extends LoginRequired {
 
     public function registrar_objetivos($array, $fl_clase_ed) {
         $loop = 0;
+        ChromePhp::log('registrar_objetivos: ');
+        ChromePhp::log($array);
+        ChromePhp::log($fl_clase_ed);
         foreach($array as $id_objetivo => $data){
 
             ChromePhp::log('a registrar');
@@ -391,22 +394,31 @@ class Politica extends LoginRequired {
 
 
             // Si es clase ED (con origen y destino)
-            if ($fl_clase_ed && $loop++ == 0)
+            if ($fl_clase_ed && $loop++ == 0) {
                 $this->objetivoM->eliminar_por_politica($data['id_politica']);
+                ChromePhp::log('>> eliminado: ');
+                ChromePhp::log($data['id_politica']);
+            }
 
             // Verifico si tengo que crear o actualizo
             if(strpos($id_objetivo, 'E') === 0 || strpos($id_objetivo, 'D') === 0) {
                 if (!$this->objetivoM->crear($data))
                     return false;
+                ChromePhp::log('>> creado: ' . $id_objetivo);
+                ChromePhp::log($data);
             }
 
             elseif(intval($id_objetivo) > 0) {
                 $this->objetivoM->actualizar($id_objetivo, $data);
+                ChromePhp::log('>> actualizado: ' . $id_objetivo);
+                ChromePhp::log($data);
             }
 
             // Verifico si elimino 
-            if(strpos($id_objetivo, '-') === 0)
+            if(strpos($id_objetivo, '-') === 0) {
                 $this->objetivoM->eliminar_por_id(str_replace('-', '', $id_objetivo));
+                ChromePhp::log('>> eliminado por id: ' . $id_objetivo);
+            }
         }
 
         ChromePhp::log('registrar_objetivos ok');

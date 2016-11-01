@@ -297,7 +297,7 @@
         <input type="hidden" name="dias_cant" value="<?php if(!isset($rango_horario)) echo 0; else echo $index_dias; ?>">
         <?php $i=0; $j=0; foreach($rango_horario as $hr_ini => $horario_inicio) { ?>
             <?php foreach($horario_inicio as $hr_fin => $horario_fin) { ?>
-                <div id="dias_<?=($i+$j)?>">
+                <div id="dias_<?=($i+$j)?>" name="dias_<?=($i+$j)?>">
                     <div class="col_half">
                     <?php if($i+$j == 0) { ?>
                         <div class="col_icon agregarh">
@@ -349,6 +349,7 @@
                             </label>
                         <?php };?>
                         </div>
+                        <div class="clear"></div>
                     </div>
 
                     <div class="col_half col_last">
@@ -365,11 +366,65 @@
                             </div>
                             <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
                         </div>
+                        <div class="clear"></div>
                     </div>
                 </div>
                 
             <?php $j++; }?>
         <?php $k++; }?>
+        <?php if ($i==0 && $j==0) {?>
+            <div id="dias_0">
+                <div class="col_half">
+                    <div class="col_icon agregarh">
+                        <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
+                    </div>
+                    <div class="col_icon hidden borrar">
+                        <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                    </div>
+                    <div class="col_two_half col_last">
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_1_0">Do
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_2_0">Lu
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_3_0">Ma
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_4_0">Mi
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_5_0">Ju
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_6_0">Vi
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" name="activo_7_0">Sá
+                        </label>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="col_half col_last">
+                    <input type="hidden" name="horario0" value="">
+                    <div class="col_one_third">
+                        <div class="input-group clockpicker" style="max-width:40px;min-width:30px;display:table-cell;text-align: center">
+                            <input name="hr_desde_0" class="time form-control input-sm" value="">
+                        </div>
+                        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                    <div class="col_one_third col_last">
+                        <div class="input-group clockpicker" style="max-width:40px;min-width:30px;display:table-cell;text-align: center">
+                            <input name="hr_hasta_0" class="time form-control input-sm" value="">
+                        </div>
+                        <span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        <?php }?>
     </div>
 
     <div id="divError" class="alert alert-danger nobottommargin hidden">
