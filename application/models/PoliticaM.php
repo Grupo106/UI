@@ -88,5 +88,13 @@ class PoliticaM extends CI_Model{
         else
             return false;
     }
+
+    function tieneClaseOYD($id_politica){
+        $this->db->select('id_politica');
+        $this->db->where('id_politica', $id_politica);
+        $query = $this->db->get('v_politica_clase_oyd');
+        
+        return $query->num_rows() > 0;
+    }
 }
 ?>

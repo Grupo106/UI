@@ -394,7 +394,7 @@ class Politica extends LoginRequired {
 
 
             // Si es clase ED (con origen y destino)
-            if ($fl_clase_ed && $loop++ == 0) {
+            if ($fl_clase_ed && $loop++ == 0 && !$this->politicaM->tieneClaseOYD($data['id_politica'])) {
                 $this->objetivoM->eliminar_por_politica($data['id_politica']);
                 ChromePhp::log('>> eliminado: ');
                 ChromePhp::log($data['id_politica']);
@@ -454,7 +454,7 @@ class Politica extends LoginRequired {
             $this->claseModel->esClaseOrigenyDestino($arrayClasesO[0]['id_clase'])
             ;
     }
-
+    
     public static function validarMac($mac) {
         return (preg_match('/([a-fA-F0-9]{2}[:|\-]?){6}/', $mac) == 1);
     }
