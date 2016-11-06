@@ -261,33 +261,43 @@ class Politica extends LoginRequired {
 
             $i=0;
             while(isset($_POST['id_objetivoO_' . $i])) {
-                $clase = array(
-                        'id_clase'          => (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i)),
+                $id_clase_val         = (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i));
+                $direccion_fisica_val = ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null);
+
+                if ($id_clase_val || $direccion_fisica_val) {
+                    $clase = array(
+                        'id_clase'          => $id_clase_val,
                         'tipo'              => 'e',
-                        'direccion_fisica'  => ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null),
+                        'direccion_fisica'  => $direccion_fisica_val,
                         'id_politica'       => $inputidPolitica
                     );
 
-                $id_objetivo = $this->input->post('id_objetivoO_' . $i);
-                $array_clases[($id_objetivo == "") ? ('E' . $i) : $id_objetivo] = $clase;
-                $i++;          
-                ChromePhp::log($clase);
+                    $id_objetivo = $this->input->post('id_objetivoO_' . $i);
+                    $array_clases[($id_objetivo == "") ? ('E' . $i) : $id_objetivo] = $clase;
+                    ChromePhp::log($clase);
+                }
+                $i++;           
             }
 
             // Construyo array de clases Destino
             $i=0;
             while(isset($_POST['id_objetivoD_' . $i])) {
-                $clase = array(
-                        'id_clase'          => (($this->input->post('id_claseTraficoD_' . $i) == "") ? null : $this->input->post('id_claseTraficoD_' . $i)),
+                $id_clase_val = (($this->input->post('id_claseTraficoD_' . $i) == "") ? null : $this->input->post('id_claseTraficoD_' . $i));
+                $direccion_fisica_val = ($this->validarMac($this->input->post('macD_' . $i)) ? $this->input->post('macD_' . $i) : null);
+
+                if ($id_clase_val || $direccion_fisica_val) {
+                    $clase = array(
+                        'id_clase'          => $id_clase_val,
                         'tipo'              => 'd',
-                        'direccion_fisica'  => ($this->validarMac($this->input->post('macD_' . $i)) ? $this->input->post('macD_' . $i) : null),
+                        'direccion_fisica'  => $direccion_fisica_val,
                         'id_politica'       => $inputidPolitica
                     );
 
-                $id_objetivo = $this->input->post('id_objetivoD_' . $i);
-                $array_clases[($id_objetivo == "") ? ('D' . $i) : $id_objetivo] = $clase;
+                    $id_objetivo = $this->input->post('id_objetivoD_' . $i);
+                    $array_clases[($id_objetivo == "") ? ('D' . $i) : $id_objetivo] = $clase;
+                    ChromePhp::log($clase);
+                }
                 $i++;
-                ChromePhp::log($clase);
             }
 
             // Verifico si hay clases origen y destino a eliminar
@@ -389,35 +399,34 @@ class Politica extends LoginRequired {
         foreach($array as $id_objetivo => $data){
 
             ChromePhp::log('a registrar');
-            ChromePhp::log($id_objetivo);
-            ChromePhp::log($data);
-
+            ChromePhp::log($id_objetivo . ' | ' . $data['id_politica'] . ' | ' . $data['id_clase'] . ' | ' . $data['direccion_fisica'] . ' | ' . $data['tipo']);
+            //ChromePhp::log(ctype_digit($id_objetivo));
 
             // Si es clase ED (con origen y destino)
             if ($fl_clase_ed && $loop++ == 0 && !$this->politicaM->tieneClaseOYD($data['id_politica'])) {
                 $this->objetivoM->eliminar_por_politica($data['id_politica']);
-                ChromePhp::log('>> eliminado: ');
-                ChromePhp::log($data['id_politica']);
+                //ChromePhp::log('>> eliminado: ');
+                //ChromePhp::log($data['id_politica']);
             }
 
             // Verifico si tengo que crear o actualizo
             if(strpos($id_objetivo, 'E') === 0 || strpos($id_objetivo, 'D') === 0) {
                 if (!$this->objetivoM->crear($data))
                     return false;
-                ChromePhp::log('>> creado: ' . $id_objetivo);
-                ChromePhp::log($data);
+                //ChromePhp::log('>> creado: ' . $id_objetivo);
+                //ChromePhp::log($data);
             }
 
             elseif(intval($id_objetivo) > 0) {
                 $this->objetivoM->actualizar($id_objetivo, $data);
-                ChromePhp::log('>> actualizado: ' . $id_objetivo);
-                ChromePhp::log($data);
+                //ChromePhp::log('>> actualizado: ' . $id_objetivo);
+                //ChromePhp::log($data);
             }
 
             // Verifico si elimino 
             if(strpos($id_objetivo, '-') === 0) {
                 $this->objetivoM->eliminar_por_id(str_replace('-', '', $id_objetivo));
-                ChromePhp::log('>> eliminado por id: ' . $id_objetivo);
+                //ChromePhp::log('>> eliminado por id: ' . $id_objetivo);
             }
         }
 

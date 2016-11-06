@@ -165,6 +165,7 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="col_half col_last" id="bloqueDestino">
             <div class="fancy-title title-bottom-border">
@@ -184,7 +185,7 @@
                             <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                         </div>
 
-                        <div class="col_three_fourth col_last">
+                        <div class="col_three_fifth col_last">
                             <label>Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
@@ -198,6 +199,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border" id="title-dias">
