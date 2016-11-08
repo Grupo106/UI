@@ -199,6 +199,8 @@ $(document).ready(function() {
         // Incremento contador activos
         var activos = $(this).parent('div').parent('div').parent('div').find("input[name$='_activos']").val();
         $(this).parent('div').parent('div').parent('div').find("input[name$='_activos']").val(activos*1+1);
+
+        nuevo.find('.tooltipp').remove();
     });
 
     function removerIcono(clone) {
