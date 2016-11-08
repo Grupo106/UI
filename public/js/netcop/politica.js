@@ -234,6 +234,7 @@ $(document).ready(function() {
 // Tabs de tipo y modo de politica
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     var target = $(e.target).attr("href");
+    console.log(target);
 
     if(target == '#menuBloqueo')
         document.getElementById("tipo").value = "bloqueo";
