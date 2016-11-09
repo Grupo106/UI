@@ -231,6 +231,7 @@ $(document).ready(function() {
         var dest = $(this).data('for');
         $("#" + dest).val(mac);
     })
+
 });
 
 // Tabs de tipo y modo de politica
@@ -298,17 +299,27 @@ $('#title-dias').parent().on('click', function (){
     }
 });
 
-// Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
-$("[name='id_claseTraficoA']").change(function (){
-    var seleccion = $(this).find("option:selected").val();
 
+//Boton restear
+$('#btResetear').on('click', function (){
+    resetearBloqueClase("","");
+    $("[name='id_claseTraficoA']").val("");
+});
+
+
+function resetearBloqueClase(seleccion, arrayClases){
     if (seleccion == "") {
         $("div[id='bloqueOrigen']").show();
         $("div[id='bloqueDestino']").show();
+        $("#btResetear").addClass("disabled");
+        $("#claseTraficoADesc").val("");
     }
     else {
         $("div[id='bloqueOrigen']").hide();
         $("div[id='bloqueDestino']").hide();
+        $("#btResetear").removeClass("disabled");
+        var item = encontrarItemPorId(arrayClases, seleccion);
+        $("#claseTraficoADesc").val(item.descripcion);
     }
 
     // Si es en editar, busco objetivos anteriores y los hago negativos para eliminar
@@ -322,4 +333,13 @@ $("[name='id_claseTraficoA']").change(function (){
         objetivoO_ant.val(objetivoO_ant.val()*(-1));
         objetivoD_ant.val(objetivoD_ant.val()*(-1));
     }
-});
+}
+
+function encontrarItemPorId(array, id){
+    for (var i in array) {
+        if (array[i].id_clase == id) {
+             return array[i];
+        }
+    }
+}
+

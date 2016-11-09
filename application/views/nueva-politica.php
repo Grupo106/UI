@@ -93,15 +93,14 @@
             
             <div class="col_one_third">
                 <label>Descripción</label>
-                <input id="claseTraficoADesc" type="text" class="form-control" maxlength="255" name="claseTraficoADesc" value="">
+                <textarea id="claseTraficoADesc" rows="2" readonly="true" class="form-control" value=""></textarea>
             </div>
 
             <div class="col_one_fourth col_last">
                 <label>Acciones</label>
                 <div class="clear"></div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-sm disabled">Más info</button>
-                    <button class="btn btn-primary btn-sm disabled">Resetear</button>
+                    <button id="btResetear" type="button" class="btn btn-primary btn-sm disabled">Resetear Selección</button>
                 </div>
             </div>
 
@@ -342,6 +341,15 @@
         agregarTooltip($(".lbBajada"), "Límite establecido para el tráfico de bajada de datos.");
         agregarTooltip($(".lbSubida"), "Límite establecido para el tráfico de subida de datos.");
     }
+
+    var clasesOD = <?php echo json_encode($listadoClasesOD); ?>;
+
+    // Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
+    $("[name='id_claseTraficoA']").change(function (){
+        var seleccion = $(this).find("option:selected").val();
+        resetearBloqueClase(seleccion, clasesOD);
+    });
+
 </script>
 
 
