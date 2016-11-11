@@ -431,8 +431,8 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-        console.log($('#form').serialize());
-
+        
+        if ($('#form').valid()) {
 		$.ajax({
             url : $('#form').attr("action"),
             type : $('#form').attr("method"),
@@ -446,6 +446,7 @@
                 $('#modalInformacion').modal('show');
             }
     	});
+      }
     });
 
     $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
