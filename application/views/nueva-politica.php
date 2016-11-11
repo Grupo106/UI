@@ -47,15 +47,16 @@
                     <div class="col_two_fifth">
                         <label class="lbBajada">Bajada</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="inputBajada" value="">
-                            <span class="input-group-addon">kbps</span>
+                            <input type="text" class="form-control" name="inputBajada" value="">                            
+                            <span  class="input-group-addon">kbps</span>                            
                         </div>
+                        
                     </div>
                     <div class="col_two_fifth">
                         <label class="lbSubida">Subida</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="inputSubida" value="">
-                            <span class="input-group-addon">kbps</span>
+                            <span  class="input-group-addon">kbps</span>
                         </div>
                     </div>
                 </div>
@@ -117,7 +118,7 @@
                 <label>Tipo</label>
                 <input type="hidden" name="modoOrigen" value="">
                 <ul class="nav nav-pills nav-stacked">
-                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
+                    <li class="active"><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
                     <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoClase">Clase</a></li>
                 </ul>
             </div>
@@ -313,7 +314,7 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-        console.log($('#form').serialize());
+        if ($('#form').valid()) {
 
         $.ajax({
             url : $('#form').attr("action"),
@@ -328,6 +329,7 @@
                 $('#modalInformacion').modal('show');
             }
         });
+      }
     });
 
     agregarAyudas();
