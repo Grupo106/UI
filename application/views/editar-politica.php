@@ -249,7 +249,7 @@
                                     <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                                 <?php } ?>
                             </select>
-                        <div>
+                        </div>
                     </div>
                     <div class="clear"></div>
                 </div>
@@ -266,7 +266,8 @@
                         <?php } else { ?>
                         <div class="col_icon borrar">
                     <?php } ?>
-                        <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                            <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
+                        </div>
                     </div>
                         
                     <div class="col_three_fifth col_last">
@@ -282,7 +283,6 @@
                     </div>
                 </div>
                 <div class="clear"></div>
-                </div>
                 <?php }?>
             </div>
         </div>

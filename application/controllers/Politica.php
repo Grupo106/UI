@@ -261,9 +261,20 @@ class Politica extends LoginRequired {
 
             $i=0;
             while(isset($_POST['id_objetivoO_' . $i])) {
-                $id_clase_val         = (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i));
-                $direccion_fisica_val = ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null);
+                // Modo MAC, elimino clase de ese objetivo
+                if($this->input->post('modoOrigen') == "modoMac") {
+                    $direccion_fisica_val = ($this->validarMac($this->input->post('macO_' . $i)) ? $this->input->post('macO_' . $i) : null);
+                    $id_clase_val = null;
+                }
 
+                // Modo Clase, elimino MAC de ese objetivo
+                else {
+                    $direccion_fisica_val = null;
+                    $id_clase_val         = (($this->input->post('id_claseTraficoO_' . $i) == "") ? null : $this->input->post('id_claseTraficoO_' . $i));
+
+                }
+
+                // Si existe al menos una agrego el origen
                 if ($id_clase_val || $direccion_fisica_val) {
                     $clase = array(
                         'id_clase'          => $id_clase_val,
@@ -283,9 +294,10 @@ class Politica extends LoginRequired {
             $i=0;
             while(isset($_POST['id_objetivoD_' . $i])) {
                 $id_clase_val = (($this->input->post('id_claseTraficoD_' . $i) == "") ? null : $this->input->post('id_claseTraficoD_' . $i));
-                $direccion_fisica_val = ($this->validarMac($this->input->post('macD_' . $i)) ? $this->input->post('macD_' . $i) : null);
+                $direccion_fisica_val = null;
 
-                if ($id_clase_val || $direccion_fisica_val) {
+                // Si existe id_clase agrego el destino
+                if ($id_clase_val) {
                     $clase = array(
                         'id_clase'          => $id_clase_val,
                         'tipo'              => 'd',
@@ -322,18 +334,19 @@ class Politica extends LoginRequired {
             }
         }
 
-
-            ChromePhp::log('guardar array_clases');
-            ChromePhp::log($array_clases);
-
-
+        // Genero array de objetivos eliminando posibles duplicados
+        $array_objetivos = array_map("unserialize", array_unique(array_map("serialize", $array_clases)));
+        
+        ChromePhp::log('guardar array_clases');
+        ChromePhp::log($array_clases);
+        ChromePhp::log($array_objetivos);
 
         // Actualizo horarios y datos de politica
         // Si es nueva no necesito actualizar ni limpiar
         if($fl_politica_nueva) {
             if(
                 $this->agregar_horarios_politica($horarios_politica_nue)
-                && $this->registrar_objetivos($array_clases, !empty($_POST['id_claseTraficoA']))
+                && $this->registrar_objetivos($array_objetivos, !empty($_POST['id_claseTraficoA']))
               ) {
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 $this->guardarEnLog(1, $inputNombre);
@@ -351,7 +364,7 @@ class Politica extends LoginRequired {
                 && $this->limpiar_horarios_politica($inputidPolitica, $horarios_finales)
                 && $this->agregar_horarios_politica($horarios_politica_nue)
                 && $this->politicaM->actualizar($inputidPolitica, $politica)
-                && $this->registrar_objetivos($array_clases, !empty($_POST['id_claseTraficoA']))
+                && $this->registrar_objetivos($array_objetivos, !empty($_POST['id_claseTraficoA']))
               ) {
                 ChromePhp::log('ok');
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
