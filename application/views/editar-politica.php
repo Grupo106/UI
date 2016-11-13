@@ -188,6 +188,7 @@
                                     <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                                 </div>
 
+                                <?php if(isset($relacion['direccion_fisica']) || $i == 0) { ?>
                                 <div class="modoMac" id="modoMac">
                                     <div class="col_three_fourth">
                                         <?php if($i == 0) { ?>
@@ -199,7 +200,9 @@
                                         </div>
                                     </div>
                                 </div>
+                                <?php } ?>
 
+								<?php if(isset($relacion['clase']['id_clase']) || $i == 0) { ?>
                                 <div class="modoClase" id="modoClase">
                                     <div class="col_three_fourth col_last divClaseO">
                                         <?php if($i == 0) { ?>
@@ -214,6 +217,7 @@
                                         </select>
                                     </div>
                                 </div>
+								<?php } ?>
                             </div>
                             <div class="clear"></div>
                         </div>

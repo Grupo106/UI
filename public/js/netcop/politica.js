@@ -254,6 +254,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
         // Oculto divs que no tengan clases de interes al modo
         $('div[id^="objetivoO_"]').each(function() {
+            console.log($(this).find(".macAddress"));
             if ($(this).find(".macAddress").length == 0) {
                 $(this).hide();
             }
@@ -271,6 +272,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         
         // Oculto divs que no tengan clases de interes al modo
         $('div[id^="objetivoO_"]').each(function() {
+            console.log($(this).find(".selClase"));
             if ($(this).find(".selClase").length == 0) {
                 $(this).hide();
             }
