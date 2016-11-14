@@ -8,9 +8,6 @@
 <?php foreach($relacionClases as $item2):  echo ''; ?>
 <?php endforeach;?>
 
-<?php //ChromePhp::log($relacionClasesOD);?>
-<?php //ChromePhp::log($rango_horario);?>
-
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
     	<input name="id_politica" type="hidden" class="form-control" value="<?= $item['id_politica']?>">
@@ -18,11 +15,11 @@
 
         <div class="col_half">
             <label>Nombre</label>
-            <input name="inputNombre" type="text" class="sm-form-control" maxlength="63" value="<?= $item['nombre']?>"/>
+            <input name="inputNombre" type="text" class="form-control" maxlength="63" value="<?= $item['nombre']?>"/>
         </div>
         <div class="col_half col_last">
             <label>Descripción</label>
-            <textarea name="inputDescripcion" rows="2" class="sm-form-control" maxlength="255" value="<?= $item['descripcion']?>"></textarea>
+            <textarea name="inputDescripcion" rows="2" class="form-control" maxlength="255"><?= $item['descripcion']?></textarea>
         </div>
         <div class="clear"></div>
 
@@ -50,14 +47,14 @@
 
                     <div id="menuLimitacion" class="tab-pane fade <?php if($item['velocidad_bajada']!='') echo 'in active';?>">
                         <div class="col_one_fifth">
-                            <label>Bajada</label>
+                            <label class="lbBajada">Bajada</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="inputBajada" value="<?= $item['velocidad_bajada']?>">
                                 <span class="input-group-addon">kbps</span>
                             </div>
                         </div>
                         <div class="col_one_fifth col_last">
-                            <label>Subida</label>
+                            <label class="lbSubida">Subida</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" name="inputSubida" value="<?= $item['velocidad_subida']?>">
                                 <span class="input-group-addon">kbps</span>
@@ -67,7 +64,7 @@
 
                     <div id="menuPriorizacion" class="tab-pane fade <?php if($item['prioridad']!='') echo 'in active';?>">
                         <div class="col_half col_last">
-                            <label>Prioridad</label>
+                            <label class="lbPrioridad">Prioridad</label>
                             <select name="inputPrioridad" class="select-1 form-control">
                                 <option data-hidden="true"></option>           
                                     <option value="7" <?php if($item['prioridad'] == "7") echo " selected"?><?=$clases['nombre']?>>Baja</option>
@@ -76,7 +73,6 @@
                             </select>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="clear"></div>
@@ -89,7 +85,7 @@
             </div>
 
             <div class="col_one_third">
-                <label>Clase de tráfico</label>
+                <label class="lbClaseOYD">Clase de tráfico</label>
                 <input type="hidden" name="id_objetivoA_O" value="<?=$relacionClasesOD[0]['id_objetivo']?>">
                 <input type="hidden" name="id_objetivoA_D" value="<?=$relacionClasesOD[1]['id_objetivo']?>">
                 <select name="id_claseTraficoA" class="select-1 form-control">
@@ -102,15 +98,14 @@
             
             <div class="col_one_third">
                 <label>Descripción</label>
-                <textarea id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value=""></textarea>
+                <textarea id="claseTraficoADesc" rows="2" readonly="true" class="form-control" value=""></textarea>
             </div>
 
             <div class="col_one_fifth col_last">
                 <label>Acciones</label>
                 <div class="clear"></div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-sm disabled">Más info</button>
-                    <button class="btn btn-primary btn-sm disabled">Resetear</button>
+                    <button id="btResetear" type="button" class="btn btn-primary btn-sm disabled">Resetear Selección</button>
                 </div>
             </div>
 
@@ -149,7 +144,7 @@
                                 
                                 <div class="modoMac" id="modoMac">
                                     <div class="col_three_fourth">
-                                        <label>MAC</label>
+                                        <label class="lbMAC">MAC</label>
                                         <div class="input-group divMac_MacO" id="mac">
                                             <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
                                             <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
@@ -159,7 +154,7 @@
 
                                 <div class="modoClase" id="modoClase">
                                     <div class="col_three_fourth col_last divClaseO">
-                                        <label>Clase de tráfico</label>
+                                        <label class="lbClaseOrigen">Clase de tráfico</label>
                                         <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
                                             <option data-hidden="true"></option>
                                             <?php foreach($listadoClasesO as $clases){ ?>              
@@ -246,7 +241,7 @@
                         </div>
 
                         <div class="col_three_fifth col_last">
-                            <label>Clase de tráfico</label>
+                            <label class="lbClaseDestino">Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
                                 <?php foreach($listadoClasesD as $clases){ ?>              
@@ -454,6 +449,8 @@
 
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
+<?php include('estructura/footer.php'); ?>
+
 <script type="text/javascript">
     $('#tituloPantalla').text('Editar Política de Tráfico');
 
@@ -490,8 +487,8 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-        console.log($('#form').serialize());
-
+        
+        if ($('#form').valid()) {
 		$.ajax({
             url : $('#form').attr("action"),
             type : $('#form').attr("method"),
@@ -505,11 +502,32 @@
                 $('#modalInformacion').modal('show');
             }
     	});
+      }
     });
 
     $('#btnCerrar, #btnAceptarInformacion, #btnCancelar').click(function(){
         window.location.href = "<?php echo site_url('politica/consulta');?>";
     });
+
+    agregarAyudas();
+
+    function agregarAyudas(){
+        agregarTooltip($(".lbClaseOYD"), "Clase de tráfico que contiene un Origen y un Destino. Al seleccionar una clase de este tipo, no será posible agregar otros orígenes/destinos.");
+        agregarTooltip($(".lbClaseOrigen"), "Clase de tráfico que contiene una o varias IP o Puertos pertenecientes a la Red Local.");
+        agregarTooltip($(".lbClaseDestino"), "Clase de tráfico que contiene una o varias IP o Puertos pertenecientes a Internet.");
+        agregarTooltip($(".lbMAC"), "Identificador de los equipos conectados a la Red.");
+        agregarTooltip($(".lbPrioridad"), "Nivel de prioridad otorgado al contenido de la política.");
+        agregarTooltip($(".lbBajada"), "Límite establecido para el tráfico de bajada de datos.");
+        agregarTooltip($(".lbSubida"), "Límite establecido para el tráfico de subida de datos.");
+    }
+
+    var clasesOD = <?php echo json_encode($listadoClasesOD); ?>;
+
+    // Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
+    $("[name='id_claseTraficoA']").change(function (){
+        var seleccion = $(this).find("option:selected").val();
+        resetearBloqueClase(seleccion, clasesOD);
+    });
 </script>
 
-<?php include('estructura/footer.php'); ?>
+

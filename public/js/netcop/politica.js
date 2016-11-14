@@ -2,6 +2,43 @@ var $ = jQuery.noConflict();
 
 $(document).ready(function() {
     
+    /*****MAC DEFAULT****/
+    selectDivMacDefualt();
+        
+    /*****VALIDACIONES*****/
+    $('#form').validate({
+        errorElement: 'span',
+        rules: {
+            inputNombre: "required",
+            inputDescripcion: "required",
+            //inputBajada: "required", chequear, se agranda el span de kbps
+            //inputSubida: "required", chequear, se agranda el span de kbps
+            inputPrioridad:"required",
+            id_claseTraficoA:"validarCamposCompletos",            
+            macO_0: "validarCamposCompletos",
+            id_claseTraficoO_0: "validarCamposCompletos",
+            id_claseTraficoD_0: "validarCamposCompletos"
+        }
+    });
+
+    $.validator.addMethod('validarCamposCompletos', function(value) {
+        if ($("select[name='id_claseTraficoA']").val()=="" && $($("input[name='macO_0']")).val()=="" 
+            && $($("select[name='id_claseTraficoO_0']")).val()=="" && $($("select[name='id_claseTraficoD_0']")).val()==""){
+            mostrarDivError(true);
+            return false;
+        }
+        mostrarDivError(false);
+        return true;
+     });
+
+    function mostrarDivError(valor){
+        if(valor && $('#divError').hasClass("hidden")){
+            $('#divError').removeClass("hidden");
+        } else if (!valor && !$('#divError').hasClass("hidden")){
+            $('#divError').addClass("hidden");
+        }
+    }
+
     jQuery(".bt-switch").bootstrapSwitch();
 
     // Selector hora
@@ -154,6 +191,7 @@ $(document).ready(function() {
         
         // Ultimo elemento
         var ultimo = $('#'+ divParentID + '_' + cantidad_reg);
+
         cantidad_reg+1;
 
         // Creo elemento y renombro sus IDs
@@ -199,7 +237,10 @@ $(document).ready(function() {
         // Incremento contador activos
         var activos = $(this).parent('div').parent('div').parent('div').find("input[name$='_activos']").val();
         $(this).parent('div').parent('div').parent('div').find("input[name$='_activos']").val(activos*1+1);
+
+        nuevo.find('.tooltipp').remove();
     });
+
 
     function removerIcono(clone) {
         clone.find('.agregar').remove();
@@ -229,12 +270,12 @@ $(document).ready(function() {
         var dest = $(this).data('for');
         $("#" + dest).val(mac);
     })
+
 });
 
 // Tabs de tipo y modo de politica
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     var target = $(e.target).attr("href");
-    console.log(target);
 
     if(target == '#menuBloqueo')
         document.getElementById("tipo").value = "bloqueo";
@@ -246,21 +287,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         document.getElementById("tipo").value = "priorizacion";
 
     if(target == '#modoMac'){
-        $('.divOrigen').show();
-        $('.modoMac').show();
-        $('.modoClase').hide();
-        $('.divMac_MacO').show();
-        $('.divClaseO').hide();
-
-        // Oculto divs que no tengan clases de interes al modo
-        $('div[id^="objetivoO_"]').each(function() {
-            //console.log($(this).find(".macAddress"));
-            if ($(this).find(".macAddress").length == 0) {
-                $(this).hide();
-            }
-        });
-
-        $("[name='modoOrigen']").val("modoMac");
+        selectDivMacDefualt();
     }
     
     if(target == '#modoClase'){
@@ -286,41 +313,71 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 $('#title-dias').parent().on('click', function (){
     var switcher = $(this).find("i[class^='switch-dias']");
 
-    if($('#dias').attr('class') == 'collapse')
-    {
+    if($('#dias').attr('class') == 'collapse') {
         switcher.removeClass('fa-angle-down');
         switcher.addClass('fa-angle-up');
     }
 
-    else if($('#dias').attr('class') == 'collapse in')
-    {
+    else if($('#dias').attr('class') == 'collapse in') {
         switcher.removeClass('fa-angle-up');
         switcher.addClass('fa-angle-down');
     }
 });
 
-// Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
-$("[name='id_claseTraficoA']").change(function (){
-    var seleccion = $(this).find("option:selected").val();
 
+//Boton restear
+$('#btResetear').on('click', function (){
+    resetearBloqueClase("","");
+    $("[name='id_claseTraficoA']").val("");
+});
+
+
+function resetearBloqueClase(seleccion, arrayClases){
     if (seleccion == "") {
         $("div[id='bloqueOrigen']").show();
         $("div[id='bloqueDestino']").show();
+        $("#btResetear").addClass("disabled");
+        $("#claseTraficoADesc").val("");
     }
     else {
         $("div[id='bloqueOrigen']").hide();
         $("div[id='bloqueDestino']").hide();
+        $("#btResetear").removeClass("disabled");
+        var item = encontrarItemPorId(arrayClases, seleccion);
+        $("#claseTraficoADesc").val(item.descripcion);
     }
 
     // Si es en editar, busco objetivos anteriores y los hago negativos para eliminar
     var objetivoO_ant = $("input[name='id_objetivoA_O']");
     var objetivoD_ant = $("input[name='id_objetivoA_D']");
 
-    //console.log(objetivoO_ant);
-    //console.log(objetivoD_ant);
-
     if (objetivoO_ant.val() != '' || objetivoD_ant.val() != '') {
         objetivoO_ant.val(objetivoO_ant.val()*(-1));
         objetivoD_ant.val(objetivoD_ant.val()*(-1));
     }
-});
+}
+
+function encontrarItemPorId(array, id){
+    for (var i in array) {
+        if (array[i].id_clase == id) {
+             return array[i];
+        }
+    }
+}
+
+function selectDivMacDefualt() {        
+    $('.divOrigen').show();
+    $('.modoMac').show();
+    $('.modoClase').hide();
+    $('.divMac_MacO').show();
+    $('.divClaseO').hide();
+
+    // Oculto divs que no tengan clases de interes al modo
+    $('div[id^="objetivoO_"]').each(function() {
+        if ($(this).find(".macAddress").length == 0) {
+            $(this).hide();
+        }
+    });
+
+    $("[name='modoOrigen']").val("modoMac");
+}

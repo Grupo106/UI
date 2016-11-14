@@ -87,9 +87,6 @@ class Politica extends LoginRequired {
                         'tipo'        => $set[0]['tipo']
                     );
 
-                //ChromePhp::log('proceso objetivo');
-                //ChromePhp::log($objetivo);
-
 	            $objetivo['clase'] = $clase;
 
 	            if($objetivo['tipo'] == 'd')
@@ -109,13 +106,6 @@ class Politica extends LoginRequired {
                 $data['relacionClasesD'] = $relacionClasesD;
                 $data['relacionClasesO'] = $relacionClasesO;
             }
-
-            //ChromePhp::log('relacionClasesOD');
-            //ChromePhp::log($data['relacionClasesOD']);
-            //ChromePhp::log('relacionClasesD');
-            //ChromePhp::log($data['relacionClasesD']);
-            //ChromePhp::log('relacionClasesO');
-            //ChromePhp::log($data['relacionClasesO']);
 
 	        // Compacto array de horarios
 	        foreach($rango_horario as $key => $item)
@@ -358,7 +348,6 @@ class Politica extends LoginRequired {
 
         // Politica ya existia, actualizar y limpiar
         else {
-            ChromePhp::log('ya existe');
             if(
                 $this->actualizar_horarios_politica($horarios_politica)
                 && $this->limpiar_horarios_politica($inputidPolitica, $horarios_finales)
@@ -366,7 +355,6 @@ class Politica extends LoginRequired {
                 && $this->politicaM->actualizar($inputidPolitica, $politica)
                 && $this->registrar_objetivos($array_objetivos, !empty($_POST['id_claseTraficoA']))
               ) {
-                ChromePhp::log('ok');
                 shell_exec('/usr/bin/sudo /usr/local/bin/despachar');
                 $this->guardarEnLog(2, $inputNombre);
                 echo true;
@@ -382,7 +370,6 @@ class Politica extends LoginRequired {
                 return false;
         }
 
-        ChromePhp::log('actualizar_horarios_politica ok');
         return true;
     }
 
@@ -390,7 +377,6 @@ class Politica extends LoginRequired {
         if (sizeof($horarios_finales) > 0)
             $this->rangoHorarioM->eliminar_otros($idPolitica, $horarios_finales);
         
-        ChromePhp::log('limpiar_horarios_politica ok');
         return true;
     }
 
@@ -400,59 +386,37 @@ class Politica extends LoginRequired {
                 return false;
         }
 
-        ChromePhp::log('agregar_horarios_politica ok');
         return true;
     }
 
     public function registrar_objetivos($array, $fl_clase_ed) {
         $loop = 0;
-        ChromePhp::log('registrar_objetivos: ');
-        ChromePhp::log($array);
-        ChromePhp::log($fl_clase_ed);
+        
         foreach($array as $id_objetivo => $data){
-            //ChromePhp::log('a registrar');
-            //ChromePhp::log($id_objetivo . ' | ' . $data['id_politica'] . ' | ' . $data['id_clase'] . ' | ' . $data['direccion_fisica'] . ' | ' . $data['tipo']);
-            //ChromePhp::log(ctype_digit($id_objetivo));
-
             if ($loop++ == 0) {
                 // Si es clase ED (con origen y destino)
-                if ($fl_clase_ed && !$this->politicaM->tieneClaseOYD($data['id_politica'])) {
+                if ($fl_clase_ed && !$this->politicaM->tieneClaseOYD($data['id_politica']))
                     $this->objetivoM->eliminar_por_politica($data['id_politica']);
-                    //ChromePhp::log('>> eliminado: ');
-                    //ChromePhp::log($data['id_politica']);
-                }
 
                 // Elimino todos los objetivos que no estan en el array
-                else {
-                    //ChromePhp::log($this->parsear_id_objetivos($array));
+                else
                     $this->objetivoM->eliminar_otros_id($data['id_politica'], $this->parsear_id_objetivos($array));
-                    //ChromePhp::log($this->objetivoM->eliminar_otros_id($data['id_politica'], $this->parsear_id_objetivos($array)));
-                    //ChromePhp::log($this->db->error());
-                }
             }
             
             // Verifico si tengo que crear o actualizo
             if(strpos($id_objetivo, 'E') === 0 || strpos($id_objetivo, 'D') === 0) {
                 if (!$this->objetivoM->crear($data))
                     return false;
-                //ChromePhp::log('>> creado: ' . $id_objetivo);
-                //ChromePhp::log($data);
             }
 
-            elseif(intval($id_objetivo) > 0) {
+            elseif(intval($id_objetivo) > 0)
                 $this->objetivoM->actualizar($id_objetivo, $data);
-                //ChromePhp::log('>> actualizado: ' . $id_objetivo);
-                //ChromePhp::log($data);
-            }
 
             // Verifico si elimino 
-            if(strpos($id_objetivo, '-') === 0) {
+            if(strpos($id_objetivo, '-') === 0)
                 $this->objetivoM->eliminar_por_id(str_replace('-', '', $id_objetivo));
-                //ChromePhp::log('>> eliminado por id: ' . $id_objetivo);
         }
-            }
 
-        ChromePhp::log('registrar_objetivos ok');
         return true;
     }
 

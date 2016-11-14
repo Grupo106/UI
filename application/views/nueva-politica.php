@@ -16,11 +16,11 @@
 
         <div class="col_half">
             <label>Nombre</label>
-            <input name="inputNombre" type="text" class="sm-form-control" maxlength="63"/>
+            <input name="inputNombre" type="text" class="form-control" maxlength="63"/>
         </div>
         <div class="col_half col_last">
             <label>Descripción</label>
-            <textarea name="inputDescripcion" rows="2" class="sm-form-control" maxlength="255"></textarea>
+            <textarea name="inputDescripcion" rows="2" class="form-control" maxlength="255"></textarea>
         </div>
         <div class="clear"></div>
 
@@ -45,24 +45,25 @@
 
                 <div id="menuLimitacion" class="tab-pane fade">
                     <div class="col_two_fifth">
-                        <label>Bajada</label>
+                        <label class="lbBajada">Bajada</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" name="inputBajada" value="">
-                            <span class="input-group-addon">kbps</span>
+                            <input type="text" class="form-control" name="inputBajada" value="">                            
+                            <span  class="input-group-addon">kbps</span>                            
                         </div>
+                        
                     </div>
                     <div class="col_two_fifth">
-                        <label>Subida</label>
+                        <label class="lbSubida">Subida</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="inputSubida" value="">
-                            <span class="input-group-addon">kbps</span>
+                            <span  class="input-group-addon">kbps</span>
                         </div>
                     </div>
                 </div>
 
                 <div id="menuPriorizacion" class="tab-pane fade">
                     <div class="col_half col_last">
-                        <label>Prioridad</label>
+                        <label class="lbPrioridad">Prioridad</label>
                         <select name="inputPrioridad" class="select-1 form-control">
                             <option data-hidden="true"></option>           
                                 <option value="7">Baja</option>
@@ -82,7 +83,7 @@
             </div>
 
             <div class="col_one_third">
-                <label>Clase de tráfico</label>
+                <label class="lbClaseOYD">Clase de tráfico</label>
                 <select name="id_claseTraficoA" class="select-1 form-control">
                     <option data-hidden="true"></option>
                     <?php foreach($listadoClasesOD as $clases){ ?>              
@@ -93,15 +94,14 @@
             
             <div class="col_one_third">
                 <label>Descripción</label>
-                <input id="claseTraficoADesc" type="text" class="sm-form-control" maxlength="255" name="claseTraficoADesc" value="">
+                <textarea id="claseTraficoADesc" rows="2" readonly="true" class="form-control" value=""></textarea>
             </div>
 
             <div class="col_one_fourth col_last">
                 <label>Acciones</label>
                 <div class="clear"></div>
                 <div class="btn-group">
-                    <button class="btn btn-primary btn-sm disabled">Más info</button>
-                    <button class="btn btn-primary btn-sm disabled">Resetear</button>
+                    <button id="btResetear" type="button" class="btn btn-primary btn-sm disabled">Resetear Selección</button>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@
                 <label>Tipo</label>
                 <input type="hidden" name="modoOrigen" value="">
                 <ul class="nav nav-pills nav-stacked">
-                    <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
+                    <li class="active"><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoMac">MAC</a></li>
                     <li class=""><a data-toggle="tab" style="padding-top: 5px;padding-bottom: 5px;" href="#modoClase">Clase</a></li>
                 </ul>
             </div>
@@ -140,7 +140,7 @@
                             
                             <div class="modoMac" id="modoMac">
                                 <div class="col_three_fourth">
-                                    <label>MAC</label>
+                                    <label class="lbMAC">MAC</label>
                                     <div class="input-group divMac_MacO" id="mac">
                                         <input id="macO_0" type="text" class="form-control macAddress" name="macO_0" value="">
                                         <span class="arp input-group-addon"><i class="fa fa-magic"></i></span>
@@ -150,7 +150,7 @@
 
                             <div class="modoClase" id="modoClase">
                                 <div class="col_three_fourth col_last divClaseO">
-                                    <label>Clase de tráfico</label>
+                                    <label class="lbClaseOrigen">Clase de tráfico</label>
                                     <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
                                         <option data-hidden="true"></option>
                                         <?php foreach($listadoClasesO as $clases){ ?>              
@@ -185,8 +185,8 @@
                             <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                         </div>
 
-                        <div class="col_three_fifth col_last">
-                            <label>Clase de tráfico</label>
+                        <div class="col_three_fourth col_last">
+                            <label class="lbClaseDestino">Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
                                 <?php foreach($listadoClasesD as $clases){ ?>              
@@ -286,6 +286,8 @@
 
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
+<?php include('estructura/footer.php'); ?>
+
 <script type="text/javascript">
     $('#tituloPantalla').text('Nueva Política de Tráfico');
 
@@ -314,7 +316,7 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-        console.log($('#form').serialize());
+        if ($('#form').valid()) {
 
         $.ajax({
             url : $('#form').attr("action"),
@@ -329,7 +331,27 @@
                 $('#modalInformacion').modal('show');
             }
         });
+      }
     });
-</script>
 
-<?php include('estructura/footer.php'); ?>
+    agregarAyudas();
+
+    function agregarAyudas(){
+        agregarTooltip($(".lbClaseOYD"), "Clase de tráfico que contiene un Origen y un Destino. Al seleccionar una clase de este tipo, no será posible agregar otros orígenes/destinos.");
+        agregarTooltip($(".lbClaseOrigen"), "Clase de tráfico que contiene una o varias IP o Puertos pertenecientes a la Red Local.");
+        agregarTooltip($(".lbClaseDestino"), "Clase de tráfico que contiene una o varias IP o Puertos pertenecientes a Internet.");
+        agregarTooltip($(".lbMAC"), "Identificador de los equipos conectados a la Red.");
+        agregarTooltip($(".lbPrioridad"), "Nivel de prioridad otorgado al contenido de la política.");
+        agregarTooltip($(".lbBajada"), "Límite establecido para el tráfico de bajada de datos.");
+        agregarTooltip($(".lbSubida"), "Límite establecido para el tráfico de subida de datos.");
+    }
+
+    var clasesOD = <?php echo json_encode($listadoClasesOD); ?>;
+
+    // Ocultar o mostrar bloques origen/destino dependiendo la seleccion de clase
+    $("[name='id_claseTraficoA']").change(function (){
+        var seleccion = $(this).find("option:selected").val();
+        resetearBloqueClase(seleccion, clasesOD);
+    });
+
+</script>
