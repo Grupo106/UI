@@ -8,8 +8,8 @@
 <?php foreach($relacionClases as $item2):  echo ''; ?>
 <?php endforeach;?>
 
-<?php ChromePhp::log($relacionClasesOD);?>
-<?php ChromePhp::log($rango_horario);?>
+<?php //ChromePhp::log($relacionClasesOD);?>
+<?php //ChromePhp::log($rango_horario);?>
 
 <div class="container-fluid">
     <form class="form-horizontal" id="form" method="post" action="<?=site_url('politica/guardar/')?>">
@@ -285,8 +285,8 @@
                             <?php } ?>
                         </select>
                     </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
                 <?php }?>
             </div>
         </div>

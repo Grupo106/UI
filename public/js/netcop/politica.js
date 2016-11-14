@@ -254,7 +254,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
         // Oculto divs que no tengan clases de interes al modo
         $('div[id^="objetivoO_"]').each(function() {
-            console.log($(this).find(".macAddress"));
+            //console.log($(this).find(".macAddress"));
             if ($(this).find(".macAddress").length == 0) {
                 $(this).hide();
             }
@@ -272,7 +272,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         
         // Oculto divs que no tengan clases de interes al modo
         $('div[id^="objetivoO_"]').each(function() {
-            console.log($(this).find(".selClase"));
+            //console.log($(this).find(".selClase"));
             if ($(this).find(".selClase").length == 0) {
                 $(this).hide();
             }
@@ -316,8 +316,8 @@ $("[name='id_claseTraficoA']").change(function (){
     var objetivoO_ant = $("input[name='id_objetivoA_O']");
     var objetivoD_ant = $("input[name='id_objetivoA_D']");
 
-    console.log(objetivoO_ant);
-    console.log(objetivoD_ant);
+    //console.log(objetivoO_ant);
+    //console.log(objetivoD_ant);
 
     if (objetivoO_ant.val() != '' || objetivoD_ant.val() != '') {
         objetivoO_ant.val(objetivoO_ant.val()*(-1));
