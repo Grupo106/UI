@@ -76,7 +76,7 @@
             window.location.href = "<?php echo site_url('politica/nueva');?>";
         });
 
-        $('.eliminar').click(function(){
+       $('#tablaPoliticas').on('click', '.eliminar', function (){
             $("tr.selected").removeClass('selected');
             $(this).closest('tr').addClass('selected');
             $('#nombreEliminar').text($(this).closest('tr').find('td[id="nombre"]').text());
@@ -107,7 +107,7 @@
             $("tr.selected").removeClass('selected');
         });
 
-        $('.editar').click(function(){
+        $('#tablaPoliticas').on('click', '.editar', function (){
             var id_politica = $(this).closest('tr').find('input:hidden').val();
             window.location.href = "<?php echo site_url('politica/editar');?>?id_politica="+id_politica;
         });

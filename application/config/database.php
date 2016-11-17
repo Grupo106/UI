@@ -1,5 +1,5 @@
 <?php
-/* Ansible managed: /home/netcop/ansible/roles/web/templates/database.php.j2 modified on 2016-09-11 00:38:42 by netcop on netcop */
+/* Ansible managed: /home/netcop/ansible/roles/web/templates/database.php.j2 modified on 2016-08-24 17:58:06 by netcop on netcop */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $active_group = 'default';
@@ -14,7 +14,7 @@ $db['default'] = array(
 	'dbdriver' => 'postgre',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-  	'db_debug' => FALSE,
+  	'db_debug' => TRUE,
   	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
