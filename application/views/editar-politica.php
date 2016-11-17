@@ -19,7 +19,7 @@
         </div>
         <div class="col_half col_last">
             <label>Descripción</label>
-            <textarea name="inputDescripcion" rows="2" class="form-control" maxlength="255" value="<?= $item['descripcion']?>"></textarea>
+            <textarea name="inputDescripcion" rows="2" class="form-control" maxlength="255"><?= $item['descripcion']?></textarea>
         </div>
         <div class="clear"></div>
 
