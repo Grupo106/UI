@@ -11,8 +11,8 @@ $(document).ready(function() {
         rules: {
             inputNombre: "required",
             inputDescripcion: "required",
-           // inputBajada: "required", chequear, se agranda el span de kbps
-           //inputSubida: "required", chequear, se agranda el span de kbps
+            //inputBajada: "required", chequear, se agranda el span de kbps
+            //inputSubida: "required", chequear, se agranda el span de kbps
             inputPrioridad:"required",
             id_claseTraficoA:"validarCamposCompletos",            
             macO_0: "validarCamposCompletos",
@@ -80,8 +80,6 @@ $(document).ready(function() {
 
     // Formateo IP
     $('.ipAddress').mask('0ZZ.0ZZ.0ZZ.0ZZ', {translation: {'Z': {pattern: /[0-9]/, optional: true}}});
-
-
 
     // Agregar horario
     $('.agregarh').click(function(){            
@@ -278,7 +276,7 @@ $(document).ready(function() {
 // Tabs de tipo y modo de politica
 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     var target = $(e.target).attr("href");
- 
+
     if(target == '#menuBloqueo')
         document.getElementById("tipo").value = "bloqueo";
 
@@ -301,6 +299,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         
         // Oculto divs que no tengan clases de interes al modo
         $('div[id^="objetivoO_"]').each(function() {
+            //console.log($(this).find(".selClase"));
             if ($(this).find(".selClase").length == 0) {
                 $(this).hide();
             }
@@ -314,14 +313,12 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 $('#title-dias').parent().on('click', function (){
     var switcher = $(this).find("i[class^='switch-dias']");
 
-    if($('#dias').attr('class') == 'collapse')
-    {
+    if($('#dias').attr('class') == 'collapse') {
         switcher.removeClass('fa-angle-down');
         switcher.addClass('fa-angle-up');
     }
 
-    else if($('#dias').attr('class') == 'collapse in')
-    {
+    else if($('#dias').attr('class') == 'collapse in') {
         switcher.removeClass('fa-angle-up');
         switcher.addClass('fa-angle-down');
     }
@@ -354,9 +351,6 @@ function resetearBloqueClase(seleccion, arrayClases){
     var objetivoO_ant = $("input[name='id_objetivoA_O']");
     var objetivoD_ant = $("input[name='id_objetivoA_D']");
 
-    console.log(objetivoO_ant);
-    console.log(objetivoD_ant);
-
     if (objetivoO_ant.val() != '' || objetivoD_ant.val() != '') {
         objetivoO_ant.val(objetivoO_ant.val()*(-1));
         objetivoD_ant.val(objetivoD_ant.val()*(-1));
@@ -372,19 +366,18 @@ function encontrarItemPorId(array, id){
 }
 
 function selectDivMacDefualt() {        
-        $('.divOrigen').show();
-        $('.modoMac').show();
-        $('.modoClase').hide();
-        $('.divMac_MacO').show();
-        $('.divClaseO').hide();
+    $('.divOrigen').show();
+    $('.modoMac').show();
+    $('.modoClase').hide();
+    $('.divMac_MacO').show();
+    $('.divClaseO').hide();
 
-        // Oculto divs que no tengan clases de interes al modo
-        $('div[id^="objetivoO_"]').each(function() {
-            if ($(this).find(".macAddress").length == 0) {
-                $(this).hide();
-            }
-        });
+    // Oculto divs que no tengan clases de interes al modo
+    $('div[id^="objetivoO_"]').each(function() {
+        if ($(this).find(".macAddress").length == 0) {
+            $(this).hide();
+        }
+    });
 
-        $("[name='modoOrigen']").val("modoMac");
-    }
-
+    $("[name='modoOrigen']").val("modoMac");
+}

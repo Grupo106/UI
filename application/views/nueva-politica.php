@@ -165,6 +165,7 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="col_half col_last" id="bloqueDestino">
             <div class="fancy-title title-bottom-border">
@@ -198,6 +199,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border" id="title-dias">
@@ -353,5 +355,3 @@
     });
 
 </script>
-
-

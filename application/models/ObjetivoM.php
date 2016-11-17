@@ -52,6 +52,18 @@ class ObjetivoM extends CI_Model{
             return false;
     }
 
+    function eliminar_otros_id($id_politica, $array_objetivos){
+        $this->db->where('id_politica', $id_politica);
+
+        ChromePhp::log($array_objetivos);
+        
+        $this->db->where_not_in('id_objetivo', $array_objetivos);
+
+        $this->db->delete('objetivo');
+
+        return true;
+    }
+
     function eliminar_por_politica($id_politica){
         $this->db->where('id_politica', $id_politica);
         $this->db->delete('objetivo');
