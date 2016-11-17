@@ -12,7 +12,7 @@
 						<thead>
 							<tr>
 								<th>Dirección física</th>
-								<th>Dirección IP</th>
+								<th>Nombre</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -20,7 +20,7 @@
 							if ($item['mac']) { ?>
 							<tr>
 								<td><a href="#" id="arpMac" name="arpMac" data-mac="<?=$item['mac']?>" data-for='macO_0' title="Seleccionar"><?=$item['mac']?></a></td>
-								<td><?=$item['ip']?></td>
+								<td><?=$item['nombre']?></td>
 							</tr>
 							<?php }?>
 							<?php }?>
