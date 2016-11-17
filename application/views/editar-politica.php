@@ -66,7 +66,7 @@
                         <div class="col_half col_last">
                             <label class="lbPrioridad">Prioridad</label>
                             <select name="inputPrioridad" class="select-1 form-control">
-                                <option data-hidden="true"></option>
+                                <option data-hidden="true"></option>           
                                     <option value="7" <?php if($item['prioridad'] == "7") echo " selected"?><?=$clases['nombre']?>>Baja</option>
                                     <option value="3" <?php if($item['prioridad'] == "3") echo " selected"?><?=$clases['nombre']?>>Normal</option>
                                     <option value="1" <?php if($item['prioridad'] == "1") echo " selected"?><?=$clases['nombre']?>>Alta</option>
@@ -77,6 +77,7 @@
             </div>
             <div class="clear"></div>
         </div>
+        
 
         <div class="col_full">
             <div class="fancy-title title-bottom-border">
@@ -89,12 +90,12 @@
                 <input type="hidden" name="id_objetivoA_D" value="<?=$relacionClasesOD[1]['id_objetivo']?>">
                 <select name="id_claseTraficoA" class="select-1 form-control">
                     <option data-hidden="true"></option>
-                    <?php foreach($listadoClasesOD as $clases){ ?>
+                    <?php foreach($listadoClasesOD as $clases){ ?>              
                         <option value="<?=$clases['id_clase']?>" <?php if($clases['id_clase'] == $relacionClasesOD[0]['id_clase']) echo " selected"?>><?= $clases['nombre']?></option>
                     <?php } ?>
                 </select>
             </div>
-
+            
             <div class="col_one_third">
                 <label>Descripción</label>
                 <textarea id="claseTraficoADesc" rows="2" readonly="true" class="form-control" value=""></textarea>
@@ -140,7 +141,7 @@
                                 <div class="col_icon hidden borrar">
                                     <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                                 </div>
-
+                                
                                 <div class="modoMac" id="modoMac">
                                     <div class="col_three_fourth">
                                         <label class="lbMAC">MAC</label>
@@ -156,7 +157,7 @@
                                         <label class="lbClaseOrigen">Clase de tráfico</label>
                                         <select name="id_claseTraficoO_0" class="select-1 form-control selClase">
                                             <option data-hidden="true"></option>
-                                            <?php foreach($listadoClasesO as $clases){ ?>
+                                            <?php foreach($listadoClasesO as $clases){ ?>              
                                                 <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                                             <?php } ?>
                                         </select>
@@ -196,6 +197,7 @@
                                 </div>
                                 <?php } ?>
 
+								<?php if(isset($relacion['clase']['id_clase']) || $i == 0) { ?>
                                 <div class="modoClase" id="modoClase">
                                     <div class="col_three_fourth col_last divClaseO">
                                         <?php if($i == 0) { ?>
@@ -203,7 +205,7 @@
                                         <?php } ?>
                                         <select name="id_claseTraficoO_<?=$i?>" class="select-1 form-control selClase">
                                             <option data-hidden="true"></option>
-                                            <?php foreach($listadoClasesO as $clases) { ?>
+                                            <?php foreach($listadoClasesO as $clases) { ?>              
                                                 <option value="<?=$clases['id_clase']?>"
                                                 <?php if($clases['id_clase'] == $relacion['clase']['id_clase']) echo " selected";?>><?=$clases['nombre']?></option>
                                             <?php } ?>
@@ -214,9 +216,11 @@
                             </div>
                             <div class="clear"></div>
                         </div>
+                    <?php }?>
                 </div>
             </div>
         </div>
+
 
         <div class="col_half col_last" id="bloqueDestino">
             <div class="fancy-title title-bottom-border">
@@ -226,25 +230,11 @@
                 <input type="hidden" name="objetivoD_cant" value="<?php if(!isset($relacionClasesD)) echo 0; else echo sizeof($relacionClasesD)-1; ?>">
                 <input type="hidden" name="objetivoD_activos" value="<?php if(!isset($relacionClasesD)) echo 0; else echo sizeof($relacionClasesD); ?>">
                 <?php if(!isset($relacionClasesD)) { ?>
-                    <div id="objetivoD_0">
-                        <input type="hidden" name="id_objetivoD_0" value="">
-                        <div class="col_one">
-                            <div class="col_icon agregar">
-                                <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
-                            </div>
-                            <div class="col_icon hidden borrar">
-                                <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
-                            </div>
-
-                            <div class="col_three_fifth col_last">
-                                <label class="lbClaseDestino">Clase de tráfico</label>
-                                <select name="id_claseTraficoD_0" class="select-1 form-control">
-                                    <option data-hidden="true"></option>
-                                    <?php foreach($listadoClasesD as $clases){ ?>
-                                        <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
-                                    <?php } ?>
-                                </select>
-                            <div>
+                <div id="objetivoD_0">
+                    <input type="hidden" name="id_objetivoD_0" value="">
+                    <div class="col_one">
+                        <div class="col_icon agregar">
+                            <i class="fa fa-plus-circle fa-2x" aria-hidden="true" style="color: green;"></i>
                         </div>
                         <div class="col_icon hidden borrar">
                             <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
@@ -254,8 +244,8 @@
                             <label class="lbClaseDestino">Clase de tráfico</label>
                             <select name="id_claseTraficoD_0" class="select-1 form-control">
                                 <option data-hidden="true"></option>
-                                <?php foreach($listadoClasesD as $clases){ ?>
-                                    <option value="<?=$clases['id_clase']?>"<?php if($clases['id_clase'] == $relacion['clase']['id_clase']) echo " selected"?>><?=$clases['nombre']?></option>
+                                <?php foreach($listadoClasesD as $clases){ ?>              
+                                    <option value="<?=$clases['id_clase']?>"><?= $clases['nombre']?></option>
                                 <?php } ?>
                             </select>
                         </div>
@@ -278,14 +268,14 @@
                             <i class="fa fa-minus-circle fa-2x" aria-hidden="true" style="color: red;"></i>
                         </div>
                     </div>
-
+                        
                     <div class="col_three_fifth col_last">
                         <?php if($i == 0) { ?>
                             <label>Clase de tráfico</label>
                         <?php } ?>
                         <select name="id_claseTraficoD_<?=$i?>" class="select-1 form-control">
                             <option data-hidden="true"></option>
-                            <?php foreach($listadoClasesD as $clases){ ?>
+                            <?php foreach($listadoClasesD as $clases){ ?>              
                                 <option value="<?=$clases['id_clase']?>"<?php if($clases['id_clase'] == $relacion['clase']['id_clase']) echo " selected"?>><?=$clases['nombre']?></option>
                             <?php } ?>
                         </select>
@@ -293,7 +283,6 @@
                     <div class="clear"></div>
                 </div>
                 <?php }?>
-                </div>
             </div>
         </div>
 
@@ -330,8 +319,8 @@
                                 <?php } else { ?>
                                     <input type="checkbox" name="activo_<?=$l?>_<?=($i+$j)?>">
                                 <?php } ?>
-                                <?php
-                                    switch ($l) {
+                                <?php 
+                                    switch ($l) {  
                                         case 1: echo "Do"; break;
                                         case 2: echo "Lu"; break;
                                         case 3: echo "Ma"; break;
@@ -347,8 +336,8 @@
                         <?php for($l; $l<=7; $l++) { ?>
                             <label class="checkbox-inline">
                             <input type="checkbox" name="activo_<?=$l?>_<?=($i+$j)?>">
-                            <?php
-                                switch ($l) {
+                            <?php 
+                                switch ($l) {  
                                     case 1: echo "Do"; break;
                                     case 2: echo "Lu"; break;
                                     case 3: echo "Ma"; break;
@@ -360,6 +349,7 @@
                             </label>
                         <?php };?>
                         </div>
+                        <div class="clear"></div>
                     </div>
 
                     <div class="col_half col_last">
@@ -379,7 +369,7 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-
+                
             <?php $j++; }?>
         <?php $k++; }?>
         <?php if ($i==0 && $j==0) {?>
@@ -455,7 +445,7 @@
 
 <script src="<?=base_url('public/js/components/bootstrap-clockpicker.min.js')?>"></script>
 <link href="<?=base_url('public/css/components/bootstrap-clockpicker.min.css')?>" rel="stylesheet">
-<script type="text/javascript" src="<?=base_url('public/js/plugins/jquery.mask.min.js')?>"></script>
+<script type="text/javascript" src="<?=base_url('public/js/plugins/jquery.mask.min.js')?>"></script>  
 
 <script type="text/javascript" src="<?=base_url('public/js/netcop/politica.js')?>"></script>
 
@@ -497,7 +487,7 @@
     $('#form').submit(function (event){
         event.preventDefault();
 
-
+        
         if ($('#form').valid()) {
 		$.ajax({
             url : $('#form').attr("action"),
@@ -508,7 +498,7 @@
 		            $('#mensaje').text("Los cambios fueron guardados exitosamente");
 		         else
 		            $('#mensaje').text(response);
-
+                
                 $('#modalInformacion').modal('show');
             }
     	});
@@ -539,3 +529,5 @@
         resetearBloqueClase(seleccion, clasesOD);
     });
 </script>
+
+
