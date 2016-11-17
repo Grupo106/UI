@@ -214,7 +214,6 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                    <?php }?>
                 </div>
             </div>
         </div>
