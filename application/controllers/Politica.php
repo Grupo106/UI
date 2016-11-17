@@ -327,9 +327,9 @@ class Politica extends LoginRequired {
         // Genero array de objetivos eliminando posibles duplicados
         $array_objetivos = array_map("unserialize", array_unique(array_map("serialize", $array_clases)));
         
-        ChromePhp::log('guardar array_clases');
+        //ChromePhp::log('guardar array_clases');
         //ChromePhp::log($array_clases);
-        ChromePhp::log($array_objetivos);
+        //ChromePhp::log($array_objetivos);
 
         // Actualizo horarios y datos de politica
         // Si es nueva no necesito actualizar ni limpiar
@@ -457,7 +457,7 @@ class Politica extends LoginRequired {
     public static function parsear_id_objetivos($array_objetivos) {
         // Me quedo con todos los id_objetivo del array a procesar
         foreach ($array_objetivos as $key => $value) {
-            if (strpos($key, 'E') === 0) {
+            if (strpos($key, 'E') === 0 && strpos($key, 'D') === 0) {
                 unset($array_objetivos[$key]);
             }
         }
